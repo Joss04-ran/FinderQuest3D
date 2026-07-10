@@ -58,7 +58,7 @@ namespace FinderQuest3D
         {
             int cell = GetCell(x, z);
             // 0: Grass and 1: Road are walkable. Other tiles are obstacles.
-            return cell == 0 || cell == 1;
+            return cell == 0 || cell == 1 || cell == 2;
         }
 
         // Method for procedurally generated maps 
@@ -94,72 +94,36 @@ namespace FinderQuest3D
                         new Vector2(uvMin.X, uvMin.Y),
                         new Vector3(0, 1, 0));
 
-                    // If cell is a fence/wall (5), add a 3D block mesh
                     if (cell == 5)
                     {
-                        float height = tileSize;
+                        float height = 8.0f; 
+                        float halfSize = tileSize / 2.0f;
                         Vector2 fenceUvMin = new Vector2(0.666f, 0.0f);
                         Vector2 fenceUvMax = new Vector2(1.0f, 1.0f);
 
-                        // Front Face (Z-)
+                        // Quad 1: X-aligned (parallel to X-axis)
                         AddQuad(vertices, faces,
-                            new Vector3(xStart, 0.0f, zStart),
-                            new Vector3(xStart, height, zStart),
-                            new Vector3(xStart + tileSize, height, zStart),
-                            new Vector3(xStart + tileSize, 0.0f, zStart),
+                            new Vector3(xStart, 0.0f, zStart + halfSize),
+                            new Vector3(xStart, height, zStart + halfSize),
+                            new Vector3(xStart + tileSize, height, zStart + halfSize),
+                            new Vector3(xStart + tileSize, 0.0f, zStart + halfSize),
                             new Vector2(fenceUvMin.X, fenceUvMax.Y),
                             new Vector2(fenceUvMin.X, fenceUvMin.Y),
                             new Vector2(fenceUvMax.X, fenceUvMin.Y),
                             new Vector2(fenceUvMax.X, fenceUvMax.Y),
                             new Vector3(0, 0, -1));
 
-                        // Back Face (Z+)
+                        // Quad 2: Z-aligned (parallel to Z-axis)
                         AddQuad(vertices, faces,
-                            new Vector3(xStart + tileSize, 0.0f, zStart + tileSize),
-                            new Vector3(xStart + tileSize, height, zStart + tileSize),
-                            new Vector3(xStart, height, zStart + tileSize),
-                            new Vector3(xStart, 0.0f, zStart + tileSize),
-                            new Vector2(fenceUvMin.X, fenceUvMax.Y),
-                            new Vector2(fenceUvMin.X, fenceUvMin.Y),
-                            new Vector2(fenceUvMax.X, fenceUvMin.Y),
-                            new Vector2(fenceUvMax.X, fenceUvMax.Y),
-                            new Vector3(0, 0, 1));
-
-                        // Left Face (X-)
-                        AddQuad(vertices, faces,
-                            new Vector3(xStart, 0.0f, zStart + tileSize),
-                            new Vector3(xStart, height, zStart + tileSize),
-                            new Vector3(xStart, height, zStart),
-                            new Vector3(xStart, 0.0f, zStart),
+                            new Vector3(xStart + halfSize, 0.0f, zStart),
+                            new Vector3(xStart + halfSize, height, zStart),
+                            new Vector3(xStart + halfSize, height, zStart + tileSize),
+                            new Vector3(xStart + halfSize, 0.0f, zStart + tileSize),
                             new Vector2(fenceUvMin.X, fenceUvMax.Y),
                             new Vector2(fenceUvMin.X, fenceUvMin.Y),
                             new Vector2(fenceUvMax.X, fenceUvMin.Y),
                             new Vector2(fenceUvMax.X, fenceUvMax.Y),
                             new Vector3(-1, 0, 0));
-
-                        // Right Face (X+)
-                        AddQuad(vertices, faces,
-                            new Vector3(xStart + tileSize, 0.0f, zStart),
-                            new Vector3(xStart + tileSize, height, zStart),
-                            new Vector3(xStart + tileSize, height, zStart + tileSize),
-                            new Vector3(xStart + tileSize, 0.0f, zStart + tileSize),
-                            new Vector2(fenceUvMin.X, fenceUvMax.Y),
-                            new Vector2(fenceUvMin.X, fenceUvMin.Y),
-                            new Vector2(fenceUvMax.X, fenceUvMin.Y),
-                            new Vector2(fenceUvMax.X, fenceUvMax.Y),
-                            new Vector3(1, 0, 0));
-
-                        //// Top Face (Y+)
-                        //AddQuad(vertices, faces,
-                        //    new Vector3(xStart, height, zStart),
-                        //    new Vector3(xStart, height, zStart + tileSize),
-                        //    new Vector3(xStart + tileSize, height, zStart + tileSize),
-                        //    new Vector3(xStart + tileSize, height, zStart),
-                        //    new Vector2(fenceUvMin.X, fenceUvMax.Y),
-                        //    new Vector2(fenceUvMin.X, fenceUvMin.Y),
-                        //    new Vector2(fenceUvMax.X, fenceUvMin.Y),
-                        //    new Vector2(fenceUvMax.X, fenceUvMax.Y),
-                        //    new Vector3(0, 1, 0));
                     }
                 }
             }
@@ -265,23 +229,20 @@ namespace FinderQuest3D
                 {
                     if (!IsWalkable(x, z))
                     {
-                        // Find closest point on Wall cell AABB to the player circle center
                         float closestX = Math.Max(x, Math.Min(cellPos.X, x + 1.0f));
                         float closestZ = Math.Max(z, Math.Min(cellPos.Z, z + 1.0f));
-
-                        // Calculate squared distance
                         float diffX = cellPos.X - closestX;
                         float diffZ = cellPos.Z - closestZ;
                         float distSq = (diffX * diffX) + (diffZ * diffZ);
 
                         if (distSq < cellRadius * cellRadius)
                         {
-                            return true; // Collision detected
+                            return true; 
                         }
                     }
                 }
             }
-            return false; // safe from collision
+            return false; 
         }
     }
 }

@@ -34,13 +34,14 @@ namespace FinderQuest3D
         {
             InitializeComponent();
             this.KeyPreview = true;
-            this.Shown += FormRender_Shown;
             this.Focus();
+            this.Activate();
             time = new Time(0, 10, 0);
             timerTime.Interval = 1000;
             timerTime.Start();
             this.DoubleBuffered = true;
             frameTimer.Start();
+            form = (FormMenu)this.Owner;
         }
 
         protected override void OnKeyDown(KeyEventArgs e)
@@ -72,9 +73,8 @@ namespace FinderQuest3D
             this.Text = string.Format("{0:0.00} fps", fps);
         }
 
-        private void FormRender_Paint(object sender, EventArgs e)
+        private void FormRender_Load(object sender, EventArgs e)
         {
-            form = (FormMenu)this.Owner;
             device = new Device(this.Handle, this.ClientSize.Width, this.ClientSize.Height);
             camera = new Camera(new Vector3(150.0f, 4.0f, 150.0f), 1.0f);
             world = new World3D();
@@ -112,13 +112,6 @@ namespace FinderQuest3D
 
             string skyPath = Path.Combine(projectPath, "Resources", "walkArea1.png");
             world.GenerateSky(skyPath);
-        }
-
-        private void FormRender_Shown(object sender, EventArgs e)
-        {
-            this.Focus();
-            this.Activate();
-
             SharpDX.Windows.RenderLoop.Run(this, () =>
             {
                 if (this.IsDisposed || isExit) return;
@@ -162,10 +155,6 @@ namespace FinderQuest3D
                 }
             });
         }
-        private void panelDashboard_Paint(object sender, PaintEventArgs e)
-        {
-
-        }
 
         private void timerTime_Tick(object sender, EventArgs e)
         {
@@ -204,21 +193,30 @@ namespace FinderQuest3D
             catch { }
             if (world != null)
             {
-                world.Sky?.Dispose();
-                world.Floor?.Dispose();
+                try { world.Sky?.Dispose(); } catch { }
+                try { world.Floor?.Dispose(); } catch { }
                 if (world.Billboards != null)
                 {
                     foreach (var billboard in world.Billboards)
                     {
-                        billboard.Dispose();
+                        try { billboard?.Dispose(); } catch { }
                     }
                 }
             }
-            device?.Dispose();
+            try
+            {
+                device?.Dispose();
+            }
+            catch { }
         }
         protected override void OnFormClosed(FormClosedEventArgs e)
         {
             base.OnFormClosed(e);
+            Environment.Exit(0);
+        }
+
+        private void buttonExit_Click(object sender, EventArgs e)
+        {
             Application.Exit();
         }
     }

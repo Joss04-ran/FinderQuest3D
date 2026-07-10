@@ -170,7 +170,7 @@ namespace FinderQuest3D
             // 
             // timerTime1
             // 
-            this.timerTime1.Tick += new System.EventHandler(this.timerTime1_Tick);
+            //this.timerTime1.Tick += new System.EventHandler(this.timerTime1_Tick);
             // 
             // FormMenu
             // 

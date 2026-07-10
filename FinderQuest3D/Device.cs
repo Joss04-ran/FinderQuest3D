@@ -342,36 +342,42 @@ namespace FinderQuest3D
 
         public void Dispose()
         {
-            if (isDisposed) return;
-            isDisposed = true;
+            try
+            {
+                if (isDisposed) return;
+                isDisposed = true;
 
-            constantBuffer?.Dispose();
-            samplerState?.Dispose();
-            rasterizerState?.Dispose();
-            blendState?.Dispose();
-            layout?.Dispose();
-            vertexShader?.Dispose();
-            pixelShader?.Dispose();
-            depthView?.Dispose();
-            depthBuffer?.Dispose();
-            renderView?.Dispose();
-            context?.Dispose();
-            d3dDevice?.Dispose();
-            swapChain?.Dispose();
+                constantBuffer?.Dispose();
+                samplerState?.Dispose();
+                rasterizerState?.Dispose();
+                blendState?.Dispose();
+                layout?.Dispose();
+                vertexShader?.Dispose();
+                pixelShader?.Dispose();
+                depthView?.Dispose();
+                depthBuffer?.Dispose();
+                renderView?.Dispose();
+                context?.Dispose();
+                d3dDevice?.Dispose();
+                swapChain?.Dispose();
 
-            constantBuffer = null;
-            samplerState = null;
-            rasterizerState = null;
-            blendState = null;
-            layout = null;
-            vertexShader = null;
-            pixelShader = null;
-            depthView = null;
-            depthBuffer = null;
-            renderView = null;
-            context = null;
-            d3dDevice = null;
-            swapChain = null;
+                constantBuffer = null;
+                samplerState = null;
+                rasterizerState = null;
+                blendState = null;
+                layout = null;
+                vertexShader = null;
+                pixelShader = null;
+                depthView = null;
+                depthBuffer = null;
+                renderView = null;
+                context = null;
+                d3dDevice = null;
+                swapChain = null;
+            }
+            catch { 
+                Environment.Exit(0);
+            }
         }
     }
 }

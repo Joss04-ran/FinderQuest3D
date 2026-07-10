@@ -16,7 +16,6 @@ namespace FinderQuest3D
 {
     public partial class FormMenu : Form
     {
-        Time time;
         bool isStart = false;
         bool isPause = false;
         public Players player;
@@ -60,9 +59,11 @@ namespace FinderQuest3D
             //player.DisplayPicture(this);
             //labelPlayer.Text = player.DisplayData();
             //GenerateWalkArea();
-            FormRender form = new FormRender();
-            form.Owner = this;
-            form.ShowDialog();
+            using (FormRender form = new FormRender())
+            {
+                form.Owner = this;
+                form.ShowDialog();
+            }
         }
 
         private void PauseGame()
@@ -274,20 +275,6 @@ namespace FinderQuest3D
             activePersons.DisplayPicture(this);
             activePersons.Picture.Size = lastSize;
             activePersons.Picture.Location = lastLocation;
-        }
-
-        private void timerTime1_Tick(object sender, EventArgs e)
-        {
-            time.AddWithSecond(-1);
-            labelTime.Text = time.DisplayData();
-            if (time.Hour == 0 && time.Minute == 0 && time.Second == 0 
-                && walkAreas.NoArea < 3)
-            {
-                timerTime1.Stop();
-                PlaySound("lose");
-                MessageBox.Show("Game Over! Time's Up!");
-                GameOver();
-            }
         }
 
         private void toolStripMenuItemAbout_Click(object sender, EventArgs e)
