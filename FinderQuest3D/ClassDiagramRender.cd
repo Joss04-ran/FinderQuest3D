@@ -1,0 +1,99 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="FinderQuest3D.Device">
+    <Position X="1.25" Y="3.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAGABABBCAAABQA0AAAAEAQAoAAAIAAI1AACABAAAA=</HashCode>
+      <FileName>Device.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="FinderQuest3D.Camera">
+    <Position X="5.5" Y="3.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAgAAAQAAAAEgoAAAICCAAAAAgIAAAAAAAAAAAAI=</HashCode>
+      <FileName>Camera.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="FinderQuest3D.Texture">
+    <Position X="11.5" Y="7.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAABAAAAAQAwAAAAEAAAAAIAIAACAAAAAAAAAA=</HashCode>
+      <FileName>Texture.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="FinderQuest3D.Mesh">
+    <Position X="8.5" Y="3.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAiAAAAIACAAAIAgAACAMAQAAAAEAgABAAIAAQAAEAA=</HashCode>
+      <FileName>Mesh.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Field Name="arrayVertices" />
+      <Field Name="arrayFaces" />
+      <Field Name="texture" />
+      <Property Name="ArrayVertices" />
+      <Property Name="ArrayFaces" />
+      <Property Name="Texture" />
+    </ShowAsAssociation>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="FinderQuest3D.Billboard">
+    <Position X="5.75" Y="9.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAgAAAAAAIAAAACIAAAAAAABAAAAA=</HashCode>
+      <FileName>Billboard.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="FinderQuest3D.World3D">
+    <Position X="8.25" Y="9.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQAAAAAAAAAAAgAqAAIACAAAAAEAIAIEBAAABAAAAA=</HashCode>
+      <FileName>World3D.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Field Name="floor" />
+      <Property Name="Floor" />
+    </ShowAsAssociation>
+    <ShowAsCollectionAssociation>
+      <Field Name="billboards" />
+      <Property Name="Billboards" />
+    </ShowAsCollectionAssociation>
+  </Class>
+  <Class Name="FinderQuest3D.Map">
+    <Position X="13.5" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>RAAAAgAABAIAAAAAgAAAAEAAAAABAIAAAQAAAAAAAAE=</HashCode>
+      <FileName>Map.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Field Name="mesh" />
+      <Property Name="Mesh" />
+    </ShowAsAssociation>
+  </Class>
+  <Struct Name="FinderQuest3D.Vertex">
+    <Position X="11.5" Y="5.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAIAAAIAAIAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Vertex.cs</FileName>
+    </TypeIdentifier>
+  </Struct>
+  <Struct Name="FinderQuest3D.Faces">
+    <Position X="11.5" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAoAEAAAA=</HashCode>
+      <FileName>Faces.cs</FileName>
+    </TypeIdentifier>
+  </Struct>
+  <Struct Name="FinderQuest3D.Data">
+    <Position X="3.5" Y="3.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAABAAAAAAAAAACAAAAAABAAAAAAAAAAAQAAA=</HashCode>
+      <FileName>Data.cs</FileName>
+    </TypeIdentifier>
+  </Struct>
+  <Interface Name="System.IDisposable" Collapsed="true">
+    <Position X="10.5" Y="2" Width="1.5" />
+    <TypeIdentifier />
+  </Interface>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>
