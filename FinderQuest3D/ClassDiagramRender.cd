@@ -38,21 +38,42 @@
     <Lollipop Position="0.2" />
   </Class>
   <Class Name="FinderQuest3D.Billboard">
-    <Position X="5.75" Y="9.5" Width="1.5" />
+    <Position X="5.5" Y="7.75" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAAgAAAAAAIAAAACIAAAAAAABAAAAA=</HashCode>
       <FileName>Billboard.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="FinderQuest3D.World3D">
-    <Position X="8.25" Y="9.5" Width="1.5" />
+    <Position X="8.25" Y="10" Width="2" />
+    <AssociationLine Name="billboards" Type="FinderQuest3D.Billboard" ManuallyRouted="true" FixedFromPoint="true" FixedToPoint="true">
+      <Path>
+        <Point X="8.25" Y="10.232" />
+        <Point X="7.958" Y="10.232" Type="JumpStart" />
+        <Point X="7.792" Y="10.232" Type="JumpEnd" />
+        <Point X="7.25" Y="10.232" />
+        <Point X="7.25" Y="10.713" />
+        <Point X="6.5" Y="10.713" />
+        <Point X="6.5" Y="10.463" />
+      </Path>
+    </AssociationLine>
+    <AssociationLine Name="Billboards" Type="FinderQuest3D.Billboard" FixedFromPoint="true" FixedToPoint="true">
+      <Path>
+        <Point X="8.25" Y="11.468" />
+        <Point X="7.875" Y="11.468" />
+        <Point X="7.875" Y="9.125" />
+        <Point X="7" Y="9.125" />
+      </Path>
+    </AssociationLine>
     <TypeIdentifier>
-      <HashCode>AAQAAAAAAAAAAAgAqAAIACAAAAAEAIAIEBAAABAAAAA=</HashCode>
+      <HashCode>AAQAAAAAAAAAAAgAqIAIACAAAAAEAIAIEBAAABAAAAA=</HashCode>
       <FileName>World3D.cs</FileName>
     </TypeIdentifier>
     <ShowAsAssociation>
       <Field Name="floor" />
+      <Field Name="sky" />
       <Property Name="Floor" />
+      <Property Name="Sky" />
     </ShowAsAssociation>
     <ShowAsCollectionAssociation>
       <Field Name="billboards" />
@@ -62,7 +83,7 @@
   <Class Name="FinderQuest3D.Map">
     <Position X="13.5" Y="3.5" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>RAAAAgAABAIAAAAAgAAAAEAAAAABAIAAAQAAAAAAAAE=</HashCode>
+      <HashCode>RAAgAgAABQIAAAEAgAAAAEAACAABAIAAAQAAAAIAAAE=</HashCode>
       <FileName>Map.cs</FileName>
     </TypeIdentifier>
     <ShowAsAssociation>

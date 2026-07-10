@@ -62,17 +62,6 @@ namespace FinderQuest3D
             base.OnKeyUp(e);
         }
 
-        protected override void OnPaint(PaintEventArgs e)
-        {
-            // Calculate FPS 
-            var now = DateTime.Now;
-            var elapsed = (now - previousDate).TotalMilliseconds;
-            previousDate = now;
-            deltaTime = elapsed / 1000.0;
-            double fps = elapsed > 0 ? (1000.0 / elapsed) : 0.0;
-            this.Text = string.Format("{0:0.00} fps", fps);
-        }
-
         private void FormRender_Load(object sender, EventArgs e)
         {
             device = new Device(this.Handle, this.ClientSize.Width, this.ClientSize.Height);
@@ -208,10 +197,6 @@ namespace FinderQuest3D
                 device?.Dispose();
             }
             catch { }
-        }
-        protected override void OnFormClosed(FormClosedEventArgs e)
-        {
-            base.OnFormClosed(e);
             Environment.Exit(0);
         }
 

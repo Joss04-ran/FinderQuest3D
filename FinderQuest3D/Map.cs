@@ -63,7 +63,7 @@ namespace FinderQuest3D
 
         // Method for procedurally generated maps 
         // I use virtual for used in WalkArea or TalkArea
-        public virtual Mesh BuildMapMesh()
+        protected virtual Mesh BuildMapMesh()
         {
             Texture atlasTexture = CreateTextureAtlas();
             List<Vertex> vertices = new List<Vertex>();
@@ -141,7 +141,7 @@ namespace FinderQuest3D
             return resultMesh;
         }
 
-        private void AddQuad(List<Vertex> vertices, List<Faces> faces,
+        protected void AddQuad(List<Vertex> vertices, List<Faces> faces,
             Vector3 p0, Vector3 p1, Vector3 p2, Vector3 p3,
             Vector2 uv0, Vector2 uv1, Vector2 uv2, Vector2 uv3, Vector3 normal)
         {
@@ -155,7 +155,7 @@ namespace FinderQuest3D
             faces.Add(new Faces { A = baseIdx + 0, B = baseIdx + 3, C = baseIdx + 2 });
         }
 
-        private Texture CreateTextureAtlas()
+        protected Texture CreateTextureAtlas()
         {
             string baseDir = AppDomain.CurrentDomain.BaseDirectory;
             string projectPath = Path.GetFullPath(Path.Combine(baseDir, "..", ".."));
