@@ -92,7 +92,7 @@ namespace FinderQuest3D
             // 
             this.labelPlayer.AutoSize = true;
             this.labelPlayer.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.labelPlayer.Location = new System.Drawing.Point(1006, 4);
+            this.labelPlayer.Location = new System.Drawing.Point(930, 4);
             this.labelPlayer.Name = "labelPlayer";
             this.labelPlayer.Size = new System.Drawing.Size(110, 22);
             this.labelPlayer.TabIndex = 2;
@@ -167,10 +167,6 @@ namespace FinderQuest3D
             this.toolStripMenuItemAbout.Size = new System.Drawing.Size(64, 24);
             this.toolStripMenuItemAbout.Text = "About";
             this.toolStripMenuItemAbout.Click += new System.EventHandler(this.toolStripMenuItemAbout_Click);
-            // 
-            // timerTime1
-            // 
-            //this.timerTime1.Tick += new System.EventHandler(this.timerTime1_Tick);
             // 
             // FormMenu
             // 
