@@ -181,6 +181,59 @@ namespace FinderQuest3D
             billboards.Add(billboard);
         }
 
+        public void AddBillboard(System.Drawing.Image image, Vector3 position, Vector3 scale)
+        {
+            var billboard = new Billboard("Person", 4, 2, true);
+            billboard.Position = position;
+
+            float halfWidth = scale.X;
+            float height = scale.Y;
+
+            billboard.ArrayVertices[0] = new Vertex
+            {
+                Coordinates = new Vector3(-halfWidth, 0.0f, 0.0f),
+                TextureCoordinates = new Vector2(0.0f, 1.0f),
+                Normal = new Vector3(0.0f, 0.0f, -1.0f)
+            };
+            billboard.ArrayVertices[1] = new Vertex
+            {
+                Coordinates = new Vector3(halfWidth, 0.0f, 0.0f),
+                TextureCoordinates = new Vector2(1.0f, 1.0f),
+                Normal = new Vector3(0.0f, 0.0f, -1.0f)
+            };
+            billboard.ArrayVertices[2] = new Vertex
+            {
+                Coordinates = new Vector3(halfWidth, height, 0.0f),
+                TextureCoordinates = new Vector2(1.0f, 0.0f),
+                Normal = new Vector3(0.0f, 0.0f, -1.0f)
+            };
+            billboard.ArrayVertices[3] = new Vertex
+            {
+                Coordinates = new Vector3(-halfWidth, height, 0.0f),
+                TextureCoordinates = new Vector2(0.0f, 0.0f),
+                Normal = new Vector3(0.0f, 0.0f, -1.0f)
+            };
+
+            billboard.ArrayFaces[0] = new Faces { A = 0, B = 2, C = 1 };
+            billboard.ArrayFaces[1] = new Faces { A = 0, B = 3, C = 2 };
+
+            if (image != null)
+            {
+                using (var bitmap = new System.Drawing.Bitmap(image))
+                {
+                    var rect = new System.Drawing.Rectangle(0, 0, bitmap.Width, bitmap.Height);
+                    var bmpData = bitmap.LockBits(rect, System.Drawing.Imaging.ImageLockMode.ReadOnly, System.Drawing.Imaging.PixelFormat.Format32bppArgb);
+                    int bytes = bitmap.Width * bitmap.Height * 4;
+                    byte[] rgbValues = new byte[bytes];
+                    System.Runtime.InteropServices.Marshal.Copy(bmpData.Scan0, rgbValues, 0, bytes);
+                    bitmap.UnlockBits(bmpData);
+                    billboard.Texture = new Texture(rgbValues, bitmap.Width, bitmap.Height);
+                }
+            }
+
+            billboards.Add(billboard);
+        }
+
         public void GenerateSky(string texturePath)
         {
             sky = new Mesh("Sky", 4, 2);
@@ -247,6 +300,9 @@ namespace FinderQuest3D
             this.Floor = map.Mesh;
             this.Billboards.Clear();
 
+            WalkAreas walkArea = map as WalkAreas;
+            int personIndex = 0;
+
             float size = map.TileSize;
             for (int r = 0; r < map.Height; r++)
             {
@@ -262,7 +318,25 @@ namespace FinderQuest3D
                     }
                     else if (cell == 3 || cell == 6)
                     {
-                        AddBillboard(personTexturePath, new Vector3(x, 0.0f, z), new Vector3(6.0f, 12.0f, -1.5f));
+                        Vector3 personPos = new Vector3(x, 0.0f, z);
+                        if (walkArea != null && walkArea.ListPersons != null && personIndex < walkArea.ListPersons.Count)
+                        {
+                            var person = walkArea.ListPersons[personIndex];
+                            person.Position = personPos; // Set the 3D position
+                            if (person.Picture != null && person.Picture.Image != null)
+                            {
+                                AddBillboard(person.Picture.Image, personPos, new Vector3(6.0f, 12.0f, -1.5f));
+                            }
+                            else
+                            {
+                                AddBillboard(personTexturePath, personPos, new Vector3(6.0f, 12.0f, -1.5f));
+                            }
+                            personIndex++;
+                        }
+                        else
+                        {
+                            AddBillboard(personTexturePath, personPos, new Vector3(6.0f, 12.0f, -1.5f));
+                        }
                     }
                 }
             }

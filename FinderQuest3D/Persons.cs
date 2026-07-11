@@ -1,4 +1,5 @@
-﻿using System;
+using SharpDX;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Drawing;
@@ -17,11 +18,12 @@ namespace FinderQuest3D
         private string dialog;
         private bool solvedStatus;
         private Questions personQuestion; // Composition
+        private Vector3 position;
         #endregion
 
         #region Constructor
         public Persons(string noPerson, string name, 
-            Image image, Size size, Point location, string dialog)
+            Image image, Size size, System.Drawing.Point location, string dialog)
         {
             this.NoPerson = noPerson;
             this.Name = name;
@@ -41,6 +43,7 @@ namespace FinderQuest3D
         public string Dialog { get => dialog; set => dialog = value; }
         public bool SolvedStatus { get => solvedStatus; set => solvedStatus = value; }
         public Questions PersonQuestion { get => personQuestion; private set => personQuestion = value; }
+        public Vector3 Position { get => position; set => position = value; }
         #endregion
 
         #region Methods
@@ -58,7 +61,7 @@ namespace FinderQuest3D
         {
             this.Picture.Parent = container;
             this.Picture.SizeMode = PictureBoxSizeMode.StretchImage;
-            this.Picture.BackColor = Color.Transparent;
+            this.Picture.BackColor = System.Drawing.Color.Transparent;
             this.Picture.BringToFront();
         }
         public void DisplayDialogs(Control container)
@@ -70,10 +73,10 @@ namespace FinderQuest3D
             else
                 labelDialog.Text = this.DisplayData() + "\nCongratulations!\nYou have answered my question";
             labelDialog.AutoSize = false;
-            labelDialog.BackColor = Color.FromArgb(255, 255, 193);
+            labelDialog.BackColor = System.Drawing.Color.FromArgb(255, 255, 193);
             labelDialog.Size = new Size(400,200);
             labelDialog.Font = new Font("Lucida Sans Typewriter", 18F, FontStyle.Bold);
-            labelDialog.Location = new Point(250,11);
+            labelDialog.Location = new System.Drawing.Point(250,11);
             labelDialog.TextAlign = ContentAlignment.MiddleCenter;
             labelDialog.BorderStyle = BorderStyle.FixedSingle;
             labelDialog.BringToFront();

@@ -10,7 +10,7 @@
   <Class Name="FinderQuest3D.Persons">
     <Position X="7.75" Y="2.5" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AIAggACIAIAAIAAAACACAAQAAAAUAAAAEAggAAAAAAA=</HashCode>
+      <HashCode>AIAggACIAIAAIAAgACACIAQAAAAUAAAAEAggAAAAAAA=</HashCode>
       <FileName>Persons.cs</FileName>
     </TypeIdentifier>
     <ShowAsAssociation>
@@ -19,7 +19,7 @@
     </ShowAsAssociation>
   </Class>
   <Class Name="FinderQuest3D.Players">
-    <Position X="4.5" Y="2.5" Width="1.5" />
+    <Position X="4.75" Y="2.5" Width="1.5" />
     <TypeIdentifier>
       <HashCode>gAEggAAAAIAAAAgAAAAIAAQAAAAEAAAJQAAAAIAAAAA=</HashCode>
       <FileName>Player.cs</FileName>
@@ -39,7 +39,7 @@
   <Class Name="FinderQuest3D.TalkAreas">
     <Position X="10.5" Y="2.5" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AIAgAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACAAAA=</HashCode>
+      <HashCode>BIAgAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACAAAA=</HashCode>
       <FileName>TalkAreas.cs</FileName>
     </TypeIdentifier>
     <ShowAsAssociation>
@@ -57,7 +57,7 @@
   <Class Name="FinderQuest3D.WalkAreas">
     <Position X="12.5" Y="2.5" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>EAAgABAAAAAAIAAAACAAAABAAACAAAAAAAAAAAgAAFA=</HashCode>
+      <HashCode>FAAgABAAAAAAIAAAACAAAABAAACAAAAAAAAAAAgAAFA=</HashCode>
       <FileName>WalkAreas.cs</FileName>
     </TypeIdentifier>
     <ShowAsCollectionAssociation>
@@ -70,6 +70,13 @@
     <TypeIdentifier>
       <HashCode>AAAgAAAAAAAAAAAAAAAAAAQAAAAEAAAAAAAgAAAAIAA=</HashCode>
       <FileName>Areas.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="FinderQuest3D.Map" Collapsed="true">
+    <Position X="14.75" Y="1" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>RAAgAgAABQIAAIEAgAAAAEAACAABAIAAAQAAAAIAAAE=</HashCode>
+      <FileName>Map.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Font Name="Segoe UI" Size="9" />

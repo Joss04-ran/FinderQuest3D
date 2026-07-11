@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
@@ -17,6 +17,11 @@ namespace FinderQuest3D
         }
 
         public Persons Person { get => person; set => person = value; }
+
+        protected override Mesh BuildMapMesh()
+        {
+            return base.BuildMapMesh();
+        }
 
         public override string DisplayData()
         {

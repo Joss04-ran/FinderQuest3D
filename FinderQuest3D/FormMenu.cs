@@ -102,7 +102,7 @@ namespace FinderQuest3D
             PauseSound();
             timerTime1.Stop();
             isStart = false;
-            player.HidePicture(this);
+            if (player != null) player.HidePicture(this);
             toolStripMenuItemStartGame.Enabled = true;
             playPauseToolStripMenuItem.Enabled = false;
             panelGameBottom.Visible = false;
@@ -158,51 +158,51 @@ namespace FinderQuest3D
             labelTalkArea.Text = talkAreas.DisplayData();
             labelTalkArea.BringToFront();
             panelGameBottom.BringToFront();
-            player.Picture.Visible = false;
+            if (player != null) player.Picture.Visible = false;
             activePersons.DisplayPicture(panelGameBottom);
             activePersons.Picture.Size = new Size(150, 200);
             activePersons.Picture.Location = new Point(400, 250);
             activePersons.DisplayDialogs(panelGameBottom);
         }
 
-        private void GenerateWalkArea()
-        {
-            if (walkAreas == null)
-            {
-                walkAreas = new WalkAreas(1, "The Barn", FinderQuest3D.Properties.Resources.walkArea1);
-                walkAreas.AddPerson(1.ToString(), "Anna", FinderQuest3D.Properties.Resources.person1,
-                    new Size(80, 120), new Point(200, 420), "I have a question for you. Are you ready?");
-                walkAreas.AddPerson(2.ToString(), "Andy", FinderQuest3D.Properties.Resources.person2,
-                    new Size(80, 120), new Point(500, 420), "Can't you answer the question?. Let's Go!");
-                walkAreas.AddPerson(3.ToString(), "Bobby", FinderQuest3D.Properties.Resources.person3,
-                    new Size(80, 120), new Point(700, 420), "Answer my question");
-            }
-            else if (walkAreas.NoArea == 2)
-            {
-                walkAreas = new WalkAreas(2, "The Field", FinderQuest3D.Properties.Resources.walkArea2);
-                walkAreas.AddPerson(4.ToString(), "Rina", FinderQuest3D.Properties.Resources.person4,
-                    new Size(80, 120), new Point(200, 420), "Please answer my question ... ");
-                walkAreas.AddPerson(5.ToString(), "Tony", FinderQuest3D.Properties.Resources.person5,
-                    new Size(80, 120), new Point(500, 420), "Answer this true man's question!");
-            }
-            else if (walkAreas.NoArea == 3)
-            {
-                walkAreas = new WalkAreas(3, "The Farm", FinderQuest3D.Properties.Resources.walkArea3);
-                walkAreas.AddPerson(6.ToString(), "Marie", FinderQuest3D.Properties.Resources.person6,
-                    new Size(80, 120), new Point(200, 450), "I have a question for you. Are you ready?");
-                walkAreas.AddPerson(7.ToString(), "Luke", FinderQuest3D.Properties.Resources.person7,
-                    new Size(80, 120), new Point(500, 450), "Can't you answer the question?. Let's Go!");
-            }
-            else if (walkAreas.NoArea > 3)
-            {
-                PlaySound("win");
-                MessageBox.Show("Congratulations! You win the game!!!");
-                GameOver();
-            }
-            walkAreas.DisplayPicture(this);
-            labelArea.Text = walkAreas.DisplayData();
-            walkAreas.DisplayPerson(this);
-        }
+        //private void GenerateWalkArea()
+        //{
+        //    if (walkAreas == null)
+        //    {
+        //        walkAreas = new WalkAreas(1, "The Barn", FinderQuest3D.Properties.Resources.walkArea1);
+        //        walkAreas.AddPerson(1.ToString(), "Anna", FinderQuest3D.Properties.Resources.person1,
+        //            new Size(80, 120), new Point(200, 420), "I have a question for you. Are you ready?");
+        //        walkAreas.AddPerson(2.ToString(), "Andy", FinderQuest3D.Properties.Resources.person2,
+        //            new Size(80, 120), new Point(500, 420), "Can't you answer the question?. Let's Go!");
+        //        walkAreas.AddPerson(3.ToString(), "Bobby", FinderQuest3D.Properties.Resources.person3,
+        //            new Size(80, 120), new Point(700, 420), "Answer my question");
+        //    }
+        //    else if (walkAreas.NoArea == 2)
+        //    {
+        //        walkAreas = new WalkAreas(2, "The Field", FinderQuest3D.Properties.Resources.walkArea2);
+        //        walkAreas.AddPerson(4.ToString(), "Rina", FinderQuest3D.Properties.Resources.person4,
+        //            new Size(80, 120), new Point(200, 420), "Please answer my question ... ");
+        //        walkAreas.AddPerson(5.ToString(), "Tony", FinderQuest3D.Properties.Resources.person5,
+        //            new Size(80, 120), new Point(500, 420), "Answer this true man's question!");
+        //    }
+        //    else if (walkAreas.NoArea == 3)
+        //    {
+        //        walkAreas = new WalkAreas(3, "The Farm", FinderQuest3D.Properties.Resources.walkArea3);
+        //        walkAreas.AddPerson(6.ToString(), "Marie", FinderQuest3D.Properties.Resources.person6,
+        //            new Size(80, 120), new Point(200, 450), "I have a question for you. Are you ready?");
+        //        walkAreas.AddPerson(7.ToString(), "Luke", FinderQuest3D.Properties.Resources.person7,
+        //            new Size(80, 120), new Point(500, 450), "Can't you answer the question?. Let's Go!");
+        //    }
+        //    else if (walkAreas.NoArea > 3)
+        //    {
+        //        PlaySound("win");
+        //        MessageBox.Show("Congratulations! You win the game!!!");
+        //        GameOver();
+        //    }
+        //    walkAreas.DisplayPicture(this);
+        //    labelArea.Text = walkAreas.DisplayData();
+        //    walkAreas.DisplayPerson(this);
+        //}
 
         private void FormMenu_KeyDown(object sender, KeyEventArgs e)
         {
@@ -217,31 +217,34 @@ namespace FinderQuest3D
                 {
                     if (e.KeyCode == Keys.D || e.KeyCode == Keys.Right)
                     {
-                        player.MoveRight(distance);
-                        if (player.Picture.Location.X + player.Picture.Width >= this.Width 
-                            && walkAreas.CheckFinishAllQuestion())
+                        if (player != null)
                         {
-                            walkAreas.NoArea++;
-                            walkAreas.RemovePerson();
-                            GenerateWalkArea();
-                            player.Picture.Location = new Point(0, player.Picture.Location.Y);
+                            player.MoveRight(distance);
+                            if (player.Picture.Location.X + player.Picture.Width >= this.Width 
+                                && walkAreas.CheckFinishAllQuestion())
+                            {
+                                walkAreas.NoArea++;
+                                walkAreas.RemovePerson();
+                                //GenerateWalkArea();
+                                player.Picture.Location = new Point(0, player.Picture.Location.Y);
+                            }
                         }
                     }
                     else if (e.KeyCode == Keys.A || e.KeyCode == Keys.Left)
                     {
-                        player.MoveLeft(distance);
+                        if (player != null) player.MoveLeft(distance);
                     }
                     else if (e.KeyCode == Keys.W || e.KeyCode == Keys.Up)
                     {
-                        player.MoveUp(distance);
+                        if (player != null) player.MoveUp(distance);
                     }
                     else if (e.KeyCode == Keys.S || e.KeyCode == Keys.Down)
                     {
-                        player.MoveDown(distance);
+                        if (player != null) player.MoveDown(distance);
                     }
                     else if (e.KeyCode == Keys.Enter) // For adding dialogues 
                     {
-                        if (walkAreas.CheckTouchPerson(player, out Persons touchPerson) == true) 
+                        if (player != null && walkAreas.CheckTouchPerson(player, out Persons touchPerson) == true) 
                         {
                             activePersons = touchPerson;
                             lastLocation = activePersons.Picture.Location;
@@ -261,7 +264,7 @@ namespace FinderQuest3D
                         form.Owner = this;
                         form.ShowDialog();
                     }
-                    player.DisplayPicture(this);
+                    if (player != null) player.DisplayPicture(this);
                 }
             }
             catch { }
@@ -271,7 +274,7 @@ namespace FinderQuest3D
         {
             panelGameBottom.Visible = false;
             enterTalkAreas = false;
-            player.Picture.Visible = true;
+            if (player != null) player.Picture.Visible = true;
             activePersons.DisplayPicture(this);
             activePersons.Picture.Size = lastSize;
             activePersons.Picture.Location = lastLocation;

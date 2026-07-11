@@ -14,6 +14,8 @@ namespace FinderQuest3D
     public partial class FormQuestion1 : Form
     {
         FormMenu menu;
+        FormRender renderForm;
+
         public FormQuestion1()
         {
             InitializeComponent();
@@ -21,16 +23,32 @@ namespace FinderQuest3D
 
         private void buttonSubmit_Click(object sender, EventArgs e)
         {
-            if (menu.activePersons.CheckAnswer(textBoxAnswer.Text) == true)
+            if (menu != null)
             {
-                MessageBox.Show($"Your answer is correct ! " +
-                    $"\nYou get {menu.activePersons.PersonQuestion.Score} points");
-                menu.player.AddScore(menu.activePersons.PersonQuestion.Score);
-                menu.labelPlayer.Text = menu.player.DisplayData();
+                if (menu.activePersons.CheckAnswer(textBoxAnswer.Text) == true)
+                {
+                    MessageBox.Show($"Your answer is correct ! " +
+                        $"\nYou get {menu.activePersons.PersonQuestion.Score} points");
+                    menu.player.AddScore(menu.activePersons.PersonQuestion.Score);
+                    menu.labelPlayer.Text = menu.player.DisplayData();
+                }
+                else MessageBox.Show("Your answer is incorrect ! ");
+                menu.ExitTalkArea();
+                menu.PlaySound("walk");
             }
-            else MessageBox.Show("Your answer is incorrect ! ");
-            menu.ExitTalkArea();
-            menu.PlaySound("walk");
+            else if (renderForm != null)
+            {
+                if (renderForm.activePersons.CheckAnswer(textBoxAnswer.Text) == true)
+                {
+                    MessageBox.Show($"Your answer is correct ! " +
+                        $"\nYou get {renderForm.activePersons.PersonQuestion.Score} points");
+                    renderForm.player.AddScore(renderForm.activePersons.PersonQuestion.Score);
+                    renderForm.labelPlayer.Text = renderForm.player.DisplayData();
+                }
+                else MessageBox.Show("Your answer is incorrect ! ");
+                renderForm.ExitTalkArea();
+                renderForm.PlaySound("walk");
+            }
             this.Close();
         }
         
@@ -41,8 +59,16 @@ namespace FinderQuest3D
 
         private void FormQuestion1_Load(object sender, EventArgs e)
         {
-            menu = (FormMenu)this.Owner;
-            labelQuestion.Text = menu.activePersons.PersonQuestion.Question;
+            if (this.Owner is FormMenu)
+            {
+                menu = (FormMenu)this.Owner;
+                labelQuestion.Text = menu.activePersons.PersonQuestion.Question;
+            }
+            else if (this.Owner is FormRender)
+            {
+                renderForm = (FormRender)this.Owner;
+                labelQuestion.Text = renderForm.activePersons.PersonQuestion.Question;
+            }
         }
 
         private void FormQuestion1_KeyDown(object sender, KeyEventArgs e)
