@@ -36,6 +36,7 @@ namespace FinderQuest3D
         private Stopwatch frameTimer = new Stopwatch();
         private const double TargetFrameTime = 1000.0 / 60.0;
         private bool isExit = false;
+        private Timer renderLoop;
 
         public FormRender()
         {
@@ -121,56 +122,58 @@ namespace FinderQuest3D
                 treePath = Path.Combine(projectPath, "Resources", "craftpix-net-385863-free-top-down-trees-pixel-art", "PNG", "Assets_separately", "Trees", "Christmas_tree1.png");
 
             string personPath = Path.Combine(projectPath, "Resources", "person1.png");
-
-            // Define procedural map grid (maze/custom design)
-            // It is put in WalkArea now
             GenerateWalkArea();
             world.InitializeFromMap(map, treePath, personPath);
 
             string skyPath = Path.Combine(projectPath, "Resources", "walkArea1.png");
             world.GenerateSky(skyPath);
-            SharpDX.Windows.RenderLoop.Run(this, () =>
+            renderLoop = new Timer();
+            renderLoop.Interval = (int)(1000.0 / 60.0); // ~60 FPS
+            renderLoop.Tick += RenderLoopTick;
+            renderLoop.Start();
+        }
+
+        private void RenderLoopTick(object sender, EventArgs e)
+        {
+            if (this.IsDisposed || isExit) return;
+            if (device == null || world == null || camera == null || map == null) return;
+            float moveSpeed = 1.5f;
+            float rotateSpeed = 0.05f;
+            float playerRadius = 4.0f;
+
+            Vector3 displacement = Vector3.Zero;
+            if (keyStates.TryGetValue(Keys.W, out bool w) && w)
+                displacement += camera.Forward * moveSpeed;
+            if (keyStates.TryGetValue(Keys.S, out bool s) && s)
+                displacement -= camera.Forward * moveSpeed;
+            if (keyStates.TryGetValue(Keys.A, out bool a) && a)
+                displacement -= camera.SideWalk * moveSpeed;
+            if (keyStates.TryGetValue(Keys.D, out bool d) && d)
+                displacement += camera.SideWalk * moveSpeed;
+
+            if (displacement != Vector3.Zero)
             {
-                if (this.IsDisposed || isExit) return;
-                if (device == null || world == null || camera == null || map == null) return;
-                float moveSpeed = 1.5f;
-                float rotateSpeed = 0.05f;
-                float playerRadius = 4.0f;
-
-                Vector3 displacement = Vector3.Zero;
-                if (keyStates.TryGetValue(Keys.W, out bool w) && w)
-                    displacement += camera.Forward * moveSpeed;
-                if (keyStates.TryGetValue(Keys.S, out bool s) && s)
-                    displacement -= camera.Forward * moveSpeed;
-                if (keyStates.TryGetValue(Keys.A, out bool a) && a)
-                    displacement -= camera.SideWalk * moveSpeed;
-                if (keyStates.TryGetValue(Keys.D, out bool d) && d)
-                    displacement += camera.SideWalk * moveSpeed;
-
-                if (displacement != Vector3.Zero)
+                Vector3 nextPos = camera.Position + displacement;
+                if (!map.isCollision(nextPos, playerRadius))
                 {
-                    Vector3 nextPos = camera.Position + displacement;
-                    if (!map.isCollision(nextPos, playerRadius))
-                    {
-                        camera.Position = nextPos;
-                    }
+                    camera.Position = nextPos;
                 }
-                if (keyStates.TryGetValue(Keys.Left, out bool left) && left)
-                    camera.Yaw -= rotateSpeed;
-                if (keyStates.TryGetValue(Keys.Right, out bool right) && right)
-                    camera.Yaw += rotateSpeed;
-                world.Update(camera);
-                // Render frame
-                device.Clear(SharpDX.Color.CornflowerBlue);
-                world.Render(device, camera);
-                device.Present();
-                frameTimer.Restart();
-                double elapsedMs = frameTimer.Elapsed.TotalMilliseconds;
-                if (elapsedMs < TargetFrameTime)
-                {
-                    System.Threading.Thread.Sleep((int)(TargetFrameTime - elapsedMs));
-                }
-            });
+            }
+            if (keyStates.TryGetValue(Keys.Left, out bool left) && left)
+                camera.Yaw -= rotateSpeed;
+            if (keyStates.TryGetValue(Keys.Right, out bool right) && right)
+                camera.Yaw += rotateSpeed;
+            world.Update(camera);
+            // Render frame
+            device.Clear(SharpDX.Color.CornflowerBlue);
+            world.Render(device, camera);
+            device.Present();
+            frameTimer.Restart();
+            double elapsedMs = frameTimer.Elapsed.TotalMilliseconds;
+            if (elapsedMs < TargetFrameTime)
+            {
+                System.Threading.Thread.Sleep((int)(TargetFrameTime - elapsedMs));
+            }
         }
         public void PlaySound(string type)
         {
@@ -191,17 +194,17 @@ namespace FinderQuest3D
             {
                 mapGrid = new int[,]{
                 {5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5},
-                {5, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2, 5},
-                {5, 1, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 5},
-                {5, 1, 0, 1, 0, 0, 0, 3, 0, 0, 0, 0, 0, 0, 5},
-                {5, 1, 0, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0, 0, 5},
-                {5, 0, 0, 0, 0, 0, 0, 1, 0, 1, 0, 0, 0, 0, 5},
-                {5, 0, 0, 0, 0, 0, 0, 1, 0, 1, 0, 0, 0, 0, 5},
-                {5, 2, 0, 0, 0, 0, 0, 1, 1, 1, 0, 0, 0, 0, 5},
-                {5, 0, 0, 0, 0, 0, 0, 1, 0, 1, 0, 0, 0, 0, 5},
-                {5, 0, 0, 3, 0, 0, 0, 1, 0, 1, 0, 0, 0, 0, 5},
-                {5, 0, 0, 0, 0, 0, 0, 1, 0, 1, 0, 0, 0, 2, 5},
-                {5, 0, 0, 0, 0, 0, 0, 1, 0, 1, 0, 0, 0, 0, 5},
+                {5, 1, 1, 1, 0, 0, 1, 0, 0, 0, 0, 0, 0, 2, 5},
+                {5, 1, 0, 1, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 5},
+                {5, 1, 0, 1, 0, 0, 1, 3, 0, 0, 0, 0, 0, 0, 5},
+                {5, 1, 0, 1, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0, 5},
+                {5, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 5},
+                {5, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 5},
+                {5, 2, 0, 0, 0, 0, 0, 1, 1, 0, 0, 0, 0, 0, 5},
+                {5, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 5},
+                {5, 0, 0, 3, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 5},
+                {5, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 2, 5},
+                {5, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 5},
                 {5, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 1, 1, 6, 5},
                 {5, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 5},
                 {5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5}
@@ -218,6 +221,23 @@ namespace FinderQuest3D
             }
             else if (walkAreas.NoArea == 2)
             {
+                mapGrid = new int[,]{
+                {5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5},
+                {5, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2, 5},
+                {5, 1, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 5},
+                {5, 1, 0, 1, 0, 0, 0, 3, 0, 0, 0, 0, 0, 0, 5},
+                {5, 1, 0, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0, 0, 5},
+                {5, 0, 0, 0, 0, 0, 0, 1, 0, 1, 0, 0, 0, 0, 5},
+                {5, 0, 0, 0, 0, 0, 0, 1, 0, 1, 0, 0, 0, 0, 5},
+                {5, 2, 0, 0, 0, 0, 0, 1, 1, 1, 0, 0, 0, 0, 5},
+                {5, 0, 0, 0, 0, 0, 0, 1, 0, 1, 0, 0, 0, 0, 5},
+                {5, 0, 0, 3, 0, 0, 0, 1, 0, 1, 0, 0, 0, 0, 5},
+                {5, 0, 0, 0, 0, 0, 0, 1, 0, 1, 0, 0, 0, 2, 5},
+                {5, 0, 0, 0, 0, 0, 0, 1, 0, 1, 0, 0, 0, 0, 5},
+                {5, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 1, 1, 6, 5},
+                {5, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 5},
+                {5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5}
+            };
                 walkAreas = new WalkAreas(2, "The Field", FinderQuest3D.Properties.Resources.walkArea2);
                 walkAreas.AddMap(mapGrid);
                 map = walkAreas;
@@ -228,6 +248,23 @@ namespace FinderQuest3D
             }
             else if (walkAreas.NoArea == 3)
             {
+                mapGrid = new int[,]{
+                {5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5},
+                {5, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2, 5},
+                {5, 1, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 5},
+                {5, 1, 0, 1, 0, 0, 0, 3, 0, 0, 0, 0, 0, 0, 5},
+                {5, 1, 0, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0, 0, 5},
+                {5, 0, 0, 0, 0, 0, 0, 1, 0, 1, 0, 0, 0, 0, 5},
+                {5, 0, 0, 0, 0, 0, 0, 1, 0, 1, 0, 0, 0, 0, 5},
+                {5, 2, 0, 0, 0, 0, 0, 1, 1, 1, 0, 0, 0, 0, 5},
+                {5, 0, 0, 0, 0, 0, 0, 1, 0, 1, 0, 0, 0, 0, 5},
+                {5, 0, 0, 3, 0, 0, 0, 1, 0, 1, 0, 0, 0, 0, 5},
+                {5, 0, 0, 0, 0, 0, 0, 1, 0, 1, 0, 0, 0, 2, 5},
+                {5, 0, 0, 0, 0, 0, 0, 1, 0, 1, 0, 0, 0, 0, 5},
+                {5, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 1, 1, 6, 5},
+                {5, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 5},
+                {5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5}
+            };
                 walkAreas = new WalkAreas(3, "The Farm", FinderQuest3D.Properties.Resources.walkArea3);
                 walkAreas.AddMap(mapGrid);
                 map = walkAreas;
