@@ -33,7 +33,14 @@
             this.labelTime = new System.Windows.Forms.Label();
             this.timerTime = new System.Windows.Forms.Timer(this.components);
             this.buttonExit = new System.Windows.Forms.Button();
+            this.panelGameTop = new System.Windows.Forms.Panel();
+            this.labelPlayer = new System.Windows.Forms.Label();
+            this.labelArea = new System.Windows.Forms.Label();
+            this.panelGameBottom = new System.Windows.Forms.Panel();
+            this.labelTalkArea = new System.Windows.Forms.Label();
             this.panelDashboard.SuspendLayout();
+            this.panelGameTop.SuspendLayout();
+            this.panelGameBottom.SuspendLayout();
             this.SuspendLayout();
             // 
             // panelDashboard
@@ -72,18 +79,74 @@
             this.buttonExit.UseVisualStyleBackColor = true;
             this.buttonExit.Click += new System.EventHandler(this.buttonExit_Click);
             // 
+            // panelGameTop
+            // 
+            this.panelGameTop.BackColor = System.Drawing.Color.Transparent;
+            this.panelGameTop.Controls.Add(this.labelPlayer);
+            this.panelGameTop.Controls.Add(this.labelArea);
+            this.panelGameTop.Location = new System.Drawing.Point(12, 12);
+            this.panelGameTop.Name = "panelGameTop";
+            this.panelGameTop.Size = new System.Drawing.Size(1237, 108);
+            this.panelGameTop.TabIndex = 5;
+            // 
+            // labelPlayer
+            // 
+            this.labelPlayer.AutoSize = true;
+            this.labelPlayer.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.labelPlayer.Location = new System.Drawing.Point(1112, 13);
+            this.labelPlayer.Name = "labelPlayer";
+            this.labelPlayer.Size = new System.Drawing.Size(110, 22);
+            this.labelPlayer.TabIndex = 2;
+            this.labelPlayer.Text = "labelPlayer";
+            // 
+            // labelArea
+            // 
+            this.labelArea.AutoSize = true;
+            this.labelArea.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.labelArea.Location = new System.Drawing.Point(18, 13);
+            this.labelArea.Name = "labelArea";
+            this.labelArea.Size = new System.Drawing.Size(95, 22);
+            this.labelArea.TabIndex = 0;
+            this.labelArea.Text = "labelArea";
+            // 
+            // panelGameBottom
+            // 
+            this.panelGameBottom.BackColor = System.Drawing.Color.Transparent;
+            this.panelGameBottom.Controls.Add(this.labelTalkArea);
+            this.panelGameBottom.Location = new System.Drawing.Point(4, -107);
+            this.panelGameBottom.Name = "panelGameBottom";
+            this.panelGameBottom.Size = new System.Drawing.Size(1255, 886);
+            this.panelGameBottom.TabIndex = 6;
+            // 
+            // labelTalkArea
+            // 
+            this.labelTalkArea.AutoSize = true;
+            this.labelTalkArea.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.labelTalkArea.Location = new System.Drawing.Point(13, 11);
+            this.labelTalkArea.Name = "labelTalkArea";
+            this.labelTalkArea.Size = new System.Drawing.Size(134, 22);
+            this.labelTalkArea.TabIndex = 3;
+            this.labelTalkArea.Text = "labelTalkArea";
+            // 
             // FormRender
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1262, 673);
+            this.Controls.Add(this.panelGameBottom);
+            this.Controls.Add(this.panelGameTop);
             this.Controls.Add(this.buttonExit);
             this.Controls.Add(this.panelDashboard);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.Name = "FormRender";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Load += new System.EventHandler(this.FormRender_Load);
             this.panelDashboard.ResumeLayout(false);
             this.panelDashboard.PerformLayout();
+            this.panelGameTop.ResumeLayout(false);
+            this.panelGameTop.PerformLayout();
+            this.panelGameBottom.ResumeLayout(false);
+            this.panelGameBottom.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -94,5 +157,10 @@
         private System.Windows.Forms.Label labelTime;
         private System.Windows.Forms.Timer timerTime;
         private System.Windows.Forms.Button buttonExit;
+        private System.Windows.Forms.Panel panelGameTop;
+        public System.Windows.Forms.Label labelPlayer;
+        private System.Windows.Forms.Label labelArea;
+        public System.Windows.Forms.Panel panelGameBottom;
+        private System.Windows.Forms.Label labelTalkArea;
     }
 }

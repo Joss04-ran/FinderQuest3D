@@ -1,3 +1,4 @@
+using SharpDX;
 using System;
 using System.Collections.Generic;
 using System.Drawing;
@@ -25,6 +26,11 @@ namespace FinderQuest3D
         public List<Persons> ListPersons { get => listPersons; private set => listPersons = value; }
         #endregion
         #region Methods
+        protected override Mesh BuildMapMesh()
+        {
+            return base.BuildMapMesh();
+        }
+
         public override string DisplayData()
         {
             string data = this.NoArea + " - " + base.Name;
@@ -33,7 +39,7 @@ namespace FinderQuest3D
 
         // method to create new person
         public void AddPerson(string noPerson, string name, Image image, Size size, 
-            Point location, string dialog)
+            System.Drawing.Point location, string dialog)
         {
             Persons person = new Persons(noPerson, name, image, size, location, dialog);
             this.listPersons.Add(person);
@@ -62,6 +68,24 @@ namespace FinderQuest3D
             foreach(Persons person in listPersons)
             {
                 if (player.Picture.Bounds.IntersectsWith(person.Picture.Bounds))
+                {
+                    touchPerson = person;
+                    return true;
+                }
+            }
+            touchPerson = null;
+            return false;
+        }
+
+        public bool CheckTouchPerson(Vector3 cameraPosition, out Persons touchPerson)
+        {
+            float interactionDistance = 20.0f; // distance within which a player can talk to an NPC
+            foreach (Persons person in listPersons)
+            {
+                float dx = cameraPosition.X - person.Position.X;
+                float dz = cameraPosition.Z - person.Position.Z;
+                float dist = (float)Math.Sqrt(dx * dx + dz * dz);
+                if (dist <= interactionDistance)
                 {
                     touchPerson = person;
                     return true;

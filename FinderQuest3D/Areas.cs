@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
@@ -7,14 +7,14 @@ using System.Windows.Forms;
 
 namespace FinderQuest3D
 {
-    public abstract class Areas
+    public abstract class Areas : Map
     {
         #region Fields
         private string name;
         private Image background;
         #endregion
         #region Constructor
-        protected Areas(string name, Image background)
+        protected Areas(string name, Image background) : base()
         {
             this.Name = name;
             this.Background = background;

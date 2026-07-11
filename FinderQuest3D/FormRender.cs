@@ -19,9 +19,16 @@ namespace FinderQuest3D
         Time time;
         Map map;
         FormMenu form;
+        public Players player;
         private Device device;
         private Camera camera;
         private World3D world;
+        WalkAreas walkAreas = null;
+        TalkAreas talkAreas = null;
+        public Persons activePersons = null;
+        SharpDX.Point lastLocation; // save previous location
+        Size lastSize; // save previous size
+        int[,] mapGrid;
         WindowsMediaPlayer soundPlayer = new WindowsMediaPlayer();
         private DateTime previousDate = DateTime.Now;
         private Dictionary<Keys, bool> keyStates = new Dictionary<Keys, bool>();
@@ -33,24 +40,57 @@ namespace FinderQuest3D
         public FormRender()
         {
             InitializeComponent();
+            panelGameBottom.Visible = false;
+            panelGameTop.Visible = true;
             this.KeyPreview = true;
             this.Focus();
             this.Activate();
             time = new Time(0, 10, 0);
+            player = new Players("Jonathan", null, new Size(80, 110), new System.Drawing.Point(10, 420), time);
             timerTime.Interval = 1000;
             timerTime.Start();
             this.DoubleBuffered = true;
             frameTimer.Start();
             form = (FormMenu)this.Owner;
+            buttonExit.Visible = false;
+            buttonExit.Enabled = false;
         }
 
         protected override void OnKeyDown(KeyEventArgs e)
         {
             if (e.KeyCode == System.Windows.Forms.Keys.Escape)
             {
-                isExit = true;
-                this.Close();
+                if (panelGameBottom.Visible)
+                {
+                    ExitTalkArea();
+                    e.Handled = true;
+                    return;
+                }
+                else
+                {
+                    isExit = true;
+                    this.Close();
+                    e.Handled = true;
+                    return;
+                }
+            }
+            if (e.KeyCode == Keys.Enter && !panelGameBottom.Visible)
+            {
+                if (walkAreas != null && walkAreas.CheckTouchPerson(camera.Position, out Persons touchPerson))
+                {
+                    activePersons = touchPerson;
+                    GenerateTalkArea();
+                    e.Handled = true;
+                    return;
+                }
+            }
+            if (e.KeyCode == Keys.Y && panelGameBottom.Visible && activePersons != null && activePersons.SolvedStatus == false)
+            {
+                FormQuestion1 questionForm = new FormQuestion1();
+                questionForm.Owner = this;
+                questionForm.ShowDialog();
                 e.Handled = true;
+                return;
             }
             keyStates[e.KeyCode] = true;
             base.OnKeyDown(e);
@@ -64,6 +104,10 @@ namespace FinderQuest3D
 
         private void FormRender_Load(object sender, EventArgs e)
         {
+            if (player != null)
+            {
+                labelPlayer.Text = player.DisplayData();
+            }
             device = new Device(this.Handle, this.ClientSize.Width, this.ClientSize.Height);
             camera = new Camera(new Vector3(150.0f, 4.0f, 150.0f), 1.0f);
             world = new World3D();
@@ -79,24 +123,8 @@ namespace FinderQuest3D
             string personPath = Path.Combine(projectPath, "Resources", "person1.png");
 
             // Define procedural map grid (maze/custom design)
-            int[,] proceduralGrid = {
-                {5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5},
-                {5, 1, 1, 1, 5, 0, 0, 0, 0, 0, 5, 0, 0, 2, 5},
-                {5, 1, 5, 1, 5, 0, 5, 5, 5, 0, 5, 0, 5, 0, 5},
-                {5, 1, 5, 1, 0, 0, 5, 3, 5, 0, 0, 0, 5, 0, 5},
-                {5, 1, 5, 5, 5, 5, 5, 0, 5, 5, 5, 5, 5, 0, 5},
-                {5, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 5, 0, 5},
-                {5, 5, 5, 5, 5, 0, 5, 5, 5, 5, 5, 0, 5, 0, 5},
-                {5, 2, 0, 0, 5, 0, 5, 1, 1, 1, 5, 0, 5, 0, 5},
-                {5, 0, 5, 0, 5, 0, 5, 1, 5, 1, 5, 0, 0, 0, 5},
-                {5, 0, 5, 3, 5, 0, 5, 1, 5, 1, 5, 5, 5, 5, 5},
-                {5, 0, 5, 5, 5, 0, 5, 1, 5, 1, 0, 0, 0, 2, 5},
-                {5, 0, 0, 0, 0, 0, 5, 1, 5, 5, 5, 5, 5, 0, 5},
-                {5, 5, 5, 5, 5, 5, 5, 1, 1, 1, 1, 1, 1, 6, 5},
-                {5, 2, 0, 0, 0, 0, 0, 0, 5, 5, 5, 5, 5, 5, 5},
-                {5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5}
-            };
-            map = new Map(proceduralGrid);
+            // It is put in WalkArea now
+            GenerateWalkArea();
             world.InitializeFromMap(map, treePath, personPath);
 
             string skyPath = Path.Combine(projectPath, "Resources", "walkArea1.png");
@@ -144,11 +172,158 @@ namespace FinderQuest3D
                 }
             });
         }
+        public void PlaySound(string type)
+        {
+            if (type == "walk")
+                soundPlayer.URL = Application.StartupPath + "\\sound\\BacksoundWalkArea.mp3";
+            else if (type == "talk")
+                soundPlayer.URL = Application.StartupPath + "\\sound\\BacksoundTalkArea.mp3";
+            else if (type == "lose")
+                soundPlayer.URL = Application.StartupPath + "\\sound\\LoseGame.mp3";
+            else if (type == "win")
+                soundPlayer.URL = Application.StartupPath + "\\sound\\WinGame.mp3";
+            soundPlayer.controls.play();
+        }
+
+        private void GenerateWalkArea()
+        {
+            if (walkAreas == null)
+            {
+                mapGrid = new int[,]{
+                {5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5},
+                {5, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2, 5},
+                {5, 1, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 5},
+                {5, 1, 0, 1, 0, 0, 0, 3, 0, 0, 0, 0, 0, 0, 5},
+                {5, 1, 0, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0, 0, 5},
+                {5, 0, 0, 0, 0, 0, 0, 1, 0, 1, 0, 0, 0, 0, 5},
+                {5, 0, 0, 0, 0, 0, 0, 1, 0, 1, 0, 0, 0, 0, 5},
+                {5, 2, 0, 0, 0, 0, 0, 1, 1, 1, 0, 0, 0, 0, 5},
+                {5, 0, 0, 0, 0, 0, 0, 1, 0, 1, 0, 0, 0, 0, 5},
+                {5, 0, 0, 3, 0, 0, 0, 1, 0, 1, 0, 0, 0, 0, 5},
+                {5, 0, 0, 0, 0, 0, 0, 1, 0, 1, 0, 0, 0, 2, 5},
+                {5, 0, 0, 0, 0, 0, 0, 1, 0, 1, 0, 0, 0, 0, 5},
+                {5, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 1, 1, 6, 5},
+                {5, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 5},
+                {5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5}
+            };
+                walkAreas = new WalkAreas(1, "The Barn", FinderQuest3D.Properties.Resources.walkArea1);
+                walkAreas.AddMap(mapGrid);
+                map = walkAreas;
+                walkAreas.AddPerson(1.ToString(), "Anna", FinderQuest3D.Properties.Resources.person1,
+                    new Size(80, 120), new System.Drawing.Point(200, 420), "I have a question for you. Are you ready?");
+                walkAreas.AddPerson(2.ToString(), "Andy", FinderQuest3D.Properties.Resources.person2,
+                    new Size(80, 120), new System.Drawing.Point(500, 420), "Can't you answer the question?. Let's Go!");
+                walkAreas.AddPerson(3.ToString(), "Bobby", FinderQuest3D.Properties.Resources.person3,
+                    new Size(80, 120), new System.Drawing.Point(700, 420), "Answer my question");
+            }
+            else if (walkAreas.NoArea == 2)
+            {
+                walkAreas = new WalkAreas(2, "The Field", FinderQuest3D.Properties.Resources.walkArea2);
+                walkAreas.AddMap(mapGrid);
+                map = walkAreas;
+                walkAreas.AddPerson(4.ToString(), "Rina", FinderQuest3D.Properties.Resources.person4,
+                    new Size(80, 120), new System.Drawing.Point(200, 420), "Please answer my question ... ");
+                walkAreas.AddPerson(5.ToString(), "Tony", FinderQuest3D.Properties.Resources.person5,
+                    new Size(80, 120), new System.Drawing.Point(500, 420), "Answer this true man's question!");
+            }
+            else if (walkAreas.NoArea == 3)
+            {
+                walkAreas = new WalkAreas(3, "The Farm", FinderQuest3D.Properties.Resources.walkArea3);
+                walkAreas.AddMap(mapGrid);
+                map = walkAreas;
+                walkAreas.AddPerson(6.ToString(), "Marie", FinderQuest3D.Properties.Resources.person6,
+                    new Size(80, 120), new System.Drawing.Point(200, 450), "I have a question for you. Are you ready?");
+                walkAreas.AddPerson(7.ToString(), "Luke", FinderQuest3D.Properties.Resources.person7,
+                    new Size(80, 120), new System.Drawing.Point(500, 450), "Can't you answer the question?. Let's Go!");
+            }
+            else if (walkAreas.NoArea > 3)
+            {
+                PlaySound("win");
+                MessageBox.Show("Congratulations! You win the game!!!");
+                // GameOver();
+            }
+            walkAreas.DisplayPicture(this);
+            labelArea.Text = walkAreas.DisplayData();
+            walkAreas.DisplayPerson(this);
+            foreach (var person in walkAreas.ListPersons)
+            {
+                person.Picture.Visible = false;
+            }
+        }
+
+        public void ExitTalkArea()
+        {
+            panelGameBottom.Visible = false;
+            labelTalkArea.Visible = false;
+            if (activePersons != null)
+            {
+                activePersons.Picture.Visible = false;
+            }
+            PlaySound("walk");
+        }
+
+        private void GenerateTalkArea()
+        {
+            PlaySound("talk");
+            if (activePersons.NoPerson == 1.ToString())
+            {
+                talkAreas = new TalkAreas("Anna's House", FinderQuest3D.Properties.Resources.talkArea1, activePersons);
+                activePersons.AddQuestion("Solve this math equation: " +
+                    "\r\n x + y = 10 " +
+                    "\r\nIf x = 3, then y = ?\r\n", "7", 100);
+            }
+            else if (activePersons.NoPerson == 2.ToString())
+            {
+                talkAreas = new TalkAreas("Andy's Room", FinderQuest3D.Properties.Resources.talkArea2, activePersons);
+                activePersons.AddQuestion("What is the capital city of Indonesia ?", "Jakarta", 50);
+            }
+            else if (activePersons.NoPerson == 3.ToString())
+            {
+                talkAreas = new TalkAreas("Bobby's Office", FinderQuest3D.Properties.Resources.talkArea3, activePersons);
+                activePersons.AddQuestion("I have this pattern: \r\n1\t1\t2\t3\t5\t8 ...\r\nWhat is the next number?\r\n", "13", 150);
+            }
+            else if (activePersons.NoPerson == 4.ToString())
+            {
+                talkAreas = new TalkAreas("Rina's Room", FinderQuest3D.Properties.Resources.talkArea4, activePersons);
+                activePersons.AddQuestion("What is the chemical compound name for sulfuric acid?\r\n", "h2so4", 100);
+            }
+            else if (activePersons.NoPerson == 5.ToString())
+            {
+                talkAreas = new TalkAreas("Tommy's Place", FinderQuest3D.Properties.Resources.talkArea5, activePersons);
+                activePersons.AddQuestion("Check this C# codes: \r\nint result = 10/100; MessageBox.Show(result);\r\nWhat is the output of these codes?\r\n", "0", 150);
+            }
+            else if (activePersons.NoPerson == 6.ToString())
+            {
+                talkAreas = new TalkAreas("Marie's Place", FinderQuest3D.Properties.Resources.talkArea6, activePersons);
+                activePersons.AddQuestion("A product has a selling price of $100 and is discounted 10% off the list price. It also has a shipping fee of $5. \r\nIf you want to purchase this product, how much will you have to pay?\r\n", "95", 150);
+            }
+            else if (activePersons.NoPerson == 7.ToString())
+            {
+                talkAreas = new TalkAreas("Luke's Home", FinderQuest3D.Properties.Resources.talkArea7, activePersons);
+                activePersons.AddQuestion("What is the 1st principle (sila ke - 1) of Pancasila ?\r\n", "Ketuhanan Yang Maha Esa", 50);
+            }
+            panelGameBottom.Visible = true;
+            labelTalkArea.Visible = true;
+            talkAreas.DisplayPicture(panelGameBottom);
+            labelTalkArea.Text = talkAreas.DisplayData();
+            labelTalkArea.BringToFront();
+            panelGameBottom.BringToFront();
+            if (player != null) player.Picture.Visible = false;
+            activePersons.DisplayPicture(panelGameBottom);
+            activePersons.Picture.Visible = true; // Ensure it is visible in talk area!
+            activePersons.Picture.Size = new Size(150, 200);
+            activePersons.Picture.Location = new System.Drawing.Point(400, 250);
+            activePersons.DisplayDialogs(panelGameBottom);
+        }
 
         private void timerTime_Tick(object sender, EventArgs e)
         {
             time.AddWithSecond(-1);
             labelTime.Text = time.DisplayData();
+            if (player != null)
+            {
+                labelPlayer.Text = player.DisplayData();
+            }
             try
             {
                 soundPlayer.controls.play();
@@ -198,6 +373,11 @@ namespace FinderQuest3D
             }
             catch { }
             Environment.Exit(0);
+        }
+
+        public void GameOver()
+        {
+            // Plan is to close this form and come back to FormMenu
         }
 
         private void buttonExit_Click(object sender, EventArgs e)
