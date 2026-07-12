@@ -113,9 +113,9 @@
             // 
             this.panelGameBottom.BackColor = System.Drawing.Color.Transparent;
             this.panelGameBottom.Controls.Add(this.labelTalkArea);
-            this.panelGameBottom.Location = new System.Drawing.Point(4, -107);
+            this.panelGameBottom.Location = new System.Drawing.Point(0, 0);
             this.panelGameBottom.Name = "panelGameBottom";
-            this.panelGameBottom.Size = new System.Drawing.Size(1255, 886);
+            this.panelGameBottom.Size = new System.Drawing.Size(1280, 720);
             this.panelGameBottom.TabIndex = 6;
             // 
             // labelTalkArea
