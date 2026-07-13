@@ -17,7 +17,7 @@ namespace FinderQuest3D
 {
     public partial class FormRender : Form
     {
-        Time time;
+        public Time time;
         Map map;
         FormMenu form;
         public Players player;
@@ -136,7 +136,7 @@ namespace FinderQuest3D
             string skyPath = Path.Combine(projectPath, "Resources", "walkArea1.png");
             world.GenerateSky(skyPath);
             renderLoop = new Timer();
-            renderLoop.Interval = (int)(1000.0 / 60.0); // ~60 FPS
+            renderLoop.Interval = (int)(1000.0 / 60.0); // 60 FPS
             renderLoop.Tick += RenderLoopTick;
             renderLoop.Start();
         }

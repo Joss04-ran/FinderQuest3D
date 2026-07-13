@@ -34,6 +34,7 @@ namespace FinderQuest3D
                         $"\nYou get {renderForm.activePersons.PersonQuestion.Score} points");
                     renderForm.player.AddScore(renderForm.activePersons.PersonQuestion.Score);
                     renderForm.labelPlayer.Text = renderForm.player.DisplayData();
+                    renderForm.time.AddWithSecond(10);
                 }
                 else MessageBox.Show("Your answer is incorrect ! ");
                 renderForm.ExitTalkArea();

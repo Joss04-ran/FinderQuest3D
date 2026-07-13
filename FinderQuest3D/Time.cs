@@ -83,28 +83,27 @@ namespace FinderQuest3D
         #endregion
 
         #region methods
-        //method utk mengkonversi waktu saat ini (hh:mm:ss) ke detik semua
+        //Method to convert time to second
         public int ConvertToSecond()
         {
             int totalSecond = this.Hour * 3600 + this.Minute * 60 + this.Second;
             return totalSecond;
         }
 
-        //method utk menambah waktu saat ini (hh:mm:ss) dengan detik
+        //Method to add time
         public void AddWithSecond(int detikInputan)
         {
-            //1. Konversikan waktu saat ini ke detik semua
-            //(gunakan method ConvertToSecond)
+            // Convert time to second
             int totalDetikSaatIni = this.ConvertToSecond();
-            //2. Tambahkan total detik saat ini dengan detik yg diinputkan user
+            // Calculate second
             int totalDetik = totalDetikSaatIni + detikInputan;
-            //3. Konversikan total detik (hasil langkah2) ke hh:mm:ss
+            // Convert to time
             this.Hour = totalDetik / 3600;
             this.Minute = totalDetik % 3600 / 60;
             this.Second = totalDetik % 3600 % 60;
         }
 
-        //method utk menampilkan data waktu dalam format hh:mm:ss
+        // Display data
         public string DisplayData()
         {
             string data = this.Hour.ToString().PadLeft(2, '0') + ":" +

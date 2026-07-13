@@ -110,6 +110,7 @@ namespace FinderQuest3D
 
             // Create Texture Sampler State (wrapping/repeating mode)
             var samplerDesc = SamplerStateDescription.Default();
+            samplerDesc.Filter = SharpDX.Direct3D11.Filter.MinMagMipPoint; // pick nearest colour without blending
             samplerDesc.AddressU = TextureAddressMode.Wrap;
             samplerDesc.AddressV = TextureAddressMode.Wrap;
             samplerDesc.AddressW = TextureAddressMode.Wrap;
