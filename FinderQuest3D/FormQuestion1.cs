@@ -25,20 +25,7 @@ namespace FinderQuest3D
 
         private void buttonSubmit_Click(object sender, EventArgs e)
         {
-            if (menu != null)
-            {
-                if (menu.activePersons.CheckAnswer(textBoxAnswer.Text) == true)
-                {
-                    MessageBox.Show($"Your answer is correct ! " +
-                        $"\nYou get {menu.activePersons.PersonQuestion.Score} points");
-                    menu.player.AddScore(menu.activePersons.PersonQuestion.Score);
-                    menu.labelPlayer.Text = menu.player.DisplayData();
-                }
-                else MessageBox.Show("Your answer is incorrect ! ");
-                menu.ExitTalkArea();
-                menu.PlaySound("walk");
-            }
-            else if (renderForm != null)
+            if (renderForm != null)
             {
                 if (renderForm.activePersons.CheckAnswer(textBoxAnswer.Text) == true)
                 {

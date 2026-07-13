@@ -187,7 +187,7 @@ namespace FinderQuest3D
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Finder Quest Game";
             this.Load += new System.EventHandler(this.FormMenu_Load);
-            this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.FormMenu_KeyDown);
+            //this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.FormMenu_KeyDown);
             this.panelGameBottom.ResumeLayout(false);
             this.panelGameBottom.PerformLayout();
             this.panelGameTop.ResumeLayout(false);

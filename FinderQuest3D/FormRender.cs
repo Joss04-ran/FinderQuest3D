@@ -375,7 +375,7 @@ namespace FinderQuest3D
                     soundPlayer.close();
                 }
                 catch { }
-                form.PlaySound("lose");
+                PlaySound("lose");
                 MessageBox.Show("Game Over! Time's Up!");
                 Application.Exit();
             }
