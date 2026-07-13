@@ -18,9 +18,9 @@ namespace FinderQuest3D
 
         public Mesh(string name, int verticesCount, int facesCount)
         {
-            arrayVertices = new Vertex[verticesCount];
-            arrayFaces = new Faces[facesCount];
-            Name = name;
+            this.ArrayVertices = new Vertex[verticesCount];
+            this.ArrayFaces = new Faces[facesCount];
+            this.Name = name;
         }
 
         public string Name { get => name; set => name = value; }

@@ -130,6 +130,7 @@ namespace FinderQuest3D
 
             string personPath = Path.Combine(projectPath, "Resources", "person1.png");
             GenerateWalkArea();
+            camera.Position = map.GetPlayerSpawnPosition();
             world.InitializeFromMap(map, treePath, personPath);
 
             string skyPath = Path.Combine(projectPath, "Resources", "walkArea1.png");
@@ -164,6 +165,27 @@ namespace FinderQuest3D
                 if (!map.isCollision(nextPos, playerRadius))
                 {
                     camera.Position = nextPos;
+
+                    if (map.IsTransitionArea(nextPos))
+                    {
+                        if (walkAreas != null && walkAreas.CheckFinishAllQuestion())
+                        {
+                            walkAreas.NoArea++;
+                            GenerateWalkArea();
+
+                            string projectPath = Path.GetFullPath(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "..", ".."));
+                            string treePath = Path.Combine(projectPath, "Resources", "craftpix-net-385863-free-top-down-trees-pixel-art", "PNG", "Assets_separately", "Trees", "Autumn_tree2.png");
+                            if (!File.Exists(treePath))
+                                treePath = Path.Combine(projectPath, "Resources", "craftpix-net-385863-free-top-down-trees-pixel-art", "PNG", "Assets_separately", "Trees", "Christmas_tree1.png");
+                            string personPath = Path.Combine(projectPath, "Resources", "person1.png");
+
+                            if (walkAreas.NoArea <= 3)
+                            {
+                                world.InitializeFromMap(map, treePath, personPath);
+                                camera.Position = map.GetPlayerSpawnPosition();
+                            }
+                        }
+                    }
                 }
             }
             if (keyStates.TryGetValue(Keys.Left, out bool left) && left)
@@ -200,21 +222,21 @@ namespace FinderQuest3D
             if (walkAreas == null)
             {
                 mapGrid = new int[,]{
-                {5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5},
-                {5, 1, 1, 1, 0, 0, 1, 0, 0, 0, 0, 0, 0, 2, 5},
-                {5, 1, 0, 1, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 5},
-                {5, 1, 0, 1, 0, 0, 1, 3, 0, 0, 0, 0, 0, 0, 5},
-                {5, 1, 0, 1, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0, 5},
-                {5, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 5},
-                {5, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 5},
-                {5, 2, 0, 0, 0, 0, 0, 1, 1, 0, 0, 0, 0, 0, 5},
-                {5, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 5},
-                {5, 0, 0, 3, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 5},
-                {5, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 2, 5},
-                {5, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 5},
-                {5, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 1, 1, 6, 5},
-                {5, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 5},
-                {5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5}
+                {0, 5, 5, 5, 5, 5, 7, 5, 5, 5, 5, 5, 5, 5, 0},
+                {5, 2, 2, 2, 2, 2, 1, 2, 2, 2, 2, 2, 2, 2, 5},
+                {5, 2, 2, 2, 2, 2, 1, 2, 2, 2, 2, 2, 2, 2, 5},
+                {5, 2, 2, 2, 2, 2, 1, 6, 2, 2, 2, 2, 2, 2, 5},
+                {5, 3, 1, 1, 1, 1, 1, 1, 2, 2, 2, 2, 2, 2, 5},
+                {5, 2, 2, 2, 2, 2, 2, 1, 2, 2, 2, 2, 2, 2, 5},
+                {5, 2, 2, 2, 2, 2, 2, 1, 2, 2, 2, 2, 2, 2, 5},
+                {5, 2, 2, 2, 2, 2, 2, 1, 2, 2, 2, 2, 2, 2, 5},
+                {5, 2, 2, 2, 2, 2, 2, 1, 2, 2, 2, 2, 2, 2, 5},
+                {5, 2, 2, 6, 1, 1, 1, 1, 2, 2, 2, 2, 2, 2, 5},
+                {5, 2, 2, 2, 2, 2, 2, 1, 2, 2, 2, 2, 2, 2, 5},
+                {5, 2, 2, 2, 2, 2, 2, 1, 2, 2, 2, 2, 2, 2, 5},
+                {5, 2, 2, 2, 2, 2, 2, 1, 1, 1, 1, 1, 1, 6, 5},
+                {5, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 5},
+                {0, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 0}
             };
                 walkAreas = new WalkAreas(1, "The Barn", FinderQuest3D.Properties.Resources.walkArea1);
                 walkAreas.AddMap(mapGrid);
@@ -229,21 +251,21 @@ namespace FinderQuest3D
             else if (walkAreas.NoArea == 2)
             {
                 mapGrid = new int[,]{
-                {5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5},
+                {0, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 0},
                 {5, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2, 5},
                 {5, 1, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 5},
-                {5, 1, 0, 1, 0, 0, 0, 3, 0, 0, 0, 0, 0, 0, 5},
+                {5, 1, 0, 1, 0, 0, 0, 6, 0, 0, 0, 0, 0, 0, 5},
                 {5, 1, 0, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0, 0, 5},
                 {5, 0, 0, 0, 0, 0, 0, 1, 0, 1, 0, 0, 0, 0, 5},
                 {5, 0, 0, 0, 0, 0, 0, 1, 0, 1, 0, 0, 0, 0, 5},
-                {5, 2, 0, 0, 0, 0, 0, 1, 1, 1, 0, 0, 0, 0, 5},
+                {5, 3, 0, 0, 0, 0, 0, 1, 1, 1, 0, 0, 0, 0, 7},
                 {5, 0, 0, 0, 0, 0, 0, 1, 0, 1, 0, 0, 0, 0, 5},
-                {5, 0, 0, 3, 0, 0, 0, 1, 0, 1, 0, 0, 0, 0, 5},
+                {5, 0, 0, 0, 0, 0, 0, 1, 0, 1, 0, 0, 0, 0, 5},
                 {5, 0, 0, 0, 0, 0, 0, 1, 0, 1, 0, 0, 0, 2, 5},
                 {5, 0, 0, 0, 0, 0, 0, 1, 0, 1, 0, 0, 0, 0, 5},
                 {5, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 1, 1, 6, 5},
                 {5, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 5},
-                {5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5}
+                {0, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 0}
             };
                 walkAreas = new WalkAreas(2, "The Field", FinderQuest3D.Properties.Resources.walkArea2);
                 walkAreas.AddMap(mapGrid);
@@ -259,13 +281,13 @@ namespace FinderQuest3D
                 {5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5},
                 {5, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2, 5},
                 {5, 1, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 5},
-                {5, 1, 0, 1, 0, 0, 0, 3, 0, 0, 0, 0, 0, 0, 5},
+                {5, 1, 0, 1, 0, 0, 0, 6, 0, 0, 0, 0, 0, 0, 5},
                 {5, 1, 0, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0, 0, 5},
                 {5, 0, 0, 0, 0, 0, 0, 1, 0, 1, 0, 0, 0, 0, 5},
+                {5, 0, 0, 0, 0, 0, 0, 1, 0, 1, 0, 0, 0, 0, 7},
+                {5, 3, 0, 0, 0, 0, 0, 1, 1, 1, 0, 0, 0, 0, 5},
                 {5, 0, 0, 0, 0, 0, 0, 1, 0, 1, 0, 0, 0, 0, 5},
-                {5, 2, 0, 0, 0, 0, 0, 1, 1, 1, 0, 0, 0, 0, 5},
                 {5, 0, 0, 0, 0, 0, 0, 1, 0, 1, 0, 0, 0, 0, 5},
-                {5, 0, 0, 3, 0, 0, 0, 1, 0, 1, 0, 0, 0, 0, 5},
                 {5, 0, 0, 0, 0, 0, 0, 1, 0, 1, 0, 0, 0, 2, 5},
                 {5, 0, 0, 0, 0, 0, 0, 1, 0, 1, 0, 0, 0, 0, 5},
                 {5, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 1, 1, 6, 5},
@@ -282,9 +304,7 @@ namespace FinderQuest3D
             }
             else if (walkAreas.NoArea > 3)
             {
-                PlaySound("win");
-                MessageBox.Show("Congratulations! You win the game!!!");
-                // GameOver();
+                GameOver();
             }
             walkAreas.DisplayPicture(this);
             labelArea.Text = walkAreas.DisplayData();
@@ -353,7 +373,7 @@ namespace FinderQuest3D
             labelTalkArea.BringToFront();
             panelGameBottom.BringToFront();
             activePersons.DisplayPicture(panelGameBottom);
-            activePersons.Picture.Visible = true; // Ensure it is visible in talk area!
+            activePersons.Picture.Visible = true; 
             activePersons.Picture.Size = new Size(250, 400);
             activePersons.Picture.Location = new System.Drawing.Point(350, 200);
             activePersons.DisplayDialogs(panelGameBottom);
@@ -420,7 +440,9 @@ namespace FinderQuest3D
 
         public void GameOver()
         {
-            // Plan is to close this form and come back to FormMenu
+            PlaySound("win");
+            MessageBox.Show("Congratulations! You win the game!!!");
+            this.Close();
         }
 
         private void buttonExit_Click(object sender, EventArgs e)

@@ -316,7 +316,7 @@ namespace FinderQuest3D
                     {
                         AddBillboard(treeTexturePath, new Vector3(x, 0.0f, z), new Vector3(8.0f, 16.0f, -2.0f));
                     }
-                    else if (cell == 3 || cell == 6)
+                    else if (cell == 6)
                     {
                         Vector3 personPos = new Vector3(x, 0.0f, z);
                         if (walkArea != null && walkArea.ListPersons != null && personIndex < walkArea.ListPersons.Count)

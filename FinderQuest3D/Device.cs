@@ -28,7 +28,7 @@ namespace FinderQuest3D
         private SharpDX.Direct3D11.Buffer constantBuffer;
         private RasterizerState rasterizerState;
         private BlendState blendState;
-        private bool isDisposed = false;
+        private bool isDisposed;
 
         private int width;
         private int height;
@@ -37,10 +37,12 @@ namespace FinderQuest3D
         {
             this.Width = width;
             this.Height = height;
+            this.IsDisposed = false;
         }
 
         public int Width { get => width; set => width = value; }
         public int Height { get => height; set => height = value; }
+        public bool IsDisposed { get => isDisposed; private set => isDisposed = value; }
 
         public Device(IntPtr windowHandle, int width, int height)
         {
@@ -249,20 +251,20 @@ namespace FinderQuest3D
 
         public void Clear(Color4 color)
         {
-            if (isDisposed || context == null || renderView == null || depthView == null) return;
+            if (this.IsDisposed || context == null || renderView == null || depthView == null) return;
             context.ClearRenderTargetView(renderView, color);
             context.ClearDepthStencilView(depthView, DepthStencilClearFlags.Depth | DepthStencilClearFlags.Stencil, 1.0f, 0);
         }
 
         public void Present()
         {
-            if (isDisposed || swapChain == null) return;
+            if (this.IsDisposed || swapChain == null) return;
             swapChain.Present(1, PresentFlags.None);
         }
 
         public void Render(Mesh mesh, Camera camera)
         {
-            if (isDisposed || context == null || mesh == null || camera == null)
+            if (this.IsDisposed || context == null || mesh == null || camera == null)
                 return;
 
             if (mesh.VertexBuffer == null)
@@ -344,8 +346,8 @@ namespace FinderQuest3D
         {
             try
             {
-                if (isDisposed) return;
-                isDisposed = true;
+                if (this.IsDisposed) return;
+                this.IsDisposed = true;
 
                 constantBuffer?.Dispose();
                 samplerState?.Dispose();

@@ -12,12 +12,14 @@ namespace FinderQuest3D
     // Class for parent on every area, like WalkArea or TalkArea
     public abstract class Map
     {
-        // 0 : Grass, 1 : Road, 2 : Trees, 3 : Person, 4 : Building, 5 : Fence (or wall)
+        // 0 : Grass, 1 : Road, 2 : Trees, 3 : Player, 5 : Fence 
         // 6 : Persons, 7 : Air (to move into next map)
         private int[,] grid;
         // Composition : Map has Mesh. Map cannot exist without Mesh
         private Mesh mesh;
         private float tileSize;
+        private int width;
+        private int height;
 
         protected Map()
         {
@@ -31,8 +33,8 @@ namespace FinderQuest3D
 
         public void AddMap(int[,] grid)
         {
-            Grid = grid;
-            Mesh = BuildMapMesh();
+            this.Grid = grid;
+            this.Mesh = BuildMapMesh();
         }
 
 
@@ -68,8 +70,31 @@ namespace FinderQuest3D
         private bool IsWalkable(int x, int z)
         {
             int cell = GetCell(x, z);
-            // 0: Grass and 1: Road are walkable. Other tiles are obstacles.
-            return cell == 0 || cell == 1 || cell == 2;
+            // 0: Grass, 1: Road, 3: Player, 6: Person, 7: Air are walkable.
+            return cell == 0 || cell == 1 || cell == 3 || cell == 6 || cell == 7;
+        }
+
+        public bool IsTransitionArea(Vector3 position)
+        {
+            Vector3 cellPos = position / tileSize;
+            int x = (int)Math.Floor(cellPos.X);
+            int z = (int)Math.Floor(cellPos.Z);
+            return GetCell(x, z) == 7;
+        }
+
+        public Vector3 GetPlayerSpawnPosition()
+        {
+            for (int r = 0; r < Height; r++)
+            {
+                for (int c = 0; c < Width; c++)
+                {
+                    if (GetCell(c, r) == 3)
+                    {
+                        return new Vector3(c * tileSize + tileSize / 2, 4.0f, r * tileSize + tileSize / 2);
+                    }
+                }
+            }
+            return new Vector3(150.0f, 4.0f, 150.0f); // Default if not found
         }
 
         // Method for procedurally generated maps 
@@ -91,12 +116,12 @@ namespace FinderQuest3D
                     // By default, render a ground quad.
                     // If it is road, render road texture. Otherwise, grass.
                     bool isRoad = false;
-                    if (cell == 1)
+                    if (cell == 1 || cell == 3)
                         isRoad = true;
                     Vector2 uvMin;
                     if (isRoad)
                     {
-                        uvMin = new Vector2(0.333f, 0.0f);
+                        uvMin = new Vector2(0.25f, 0.0f);
                     }
                     else
                     {
@@ -105,11 +130,11 @@ namespace FinderQuest3D
                     Vector2 uvMax;
                     if (isRoad)
                     {
-                        uvMax = new Vector2(0.666f, 1.0f);
+                        uvMax = new Vector2(0.5f, 1.0f);
                     }
                     else
                     {
-                        uvMax = new Vector2(0.333f, 1.0f);
+                        uvMax = new Vector2(0.25f, 1.0f);
                     }
 
                     AddQuad(vertices, faces,
@@ -126,33 +151,41 @@ namespace FinderQuest3D
                     if (cell == 5)
                     {
                         float height = 8.0f; 
-                        float halfSize = tileSize / 2.0f;
-                        Vector2 fenceUvMin = new Vector2(0.66f, 0.0f);
-                        Vector2 fenceUvMax = new Vector2(1.0f, 1.0f);
+                        Vector2 fenceUvMin = new Vector2(0.5f, 0.0f);
+                        Vector2 fenceUvMax = new Vector2(0.75f, 1.0f);
 
-                        // Quad 1: X-aligned (parallel to X-axis)
-                        AddQuad(vertices, faces,
-                            new Vector3(xStart, 0.0f, zStart + halfSize),
-                            new Vector3(xStart, height, zStart + halfSize),
-                            new Vector3(xStart + tileSize, height, zStart + halfSize),
-                            new Vector3(xStart + tileSize, 0.0f, zStart + halfSize),
-                            new Vector2(fenceUvMin.X, fenceUvMax.Y),
-                            new Vector2(fenceUvMin.X, fenceUvMin.Y),
-                            new Vector2(fenceUvMax.X, fenceUvMin.Y),
-                            new Vector2(fenceUvMax.X, fenceUvMax.Y),
-                            new Vector3(0, 0, -1));
+                        // Check neighbors to determine orientation
+                        bool connectZ = GetCell(c, r - 1) == 5 || GetCell(c, r + 1) == 5;
+                        bool connectX = GetCell(c - 1, r) == 5 || GetCell(c + 1, r) == 5;
 
-                        //// Quad 2: Z-aligned (parallel to Z-axis)
-                        //AddQuad(vertices, faces,
-                        //    new Vector3(xStart + halfSize, 0.0f, zStart),
-                        //    new Vector3(xStart + halfSize, height, zStart),
-                        //    new Vector3(xStart + halfSize, height, zStart + tileSize),
-                        //    new Vector3(xStart + halfSize, 0.0f, zStart + tileSize),
-                        //    new Vector2(fenceUvMin.X, fenceUvMax.Y),
-                        //    new Vector2(fenceUvMin.X, fenceUvMin.Y),
-                        //    new Vector2(fenceUvMax.X, fenceUvMin.Y),
-                        //    new Vector2(fenceUvMax.X, fenceUvMax.Y),
-                        //    new Vector3(-1, 0, 0));
+                        if (connectZ && !connectX)
+                        {
+                            // Z-aligned
+                            AddQuad(vertices, faces,
+                                new Vector3(xStart + tileSize / 2, 0.0f, zStart),
+                                new Vector3(xStart + tileSize / 2, height, zStart),
+                                new Vector3(xStart + tileSize / 2, height, zStart + tileSize),
+                                new Vector3(xStart + tileSize / 2, 0.0f, zStart + tileSize),
+                                new Vector2(fenceUvMin.X, fenceUvMax.Y),
+                                new Vector2(fenceUvMin.X, fenceUvMin.Y),
+                                new Vector2(fenceUvMax.X, fenceUvMin.Y),
+                                new Vector2(fenceUvMax.X, fenceUvMax.Y),
+                                new Vector3(1, 0, 0));
+                        }
+                        else
+                        {
+                            // X-aligned
+                            AddQuad(vertices, faces,
+                                new Vector3(xStart, 0.0f, zStart + tileSize / 2),
+                                new Vector3(xStart, height, zStart + tileSize / 2),
+                                new Vector3(xStart + tileSize, height, zStart + tileSize / 2),
+                                new Vector3(xStart + tileSize, 0.0f, zStart + tileSize / 2),
+                                new Vector2(fenceUvMin.X, fenceUvMax.Y),
+                                new Vector2(fenceUvMin.X, fenceUvMin.Y),
+                                new Vector2(fenceUvMax.X, fenceUvMin.Y),
+                                new Vector2(fenceUvMax.X, fenceUvMax.Y),
+                                new Vector3(0, 0, 1));
+                        }
                     }
                 }
             }
@@ -192,6 +225,7 @@ namespace FinderQuest3D
             string grassPath = Path.Combine(projectPath, "Resources", "Tileset", "Grass.png");
             string roadPath = Path.Combine(projectPath, "Resources", "Tileset", "Gravel.png");
             string fencePath = Path.Combine(projectPath, "Resources", "Tileset", "Fence.png");
+            string treePath = Path.Combine(projectPath, "Resources", "Tileset", "Tree.png");
 
             // Fallback checking in debug folder
             if (!File.Exists(grassPath))
@@ -199,12 +233,13 @@ namespace FinderQuest3D
                 grassPath = Path.Combine(baseDir, "Resources", "Tileset", "Grass.png");
                 roadPath = Path.Combine(baseDir, "Resources", "Tileset", "Gravel.png");
                 fencePath = Path.Combine(baseDir, "Resources", "Tileset", "Fence.png");
+                treePath = Path.Combine(baseDir, "Resources", "Tileset", "Tree.png");
             }
 
             int tileW = 16;
             int tileH = 16;
 
-            using (var atlas = new Bitmap(tileW * 3, tileH))
+            using (var atlas = new Bitmap(tileW * 4, tileH))
             using (var g = Graphics.FromImage(atlas))
             {
                 g.Clear(System.Drawing.Color.Transparent);
@@ -230,6 +265,7 @@ namespace FinderQuest3D
                 DrawTile(grassPath, 0, System.Drawing.Color.Green);
                 DrawTile(roadPath, 1, System.Drawing.Color.Gray);
                 DrawTile(fencePath, 2, System.Drawing.Color.SaddleBrown);
+                DrawTile(treePath, 3, System.Drawing.Color.DarkGreen);
 
                 var rect = new System.Drawing.Rectangle(0, 0, atlas.Width, atlas.Height);
                 var bmpData = atlas.LockBits(rect, ImageLockMode.ReadOnly, PixelFormat.Format32bppArgb);
