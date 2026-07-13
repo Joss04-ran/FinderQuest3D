@@ -56,8 +56,7 @@ namespace FinderQuest3D
             string data = $"Hi.. I'm {this.Name}";
             return data;
         }
-        public void DisplayPicture(Control container) // Copy untuk tiap gambar. 
-            // Rencananya akan dibuatkan override dengan class Game sebagai parent
+        public void DisplayPicture(Control container)
         {
             this.Picture.Parent = container;
             this.Picture.SizeMode = PictureBoxSizeMode.StretchImage;

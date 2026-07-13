@@ -1,9 +1,10 @@
 using SharpDX;
+using SharpDX.Windows;
 using System;
 using System.Collections.Generic;
-using System.Diagnostics;
 using System.ComponentModel;
 using System.Data;
+using System.Diagnostics;
 using System.Drawing;
 using System.IO;
 using System.Linq;
@@ -42,17 +43,20 @@ namespace FinderQuest3D
         {
             InitializeComponent();
             panelGameBottom.Visible = false;
-            panelGameTop.Visible = true;
             this.KeyPreview = true;
             this.Focus();
             this.Activate();
             time = new Time(0, 10, 0);
-            player = new Players("Jonathan", null, new Size(80, 110), new System.Drawing.Point(10, 420), time);
+            player = new Players("Jonathan", 
+                Properties.Resources.player_front, new Size(80, 110), 
+                new System.Drawing.Point(10, 420), time);
             timerTime.Interval = 1000;
             timerTime.Start();
             this.DoubleBuffered = true;
             frameTimer.Start();
             form = (FormMenu)this.Owner;
+            panelDashboard.Visible = true;
+            panelDashboard.BringToFront();
             buttonExit.Visible = false;
             buttonExit.Enabled = false;
         }
@@ -109,6 +113,9 @@ namespace FinderQuest3D
             {
                 labelPlayer.Text = player.DisplayData();
             }
+            player.DisplayPicture(panelPlayerProfile);
+            player.Picture.Size = panelPlayerProfile.Size;
+            player.Picture.Location = new System.Drawing.Point(0, 0);
             device = new Device(this.Handle, this.ClientSize.Width, this.ClientSize.Height);
             camera = new Camera(new Vector3(150.0f, 4.0f, 150.0f), 1.0f);
             world = new World3D();
@@ -345,11 +352,10 @@ namespace FinderQuest3D
             labelTalkArea.Text = talkAreas.DisplayData();
             labelTalkArea.BringToFront();
             panelGameBottom.BringToFront();
-            if (player != null) player.Picture.Visible = false;
             activePersons.DisplayPicture(panelGameBottom);
             activePersons.Picture.Visible = true; // Ensure it is visible in talk area!
-            activePersons.Picture.Size = new Size(150, 200);
-            activePersons.Picture.Location = new System.Drawing.Point(400, 250);
+            activePersons.Picture.Size = new Size(250, 400);
+            activePersons.Picture.Location = new System.Drawing.Point(350, 200);
             activePersons.DisplayDialogs(panelGameBottom);
         }
 
@@ -409,7 +415,7 @@ namespace FinderQuest3D
                 device?.Dispose();
             }
             catch { }
-            Environment.Exit(0);
+            //Environment.Exit(0);
         }
 
         public void GameOver()
@@ -420,6 +426,11 @@ namespace FinderQuest3D
         private void buttonExit_Click(object sender, EventArgs e)
         {
             Application.Exit();
+        }
+
+        private void labelPlayer_Click(object sender, EventArgs e)
+        {
+            // Empty
         }
     }
 }

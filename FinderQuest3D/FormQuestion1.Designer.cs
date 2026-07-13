@@ -31,14 +31,17 @@ namespace FinderQuest3D
             this.labelQuestion = new System.Windows.Forms.Label();
             this.buttonSubmit = new System.Windows.Forms.Button();
             this.textBoxAnswer = new System.Windows.Forms.TextBox();
-            this.label1 = new System.Windows.Forms.Label();
+            this.panelQuestion1 = new System.Windows.Forms.Panel();
+            this.panelQuestion2 = new System.Windows.Forms.Panel();
+            this.panelQuestion3 = new System.Windows.Forms.Panel();
+            this.panelPersonProfile = new System.Windows.Forms.Panel();
             this.SuspendLayout();
             // 
             // labelQuestion
             // 
             this.labelQuestion.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(193)))));
             this.labelQuestion.Font = new System.Drawing.Font("Microsoft Sans Serif", 16.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.labelQuestion.Location = new System.Drawing.Point(179, 63);
+            this.labelQuestion.Location = new System.Drawing.Point(355, 37);
             this.labelQuestion.Name = "labelQuestion";
             this.labelQuestion.Size = new System.Drawing.Size(414, 195);
             this.labelQuestion.TabIndex = 7;
@@ -52,7 +55,7 @@ namespace FinderQuest3D
             this.buttonSubmit.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.buttonSubmit.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.buttonSubmit.ForeColor = System.Drawing.Color.White;
-            this.buttonSubmit.Location = new System.Drawing.Point(326, 331);
+            this.buttonSubmit.Location = new System.Drawing.Point(502, 305);
             this.buttonSubmit.Name = "buttonSubmit";
             this.buttonSubmit.Size = new System.Drawing.Size(119, 33);
             this.buttonSubmit.TabIndex = 6;
@@ -63,35 +66,63 @@ namespace FinderQuest3D
             // textBoxAnswer
             // 
             this.textBoxAnswer.Font = new System.Drawing.Font("Microsoft Sans Serif", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.textBoxAnswer.Location = new System.Drawing.Point(231, 276);
+            this.textBoxAnswer.Location = new System.Drawing.Point(407, 250);
             this.textBoxAnswer.Name = "textBoxAnswer";
             this.textBoxAnswer.Size = new System.Drawing.Size(338, 36);
             this.textBoxAnswer.TabIndex = 5;
             // 
-            // label1
+            // panelQuestion1
             // 
-            this.label1.AutoSize = true;
-            this.label1.BackColor = System.Drawing.Color.Transparent;
-            this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 19.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label1.Location = new System.Drawing.Point(85, 272);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(136, 38);
-            this.label1.TabIndex = 4;
-            this.label1.Text = "Answer:";
+            this.panelQuestion1.BackColor = System.Drawing.SystemColors.Control;
+            this.panelQuestion1.Location = new System.Drawing.Point(38, 37);
+            this.panelQuestion1.Name = "panelQuestion1";
+            this.panelQuestion1.Size = new System.Drawing.Size(78, 54);
+            this.panelQuestion1.TabIndex = 8;
+            // 
+            // panelQuestion2
+            // 
+            this.panelQuestion2.BackColor = System.Drawing.SystemColors.Control;
+            this.panelQuestion2.Location = new System.Drawing.Point(38, 119);
+            this.panelQuestion2.Name = "panelQuestion2";
+            this.panelQuestion2.Size = new System.Drawing.Size(78, 54);
+            this.panelQuestion2.TabIndex = 9;
+            // 
+            // panelQuestion3
+            // 
+            this.panelQuestion3.BackColor = System.Drawing.SystemColors.Control;
+            this.panelQuestion3.Location = new System.Drawing.Point(38, 206);
+            this.panelQuestion3.Name = "panelQuestion3";
+            this.panelQuestion3.Size = new System.Drawing.Size(78, 54);
+            this.panelQuestion3.TabIndex = 10;
+            // 
+            // panelPersonProfile
+            // 
+            this.panelPersonProfile.BackColor = System.Drawing.Color.Transparent;
+            this.panelPersonProfile.BackgroundImage = global::FinderQuest3D.Properties.Resources.person3;
+            this.panelPersonProfile.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.panelPersonProfile.Location = new System.Drawing.Point(155, 37);
+            this.panelPersonProfile.Name = "panelPersonProfile";
+            this.panelPersonProfile.Size = new System.Drawing.Size(177, 281);
+            this.panelPersonProfile.TabIndex = 11;
             // 
             // FormQuestion1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.BackColor = System.Drawing.Color.DimGray;
             this.BackgroundImage = global::FinderQuest3D.Properties.Resources.backgroundQuestion;
-            this.ClientSize = new System.Drawing.Size(800, 391);
+            this.ClientSize = new System.Drawing.Size(841, 391);
+            this.Controls.Add(this.panelPersonProfile);
+            this.Controls.Add(this.panelQuestion3);
+            this.Controls.Add(this.panelQuestion2);
+            this.Controls.Add(this.panelQuestion1);
             this.Controls.Add(this.labelQuestion);
             this.Controls.Add(this.buttonSubmit);
             this.Controls.Add(this.textBoxAnswer);
-            this.Controls.Add(this.label1);
+            this.DoubleBuffered = true;
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.Name = "FormQuestion1";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "FormQuestion1";
             this.Load += new System.EventHandler(this.FormQuestion1_Load);
             this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.FormQuestion1_KeyDown);
             this.ResumeLayout(false);
@@ -104,6 +135,9 @@ namespace FinderQuest3D
         private System.Windows.Forms.Label labelQuestion;
         private System.Windows.Forms.Button buttonSubmit;
         private System.Windows.Forms.TextBox textBoxAnswer;
-        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.Panel panelQuestion1;
+        private System.Windows.Forms.Panel panelQuestion2;
+        private System.Windows.Forms.Panel panelQuestion3;
+        private System.Windows.Forms.Panel panelPersonProfile;
     }
 }

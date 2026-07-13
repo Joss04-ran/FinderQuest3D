@@ -5,6 +5,7 @@ using System.Data;
 using System.Diagnostics.Eventing.Reader;
 using System.Drawing;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
@@ -25,7 +26,7 @@ namespace FinderQuest3D
 
         private void buttonSubmit_Click(object sender, EventArgs e)
         {
-            if (renderForm != null)
+            try
             {
                 if (renderForm.activePersons.CheckAnswer(textBoxAnswer.Text) == true)
                 {
@@ -38,6 +39,7 @@ namespace FinderQuest3D
                 renderForm.ExitTalkArea();
                 renderForm.PlaySound("walk");
             }
+            catch { }
             this.Close();
         }
         
@@ -48,16 +50,22 @@ namespace FinderQuest3D
 
         private void FormQuestion1_Load(object sender, EventArgs e)
         {
-            if (this.Owner is FormMenu)
-            {
-                menu = (FormMenu)this.Owner;
-                labelQuestion.Text = menu.activePersons.PersonQuestion.Question;
-            }
-            else if (this.Owner is FormRender)
+            if (this.Owner is FormRender)
             {
                 renderForm = (FormRender)this.Owner;
                 labelQuestion.Text = renderForm.activePersons.PersonQuestion.Question;
             }
+            panelPersonProfile.BackgroundImage = null;
+            panelPersonProfile.BackgroundImageLayout = ImageLayout.Stretch;
+            renderForm.activePersons.DisplayPicture(panelPersonProfile);
+
+            renderForm.activePersons.Picture.Size = panelPersonProfile.Size;
+            renderForm.activePersons.Picture.Location = new Point(0, 0);
+        }
+
+        protected override void OnFormClosed(FormClosedEventArgs e)
+        {
+            this.Close();
         }
 
         private void FormQuestion1_KeyDown(object sender, KeyEventArgs e)
