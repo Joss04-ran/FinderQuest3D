@@ -46,7 +46,7 @@ namespace FinderQuest3D
             this.KeyPreview = true;
             this.Focus();
             this.Activate();
-            time = new Time(0, 10, 0);
+            time = new Time(0, 0, 30);
             player = new Players("Jonathan", 
                 Properties.Resources.player_front, new Size(80, 110), 
                 new System.Drawing.Point(10, 420), time);
@@ -403,7 +403,7 @@ namespace FinderQuest3D
                 catch { }
                 PlaySound("lose");
                 MessageBox.Show("Game Over! Time's Up!");
-                Application.Exit();
+                this.Close();
             }
         }
 

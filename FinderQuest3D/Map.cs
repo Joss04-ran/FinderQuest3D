@@ -84,13 +84,13 @@ namespace FinderQuest3D
 
         public Vector3 GetPlayerSpawnPosition()
         {
-            for (int r = 0; r < Height; r++)
+            for (int x = 0; x < Height; x++)
             {
-                for (int c = 0; c < Width; c++)
+                for (int z = 0; z < Width; z++)
                 {
-                    if (GetCell(c, r) == 3)
+                    if (GetCell(x, z) == 3)
                     {
-                        return new Vector3(c * tileSize + tileSize / 2, 4.0f, r * tileSize + tileSize / 2);
+                        return new Vector3(x * tileSize + tileSize / 2, 4.0f, z * tileSize + tileSize / 2);
                     }
                 }
             }
