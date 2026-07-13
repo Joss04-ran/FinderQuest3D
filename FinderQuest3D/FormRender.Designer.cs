@@ -54,7 +54,7 @@
             this.panelDashboard.ForeColor = System.Drawing.Color.Black;
             this.panelDashboard.Location = new System.Drawing.Point(12, 545);
             this.panelDashboard.Name = "panelDashboard";
-            this.panelDashboard.Size = new System.Drawing.Size(1237, 171);
+            this.panelDashboard.Size = new System.Drawing.Size(1256, 171);
             this.panelDashboard.TabIndex = 0;
             // 
             // labelTime
@@ -82,7 +82,7 @@
             this.panelGameTop.Controls.Add(this.labelArea);
             this.panelGameTop.Location = new System.Drawing.Point(3, 5);
             this.panelGameTop.Name = "panelGameTop";
-            this.panelGameTop.Size = new System.Drawing.Size(1227, 165);
+            this.panelGameTop.Size = new System.Drawing.Size(1248, 165);
             this.panelGameTop.TabIndex = 5;
             // 
             // labelPlayer
