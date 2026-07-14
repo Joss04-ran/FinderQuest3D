@@ -16,8 +16,8 @@ namespace FinderQuest3D
 {
     public partial class FormQuestionEasy : Form
     {
-        FormMenu menu;
         FormRender renderForm;
+        int answeredAmount = 0;
 
         public FormQuestionEasy()
         {
@@ -28,11 +28,12 @@ namespace FinderQuest3D
         {
             try
             {
-                if (renderForm.activePersons.CheckAnswer(textBoxAnswer.Text) == true)
+                answeredAmount++;
+                if (renderForm.activePersons.CheckAnswer(textBoxAnswer.Text, answeredAmount) == true)
                 {
                     MessageBox.Show($"Your answer is correct ! " +
-                        $"\nYou get {renderForm.activePersons.PersonQuestion.Score} points");
-                    renderForm.player.AddScore(renderForm.activePersons.PersonQuestion.Score);
+                        $"\nYou get {renderForm.activePersons.PersonQuestion[answeredAmount].Score} points");
+                    renderForm.player.AddScore(renderForm.activePersons.PersonQuestion[answeredAmount].Score);
                     renderForm.labelPlayer.Text = renderForm.player.DisplayData();
                     renderForm.time.AddWithSecond(20);
                 }
@@ -54,7 +55,7 @@ namespace FinderQuest3D
             if (this.Owner is FormRender)
             {
                 renderForm = (FormRender)this.Owner;
-                labelQuestion.Text = renderForm.activePersons.PersonQuestion.Question;
+                labelQuestion.Text = renderForm.activePersons.PersonQuestion[answeredAmount].Question;
             }
             panelPersonProfile.BackgroundImage = null;
             panelPersonProfile.BackgroundImageLayout = ImageLayout.Stretch;

@@ -18,8 +18,9 @@ namespace FinderQuest3D
     public partial class FormRender : Form
     {
         public Time time;
+        public Time playTime;
         Map map;
-        FormMenu form;
+        FormGameStart form;
         public Players player;
         private Device device;
         private Camera camera;
@@ -37,24 +38,28 @@ namespace FinderQuest3D
         private Stopwatch frameTimer = new Stopwatch();
         private const double TargetFrameTime = 1000.0 / 60.0;
         private bool isExit = false;
+        private bool isComplete = false;
         private Timer renderLoop;
 
-        public FormRender()
+        public FormRender(FormGameStart ownerForm)
         {
             InitializeComponent();
+            this.Owner = ownerForm;
+            form = ownerForm;
             panelGameBottom.Visible = false;
             this.KeyPreview = true;
             this.Focus();
             this.Activate();
-            time = new Time(0, 1, 0);
-            player = new Players("Jonathan", 
+            if (form.difficult == "easy") time = new Time(0, 1, 0);
+            else if (form.difficult == "hard") time = new Time(0, 0, 45);
+            playTime = new Time(0, 0, 0);
+            player = new Players(form.name, 
                 Properties.Resources.player_front, new Size(80, 110), 
-                new System.Drawing.Point(10, 420), time);
+                new System.Drawing.Point(10, 420), playTime);
             timerTime.Interval = 1000;
             timerTime.Start();
             this.DoubleBuffered = true;
             frameTimer.Start();
-            form = (FormMenu)this.Owner;
             panelDashboard.Visible = true;
             panelDashboard.BringToFront();
             buttonExit.Visible = false;
@@ -252,13 +257,13 @@ namespace FinderQuest3D
             {
                 mapGrid = new int[,]{
                 {0, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 0},
-                {5, 1, 1, 1, 2, 2, 3, 2, 2, 2, 2, 2, 2, 2, 5},
+                {5, 1, 1, 6, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 5},
                 {5, 1, 2, 1, 2, 2, 1, 2, 1, 1, 1, 1, 1, 1, 5},
-                {5, 1, 2, 6, 2, 2, 1, 2, 2, 2, 2, 2, 2, 1, 5},
+                {5, 1, 2, 1, 2, 2, 1, 2, 2, 2, 2, 2, 2, 1, 5},
                 {5, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 7},
-                {5, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 1, 5},
-                {5, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 1, 5},
-                {5, 2, 2, 2, 2, 2, 2, 2, 2, 2, 1, 2, 2, 1, 5},
+                {5, 1, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 1, 5},
+                {5, 1, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 1, 5},
+                {5, 3, 2, 2, 2, 2, 2, 2, 2, 2, 1, 2, 2, 1, 5},
                 {5, 2, 2, 2, 2, 2, 2, 2, 2, 2, 1, 2, 2, 1, 5},
                 {5, 2, 6, 2, 1, 1, 1, 1, 2, 2, 1, 2, 2, 1, 5},
                 {5, 2, 1, 2, 2, 2, 2, 1, 2, 2, 1, 2, 2, 1, 5},
@@ -382,6 +387,7 @@ namespace FinderQuest3D
         private void timerTime_Tick(object sender, EventArgs e)
         {
             time.AddWithSecond(-1);
+            playTime.AddWithSecond(1);
             labelTime.Text = time.DisplayData();
             if (player != null)
             {
@@ -440,9 +446,17 @@ namespace FinderQuest3D
 
         public void GameOver()
         {
-            PlaySound("win");
-            MessageBox.Show("Congratulations! You win the game!!!");
-            this.Close();
+            isComplete = true;
+            try
+            {
+                if (isComplete)
+                {
+                    PlaySound("win");
+                    MessageBox.Show("Congratulations! You win the game!!!");
+                    this.Close();
+                }
+            }
+            catch { }
         }
 
         private void buttonExit_Click(object sender, EventArgs e)

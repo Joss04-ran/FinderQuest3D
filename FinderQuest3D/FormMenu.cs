@@ -34,11 +34,9 @@ namespace FinderQuest3D
 
         private void StartGame()
         {
-            using (FormRender form = new FormRender())
-            {
-                form.Owner = this;
-                form.ShowDialog();
-            }
+            FormGameStart form = new FormGameStart();
+            form.Owner = this;
+            form.ShowDialog();
         }
 
         private void buttonPlay_Click(object sender, EventArgs e)

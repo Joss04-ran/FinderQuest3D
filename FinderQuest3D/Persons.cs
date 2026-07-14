@@ -17,7 +17,7 @@ namespace FinderQuest3D
         private PictureBox picture;
         private string dialog;
         private bool solvedStatus;
-        private Questions personQuestion; // Composition
+        private List<Questions> personQuestion; // Composition
         private Vector3 position;
         #endregion
 
@@ -33,6 +33,7 @@ namespace FinderQuest3D
             this.Picture.Size = size;
             this.Dialog = dialog;
             this.SolvedStatus = false;
+            this.PersonQuestion = new List<Questions>();
         }
         #endregion
 
@@ -42,14 +43,15 @@ namespace FinderQuest3D
         public PictureBox Picture { get => picture; set => picture = value; }
         public string Dialog { get => dialog; set => dialog = value; }
         public bool SolvedStatus { get => solvedStatus; set => solvedStatus = value; }
-        public Questions PersonQuestion { get => personQuestion; private set => personQuestion = value; }
+        public List<Questions> PersonQuestion { get => personQuestion; private set => personQuestion = value; }
         public Vector3 Position { get => position; set => position = value; }
         #endregion
 
         #region Methods
         public void AddQuestion(string question, string answer, int score)
         {
-            personQuestion = new Questions(question, answer, score);
+            Questions questions = new Questions(question, answer, score);
+            personQuestion.Add(questions);
         }
         public string DisplayData()
         {
@@ -81,9 +83,9 @@ namespace FinderQuest3D
             labelDialog.BringToFront();
         }
 
-        public bool CheckAnswer(string playerAnswer)
+        public bool CheckAnswer(string playerAnswer, int amount)
         {
-            if (playerAnswer.ToLower() == this.PersonQuestion.Answer.ToLower())
+            if (playerAnswer.ToLower() == this.PersonQuestion[amount].Answer.ToLower())
             {
                 this.SolvedStatus = true;
                 return true;
