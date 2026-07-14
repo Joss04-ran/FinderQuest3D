@@ -30,15 +30,15 @@
         {
             this.components = new System.ComponentModel.Container();
             this.panelDashboard = new System.Windows.Forms.Panel();
-            this.labelTime = new System.Windows.Forms.Label();
-            this.timerTime = new System.Windows.Forms.Timer(this.components);
             this.panelGameTop = new System.Windows.Forms.Panel();
+            this.labelTime = new System.Windows.Forms.Label();
+            this.panelMinimap = new System.Windows.Forms.Panel();
+            this.panelPlayerProfile = new System.Windows.Forms.Panel();
             this.labelPlayer = new System.Windows.Forms.Label();
             this.labelArea = new System.Windows.Forms.Label();
+            this.timerTime = new System.Windows.Forms.Timer(this.components);
             this.panelGameBottom = new System.Windows.Forms.Panel();
             this.labelTalkArea = new System.Windows.Forms.Label();
-            this.panelPlayerProfile = new System.Windows.Forms.Panel();
-            this.panelMinimap = new System.Windows.Forms.Panel();
             this.buttonExit = new System.Windows.Forms.Button();
             this.panelDashboard.SuspendLayout();
             this.panelGameTop.SuspendLayout();
@@ -57,21 +57,6 @@
             this.panelDashboard.Size = new System.Drawing.Size(1256, 171);
             this.panelDashboard.TabIndex = 0;
             // 
-            // labelTime
-            // 
-            this.labelTime.AutoSize = true;
-            this.labelTime.Font = new System.Drawing.Font("Old English Text MT", 36F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.labelTime.ForeColor = System.Drawing.Color.Black;
-            this.labelTime.Location = new System.Drawing.Point(412, 13);
-            this.labelTime.Name = "labelTime";
-            this.labelTime.Size = new System.Drawing.Size(258, 71);
-            this.labelTime.TabIndex = 2;
-            this.labelTime.Text = "00:00:00";
-            // 
-            // timerTime
-            // 
-            this.timerTime.Tick += new System.EventHandler(this.timerTime_Tick);
-            // 
             // panelGameTop
             // 
             this.panelGameTop.BackColor = System.Drawing.Color.Transparent;
@@ -84,6 +69,31 @@
             this.panelGameTop.Name = "panelGameTop";
             this.panelGameTop.Size = new System.Drawing.Size(1248, 165);
             this.panelGameTop.TabIndex = 5;
+            // 
+            // labelTime
+            // 
+            this.labelTime.AutoSize = true;
+            this.labelTime.Font = new System.Drawing.Font("Old English Text MT", 36F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.labelTime.ForeColor = System.Drawing.Color.Black;
+            this.labelTime.Location = new System.Drawing.Point(412, 13);
+            this.labelTime.Name = "labelTime";
+            this.labelTime.Size = new System.Drawing.Size(258, 71);
+            this.labelTime.TabIndex = 2;
+            this.labelTime.Text = "00:00:00";
+            // 
+            // panelMinimap
+            // 
+            this.panelMinimap.Location = new System.Drawing.Point(776, 13);
+            this.panelMinimap.Name = "panelMinimap";
+            this.panelMinimap.Size = new System.Drawing.Size(140, 140);
+            this.panelMinimap.TabIndex = 3;
+            // 
+            // panelPlayerProfile
+            // 
+            this.panelPlayerProfile.Location = new System.Drawing.Point(220, 13);
+            this.panelPlayerProfile.Name = "panelPlayerProfile";
+            this.panelPlayerProfile.Size = new System.Drawing.Size(140, 140);
+            this.panelPlayerProfile.TabIndex = 3;
             // 
             // labelPlayer
             // 
@@ -106,14 +116,18 @@
             this.labelArea.TabIndex = 0;
             this.labelArea.Text = "labelArea";
             // 
+            // timerTime
+            // 
+            this.timerTime.Tick += new System.EventHandler(this.timerTime_Tick);
+            // 
             // panelGameBottom
             // 
             this.panelGameBottom.BackColor = System.Drawing.Color.Transparent;
             this.panelGameBottom.Controls.Add(this.labelTalkArea);
             this.panelGameBottom.Controls.Add(this.buttonExit);
-            this.panelGameBottom.Location = new System.Drawing.Point(0, -4);
+            this.panelGameBottom.Location = new System.Drawing.Point(0, 1);
             this.panelGameBottom.Name = "panelGameBottom";
-            this.panelGameBottom.Size = new System.Drawing.Size(1280, 720);
+            this.panelGameBottom.Size = new System.Drawing.Size(1280, 715);
             this.panelGameBottom.TabIndex = 6;
             // 
             // labelTalkArea
@@ -125,20 +139,6 @@
             this.labelTalkArea.Size = new System.Drawing.Size(134, 22);
             this.labelTalkArea.TabIndex = 3;
             this.labelTalkArea.Text = "labelTalkArea";
-            // 
-            // panelPlayerProfile
-            // 
-            this.panelPlayerProfile.Location = new System.Drawing.Point(220, 13);
-            this.panelPlayerProfile.Name = "panelPlayerProfile";
-            this.panelPlayerProfile.Size = new System.Drawing.Size(140, 140);
-            this.panelPlayerProfile.TabIndex = 3;
-            // 
-            // panelMinimap
-            // 
-            this.panelMinimap.Location = new System.Drawing.Point(776, 13);
-            this.panelMinimap.Name = "panelMinimap";
-            this.panelMinimap.Size = new System.Drawing.Size(140, 140);
-            this.panelMinimap.TabIndex = 3;
             // 
             // buttonExit
             // 

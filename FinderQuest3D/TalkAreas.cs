@@ -18,11 +18,6 @@ namespace FinderQuest3D
 
         public Persons Person { get => person; set => person = value; }
 
-        protected override Mesh BuildMapMesh()
-        {
-            return base.BuildMapMesh();
-        }
-
         public override string DisplayData()
         {
             return base.Name;
