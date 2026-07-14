@@ -97,17 +97,17 @@
     <Compile Include="FormMenu.Designer.cs">
       <DependentUpon>FormMenu.cs</DependentUpon>
     </Compile>
-    <Compile Include="FormQuestion.cs">
+    <Compile Include="FormQuestionHard.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="FormQuestion.Designer.cs">
-      <DependentUpon>FormQuestion.cs</DependentUpon>
+    <Compile Include="FormQuestionHard.Designer.cs">
+      <DependentUpon>FormQuestionHard.cs</DependentUpon>
     </Compile>
-    <Compile Include="FormQuestion1.cs">
+    <Compile Include="FormQuestionEasy.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="FormQuestion1.Designer.cs">
-      <DependentUpon>FormQuestion1.cs</DependentUpon>
+    <Compile Include="FormQuestionEasy.Designer.cs">
+      <DependentUpon>FormQuestionEasy.cs</DependentUpon>
     </Compile>
     <Compile Include="FormRender.cs">
       <SubType>Form</SubType>
@@ -132,11 +132,11 @@
     <EmbeddedResource Include="FormMenu.resx">
       <DependentUpon>FormMenu.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="FormQuestion.resx">
-      <DependentUpon>FormQuestion.cs</DependentUpon>
+    <EmbeddedResource Include="FormQuestionHard.resx">
+      <DependentUpon>FormQuestionHard.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="FormQuestion1.resx">
-      <DependentUpon>FormQuestion1.cs</DependentUpon>
+    <EmbeddedResource Include="FormQuestionEasy.resx">
+      <DependentUpon>FormQuestionEasy.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="FormRender.resx">
       <DependentUpon>FormRender.cs</DependentUpon>

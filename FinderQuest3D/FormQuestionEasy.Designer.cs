@@ -1,6 +1,6 @@
 namespace FinderQuest3D
 {
-    partial class FormQuestion1
+    partial class FormQuestionEasy
     {
         /// <summary>
         /// Required designer variable.

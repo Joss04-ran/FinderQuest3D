@@ -91,7 +91,7 @@ namespace FinderQuest3D
             }
             if (e.KeyCode == Keys.Y && panelGameBottom.Visible && activePersons != null && activePersons.SolvedStatus == false)
             {
-                FormQuestion1 questionForm = new FormQuestion1();
+                FormQuestionEasy questionForm = new FormQuestionEasy();
                 questionForm.Owner = this;
                 questionForm.ShowDialog();
                 e.Handled = true;

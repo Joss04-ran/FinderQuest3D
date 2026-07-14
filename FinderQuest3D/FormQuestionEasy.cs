@@ -14,12 +14,12 @@ using WMPLib;
 
 namespace FinderQuest3D
 {
-    public partial class FormQuestion1 : Form
+    public partial class FormQuestionEasy : Form
     {
         FormMenu menu;
         FormRender renderForm;
 
-        public FormQuestion1()
+        public FormQuestionEasy()
         {
             InitializeComponent();
         }
