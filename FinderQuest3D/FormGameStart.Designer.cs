@@ -30,6 +30,7 @@
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FormGameStart));
             this.panelEasy = new System.Windows.Forms.Panel();
+            this.buttonEasy = new System.Windows.Forms.Button();
             this.label6 = new System.Windows.Forms.Label();
             this.label5 = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
@@ -39,12 +40,11 @@
             this.textBoxName = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
             this.panelHard = new System.Windows.Forms.Panel();
+            this.buttonHard = new System.Windows.Forms.Button();
             this.label9 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
             this.label8 = new System.Windows.Forms.Label();
             this.label7 = new System.Windows.Forms.Label();
-            this.buttonHard = new System.Windows.Forms.Button();
-            this.buttonEasy = new System.Windows.Forms.Button();
             this.label10 = new System.Windows.Forms.Label();
             this.panelEasy.SuspendLayout();
             this.panelStart.SuspendLayout();
@@ -64,6 +64,19 @@
             this.panelEasy.Name = "panelEasy";
             this.panelEasy.Size = new System.Drawing.Size(400, 480);
             this.panelEasy.TabIndex = 0;
+            // 
+            // buttonEasy
+            // 
+            this.buttonEasy.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("buttonEasy.BackgroundImage")));
+            this.buttonEasy.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.buttonEasy.Font = new System.Drawing.Font("Palatino Linotype", 16.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.buttonEasy.Location = new System.Drawing.Point(101, 378);
+            this.buttonEasy.Name = "buttonEasy";
+            this.buttonEasy.Size = new System.Drawing.Size(192, 54);
+            this.buttonEasy.TabIndex = 2;
+            this.buttonEasy.Text = "Select";
+            this.buttonEasy.UseVisualStyleBackColor = true;
+            this.buttonEasy.Click += new System.EventHandler(this.buttonEasy_Click);
             // 
             // label6
             // 
@@ -164,7 +177,19 @@
             this.panelHard.Name = "panelHard";
             this.panelHard.Size = new System.Drawing.Size(400, 480);
             this.panelHard.TabIndex = 1;
-            //this.panelHard.MouseClick += new System.Windows.Forms.MouseEventHandler(this.panelHard_MouseClick);
+            // 
+            // buttonHard
+            // 
+            this.buttonHard.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("buttonHard.BackgroundImage")));
+            this.buttonHard.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.buttonHard.Font = new System.Drawing.Font("Palatino Linotype", 16.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.buttonHard.Location = new System.Drawing.Point(112, 378);
+            this.buttonHard.Name = "buttonHard";
+            this.buttonHard.Size = new System.Drawing.Size(192, 54);
+            this.buttonHard.TabIndex = 2;
+            this.buttonHard.Text = "Select";
+            this.buttonHard.UseVisualStyleBackColor = true;
+            this.buttonHard.Click += new System.EventHandler(this.buttonHard_Click);
             // 
             // label9
             // 
@@ -209,32 +234,6 @@
             this.label7.TabIndex = 1;
             this.label7.Text = "Each person has 5 question";
             // 
-            // buttonHard
-            // 
-            this.buttonHard.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("buttonHard.BackgroundImage")));
-            this.buttonHard.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.buttonHard.Font = new System.Drawing.Font("Palatino Linotype", 16.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.buttonHard.Location = new System.Drawing.Point(112, 378);
-            this.buttonHard.Name = "buttonHard";
-            this.buttonHard.Size = new System.Drawing.Size(192, 54);
-            this.buttonHard.TabIndex = 2;
-            this.buttonHard.Text = "Select";
-            this.buttonHard.UseVisualStyleBackColor = true;
-            this.buttonHard.Click += new System.EventHandler(this.buttonHard_Click);
-            // 
-            // buttonEasy
-            // 
-            this.buttonEasy.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("buttonEasy.BackgroundImage")));
-            this.buttonEasy.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.buttonEasy.Font = new System.Drawing.Font("Palatino Linotype", 16.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.buttonEasy.Location = new System.Drawing.Point(101, 378);
-            this.buttonEasy.Name = "buttonEasy";
-            this.buttonEasy.Size = new System.Drawing.Size(192, 54);
-            this.buttonEasy.TabIndex = 2;
-            this.buttonEasy.Text = "Select";
-            this.buttonEasy.UseVisualStyleBackColor = true;
-            this.buttonEasy.Click += new System.EventHandler(this.buttonEasy_Click);
-            // 
             // label10
             // 
             this.label10.AutoSize = true;
@@ -243,7 +242,7 @@
             this.label10.Font = new System.Drawing.Font("Palatino Linotype", 19.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label10.Location = new System.Drawing.Point(468, 21);
             this.label10.Name = "label10";
-            this.label10.Size = new System.Drawing.Size(344, 48);
+            this.label10.Size = new System.Drawing.Size(332, 47);
             this.label10.TabIndex = 0;
             this.label10.Text = "PICK GAME MODE";
             // 
@@ -261,7 +260,6 @@
             this.Name = "FormGameStart";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Load += new System.EventHandler(this.FormGameStart_Load);
-            //this.MouseClick += new System.Windows.Forms.MouseEventHandler(this.FormGameStart_MouseClick);
             this.panelEasy.ResumeLayout(false);
             this.panelEasy.PerformLayout();
             this.panelStart.ResumeLayout(false);
