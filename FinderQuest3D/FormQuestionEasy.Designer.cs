@@ -79,6 +79,7 @@ namespace FinderQuest3D
             this.panelQuestion1.Size = new System.Drawing.Size(78, 54);
             this.panelQuestion1.TabIndex = 8;
             this.panelQuestion1.Click += new System.EventHandler(this.panelQuestion1_Click);
+            this.panelQuestion1.Paint += new System.Windows.Forms.PaintEventHandler(this.panelQuestion1_Paint);
             // 
             // panelQuestion2
             // 
@@ -88,6 +89,7 @@ namespace FinderQuest3D
             this.panelQuestion2.Size = new System.Drawing.Size(78, 54);
             this.panelQuestion2.TabIndex = 9;
             this.panelQuestion2.Click += new System.EventHandler(this.panelQuestion2_Click);
+            this.panelQuestion2.Paint += new System.Windows.Forms.PaintEventHandler(this.panelQuestion2_Paint);
             // 
             // panelQuestion3
             // 
@@ -97,6 +99,7 @@ namespace FinderQuest3D
             this.panelQuestion3.Size = new System.Drawing.Size(78, 54);
             this.panelQuestion3.TabIndex = 10;
             this.panelQuestion3.Click += new System.EventHandler(this.panelQuestion3_Click);
+            this.panelQuestion3.Paint += new System.Windows.Forms.PaintEventHandler(this.panelQuestion3_Paint);
             // 
             // panelPersonProfile
             // 

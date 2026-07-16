@@ -119,5 +119,49 @@ namespace FinderQuest3D
                 FormQuestion1_Load(sender, e);
             }
         }
+        private void DrawStatusSymbol(Panel panel, int slotIndex, PaintEventArgs e)
+        {
+            if (renderForm == null || renderForm.activePersons == null) return;
+            List<Questions> questionsList = renderForm.activePersons.PersonQuestion;
+            if (slotIndex >= questionsList.Count) return;
+
+            string status = questionsList[slotIndex].Status;
+            Graphics g = e.Graphics;
+            g.SmoothingMode = System.Drawing.Drawing2D.SmoothingMode.AntiAlias;
+
+            if (status == "V")
+            {
+                // Draws a Green Checkmark inside the panel boundary lines
+                using (Pen greenPen = new Pen(Color.LimeGreen, 4))
+                {
+                    g.DrawLine(greenPen, panel.Width / 3, panel.Height / 2, panel.Width * 4 / 9, panel.Height * 2 / 3);
+                    g.DrawLine(greenPen, panel.Width * 4 / 9, panel.Height * 2 / 3, panel.Width * 2 / 3, panel.Height / 3);
+                }
+            }
+            else if (status == "X")
+            {
+                // Draws a Red Cross (X) inside the panel boundary lines
+                using (Pen redPen = new Pen(Color.Red, 4))
+                {
+                    int margin = Math.Min(panel.Width, panel.Height) / 3;
+                    g.DrawLine(redPen, margin, margin, panel.Width - margin, panel.Height - margin);
+                    g.DrawLine(redPen, panel.Width - margin, margin, margin, panel.Height - margin);
+                }
+            }
+        }
+        private void panelQuestion1_Paint(object sender, PaintEventArgs e)
+        {
+            DrawStatusSymbol(panelQuestion1, 0, e);
+        }
+
+        private void panelQuestion2_Paint(object sender, PaintEventArgs e)
+        {
+            DrawStatusSymbol(panelQuestion2, 1, e);
+        }
+
+        private void panelQuestion3_Paint(object sender, PaintEventArgs e)
+        {
+            DrawStatusSymbol(panelQuestion3, 2, e);
+        }
     }
 }
