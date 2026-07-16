@@ -93,7 +93,21 @@ namespace FinderQuest3D
             else 
                 return false;
         }
-
+        public bool IsFinish()
+        {
+            foreach (Questions q in this.PersonQuestion)
+            {
+                // If even one question is NOT correct yet, the NPC tasks are not finished
+                if (q.Status != "V")
+                {
+                    this.SolvedStatus = false;
+                    return false;
+                }
+            }
+            // If the loop finishes without finding a non-"V" status, they passed everything!
+            this.SolvedStatus = true;
+            return true;
+        }
         #endregion
     }
 }
