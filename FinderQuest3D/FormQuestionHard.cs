@@ -61,6 +61,8 @@ namespace FinderQuest3D
                 panelQuestion1.Invalidate();
                 panelQuestion2.Invalidate();
                 panelQuestion3.Invalidate();
+                panelQuestion4.Invalidate();
+                panelQuestion5.Invalidate();
                 if (renderForm.activePersons.SolvedStatus == true)
                 {
                     renderForm.ExitTalkArea();
@@ -224,12 +226,12 @@ namespace FinderQuest3D
 
         private void panelQuestion4_Paint(object sender, PaintEventArgs e)
         {
-            DrawStatusSymbol(panelQuestion4, 0, e);
+            DrawStatusSymbol(panelQuestion4, 3, e);
         }
 
         private void panelQuestion5_Paint(object sender, PaintEventArgs e)
         {
-            DrawStatusSymbol(panelQuestion5, 0, e);
+            DrawStatusSymbol(panelQuestion5, 4, e);
         }
     }
 }
