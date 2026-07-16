@@ -11,6 +11,7 @@ namespace FinderQuest3D
         private string question;
         private string answer;
         private int score;
+        private string status;
         #endregion
         #region Constructor
         public Questions(string question, string answer, int score)
@@ -18,6 +19,7 @@ namespace FinderQuest3D
             this.Question = question;
             this.Answer = answer;
             this.Score = score;
+            this.Status = "Blank";
         }
         #endregion
         #region Properties
@@ -32,6 +34,8 @@ namespace FinderQuest3D
                 else score = value;
             }
         }
+
+        public string Status { get => status; set => status = value; }
         #endregion
     }
 }
