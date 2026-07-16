@@ -158,6 +158,23 @@ namespace FinderQuest3D
                 UpdateQuestionText();
             }
         }
+        private void panelQuestion4_Click(object sender, EventArgs e)
+        {
+            if (renderForm.activePersons.PersonQuestion[3].Status != "V")
+            {
+                selectedSlot = 3;
+                UpdateQuestionText();
+            }
+        }
+
+        private void panelQuestion5_Click(object sender, EventArgs e)
+        {
+            if (renderForm.activePersons.PersonQuestion[4].Status != "V")
+            {
+                selectedSlot = 4;
+                UpdateQuestionText();
+            }
+        }
         private void DrawStatusSymbol(Panel panel, int slotIndex, PaintEventArgs e)
         {
             if (renderForm == null || renderForm.activePersons == null) return;
@@ -188,6 +205,8 @@ namespace FinderQuest3D
                 }
             }
         }
+
+        
         private void panelQuestion1_Paint(object sender, PaintEventArgs e)
         {
             DrawStatusSymbol(panelQuestion1, 0, e);
@@ -201,6 +220,16 @@ namespace FinderQuest3D
         private void panelQuestion3_Paint(object sender, PaintEventArgs e)
         {
             DrawStatusSymbol(panelQuestion3, 2, e);
+        }
+
+        private void panelQuestion4_Paint(object sender, PaintEventArgs e)
+        {
+            DrawStatusSymbol(panelQuestion4, 0, e);
+        }
+
+        private void panelQuestion5_Paint(object sender, PaintEventArgs e)
+        {
+            DrawStatusSymbol(panelQuestion5, 0, e);
         }
     }
 }

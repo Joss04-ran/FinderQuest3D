@@ -35,8 +35,8 @@ namespace FinderQuest3D
             this.panelQuestion2 = new System.Windows.Forms.Panel();
             this.panelQuestion3 = new System.Windows.Forms.Panel();
             this.panelPersonProfile = new System.Windows.Forms.Panel();
-            this.panel1 = new System.Windows.Forms.Panel();
-            this.panel2 = new System.Windows.Forms.Panel();
+            this.panelQuestion4 = new System.Windows.Forms.Panel();
+            this.panelQuestion5 = new System.Windows.Forms.Panel();
             this.SuspendLayout();
             // 
             // labelQuestion
@@ -80,6 +80,8 @@ namespace FinderQuest3D
             this.panelQuestion1.Name = "panelQuestion1";
             this.panelQuestion1.Size = new System.Drawing.Size(78, 54);
             this.panelQuestion1.TabIndex = 8;
+            this.panelQuestion1.Click += new System.EventHandler(this.panelQuestion1_Click);
+            this.panelQuestion1.Paint += new System.Windows.Forms.PaintEventHandler(this.panelQuestion1_Paint);
             // 
             // panelQuestion2
             // 
@@ -88,6 +90,8 @@ namespace FinderQuest3D
             this.panelQuestion2.Name = "panelQuestion2";
             this.panelQuestion2.Size = new System.Drawing.Size(78, 54);
             this.panelQuestion2.TabIndex = 9;
+            this.panelQuestion2.Click += new System.EventHandler(this.panelQuestion2_Click);
+            this.panelQuestion2.Paint += new System.Windows.Forms.PaintEventHandler(this.panelQuestion2_Paint);
             // 
             // panelQuestion3
             // 
@@ -96,6 +100,8 @@ namespace FinderQuest3D
             this.panelQuestion3.Name = "panelQuestion3";
             this.panelQuestion3.Size = new System.Drawing.Size(78, 54);
             this.panelQuestion3.TabIndex = 10;
+            this.panelQuestion3.Click += new System.EventHandler(this.panelQuestion3_Click);
+            this.panelQuestion3.Paint += new System.Windows.Forms.PaintEventHandler(this.panelQuestion3_Paint);
             // 
             // panelPersonProfile
             // 
@@ -107,21 +113,25 @@ namespace FinderQuest3D
             this.panelPersonProfile.Size = new System.Drawing.Size(177, 281);
             this.panelPersonProfile.TabIndex = 11;
             // 
-            // panel1
+            // panelQuestion4
             // 
-            this.panel1.BackColor = System.Drawing.SystemColors.Control;
-            this.panel1.Location = new System.Drawing.Point(39, 250);
-            this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(78, 54);
-            this.panel1.TabIndex = 11;
+            this.panelQuestion4.BackColor = System.Drawing.SystemColors.Control;
+            this.panelQuestion4.Location = new System.Drawing.Point(39, 250);
+            this.panelQuestion4.Name = "panelQuestion4";
+            this.panelQuestion4.Size = new System.Drawing.Size(78, 54);
+            this.panelQuestion4.TabIndex = 11;
+            this.panelQuestion4.Click += new System.EventHandler(this.panelQuestion4_Click);
+            this.panelQuestion4.Paint += new System.Windows.Forms.PaintEventHandler(this.panelQuestion4_Paint);
             // 
-            // panel2
+            // panelQuestion5
             // 
-            this.panel2.BackColor = System.Drawing.SystemColors.Control;
-            this.panel2.Location = new System.Drawing.Point(39, 325);
-            this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(78, 54);
-            this.panel2.TabIndex = 12;
+            this.panelQuestion5.BackColor = System.Drawing.SystemColors.Control;
+            this.panelQuestion5.Location = new System.Drawing.Point(39, 325);
+            this.panelQuestion5.Name = "panelQuestion5";
+            this.panelQuestion5.Size = new System.Drawing.Size(78, 54);
+            this.panelQuestion5.TabIndex = 12;
+            this.panelQuestion5.Click += new System.EventHandler(this.panelQuestion5_Click);
+            this.panelQuestion5.Paint += new System.Windows.Forms.PaintEventHandler(this.panelQuestion5_Paint);
             // 
             // FormQuestionHard
             // 
@@ -130,8 +140,8 @@ namespace FinderQuest3D
             this.BackColor = System.Drawing.Color.DimGray;
             this.BackgroundImage = global::FinderQuest3D.Properties.Resources.backgroundQuestion;
             this.ClientSize = new System.Drawing.Size(841, 391);
-            this.Controls.Add(this.panel2);
-            this.Controls.Add(this.panel1);
+            this.Controls.Add(this.panelQuestion5);
+            this.Controls.Add(this.panelQuestion4);
             this.Controls.Add(this.panelPersonProfile);
             this.Controls.Add(this.panelQuestion3);
             this.Controls.Add(this.panelQuestion2);
@@ -159,7 +169,7 @@ namespace FinderQuest3D
         private System.Windows.Forms.Panel panelQuestion2;
         private System.Windows.Forms.Panel panelQuestion3;
         private System.Windows.Forms.Panel panelPersonProfile;
-        private System.Windows.Forms.Panel panel1;
-        private System.Windows.Forms.Panel panel2;
+        private System.Windows.Forms.Panel panelQuestion4;
+        private System.Windows.Forms.Panel panelQuestion5;
     }
 }
