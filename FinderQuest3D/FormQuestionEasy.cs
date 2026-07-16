@@ -23,6 +23,10 @@ namespace FinderQuest3D
         {
             InitializeComponent();
         }
+        private bool CheckAll()
+        {
+           return renderForm.activePersons.IsFinish();
+        }
 
         private void buttonSubmit_Click(object sender, EventArgs e)
         {
@@ -36,6 +40,7 @@ namespace FinderQuest3D
                     renderForm.labelPlayer.Text = renderForm.player.DisplayData();
                     renderForm.time.AddWithSecond(20);
                     renderForm.activePersons.PersonQuestion[selectedSlot].Status = "V";
+                    CheckAll();
                 }
                 else
                 {
