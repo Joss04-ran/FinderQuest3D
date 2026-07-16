@@ -27,6 +27,15 @@ namespace FinderQuest3D
         {
            return renderForm.activePersons.IsFinish();
         }
+        private void UpdateQuestionText()
+        {
+            if (renderForm != null && renderForm.activePersons != null)
+            {
+                labelQuestion.Text = renderForm.activePersons.PersonQuestion[selectedSlot].Question;
+                textBoxAnswer.Clear();
+                textBoxAnswer.Focus();
+            }
+        }
 
         private void buttonSubmit_Click(object sender, EventArgs e)
         {
@@ -98,7 +107,7 @@ namespace FinderQuest3D
             if (renderForm.activePersons.PersonQuestion[0].Status != "V")
             {
                 selectedSlot = 0;
-                FormQuestion1_Load(sender, e);
+                UpdateQuestionText();
             }
         }
 
@@ -107,7 +116,7 @@ namespace FinderQuest3D
             if (renderForm.activePersons.PersonQuestion[1].Status != "V")
             {
                 selectedSlot = 1;
-                FormQuestion1_Load(sender, e);
+                UpdateQuestionText();
             }
         }
 
@@ -116,7 +125,7 @@ namespace FinderQuest3D
             if (renderForm.activePersons.PersonQuestion[2].Status != "V")
             {
                 selectedSlot = 2;
-                FormQuestion1_Load(sender, e);
+                UpdateQuestionText();
             }
         }
         private void DrawStatusSymbol(Panel panel, int slotIndex, PaintEventArgs e)
