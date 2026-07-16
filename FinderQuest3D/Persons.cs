@@ -87,7 +87,6 @@ namespace FinderQuest3D
         {
             if (playerAnswer.ToLower() == this.PersonQuestion[amount].Answer.ToLower())
             {
-                this.SolvedStatus = true;
                 return true;
             }
             else 
