@@ -84,39 +84,48 @@ namespace FinderQuest3D
             this.Close();
         }
 
-        private void FormQuestion1_KeyDown(object sender, KeyEventArgs e)
+        private void panelQuestion1_Paint(object sender, PaintEventArgs e)
         {
-            if (e.KeyCode == Keys.Enter)
-            {
-                this.buttonSubmit_Click(sender, e);
-            }
+            DrawStatusSymbol(panelQuestion1, 0, e);
         }
 
-        private void panelQuestion1_Click(object sender, EventArgs e)
+        private void panelQuestion2_Paint(object sender, PaintEventArgs e)
         {
-
-            if (renderForm.activePersons.PersonQuestion[0].Status != "V")
-            {
-                selectedSlot = 0;
-                FormQuestion1_Load(sender, e);
-            }
+            DrawStatusSymbol(panelQuestion2, 1, e);
         }
 
-        private void panelQuestion2_Click(object sender, EventArgs e)
+        private void panelQuestion3_Paint(object sender, PaintEventArgs e)
         {
-            if (renderForm.activePersons.PersonQuestion[1].Status != "V")
-            {
-                selectedSlot = 1;
-                FormQuestion1_Load(sender, e);
-            }
+            DrawStatusSymbol(panelQuestion3, 2, e);
         }
-
-        private void panelQuestion3_Click(object sender, EventArgs e)
+        private void DrawStatusSymbol(Panel panel, int slotIndex, PaintEventArgs e)
         {
-            if (renderForm.activePersons.PersonQuestion[2].Status != "V")
+            if (renderForm == null || renderForm.activePersons == null) return;
+            List<Questions> questionsList = renderForm.activePersons.PersonQuestion;
+            if (slotIndex >= questionsList.Count) return;
+
+            string status = questionsList[slotIndex].Status;
+            Graphics g = e.Graphics;
+            g.SmoothingMode = System.Drawing.Drawing2D.SmoothingMode.AntiAlias;
+
+            if (status == "V")
             {
-                selectedSlot = 2;
-                FormQuestion1_Load(sender, e);
+                // Draws a Green Checkmark inside the panel boundary lines
+                using (Pen greenPen = new Pen(Color.LimeGreen, 4))
+                {
+                    g.DrawLine(greenPen, panel.Width / 3, panel.Height / 2, panel.Width * 4 / 9, panel.Height * 2 / 3);
+                    g.DrawLine(greenPen, panel.Width * 4 / 9, panel.Height * 2 / 3, panel.Width * 2 / 3, panel.Height / 3);
+                }
+            }
+            else if (status == "X")
+            {
+                // Draws a Red Cross (X) inside the panel boundary lines
+                using (Pen redPen = new Pen(Color.Red, 4))
+                {
+                    int margin = Math.Min(panel.Width, panel.Height) / 3;
+                    g.DrawLine(redPen, margin, margin, panel.Width - margin, panel.Height - margin);
+                    g.DrawLine(redPen, panel.Width - margin, margin, margin, panel.Height - margin);
+                }
             }
         }
     }
