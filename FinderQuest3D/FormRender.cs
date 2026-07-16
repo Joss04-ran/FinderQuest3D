@@ -96,11 +96,22 @@ namespace FinderQuest3D
             }
             if (e.KeyCode == Keys.Y && panelGameBottom.Visible && activePersons != null && activePersons.SolvedStatus == false)
             {
-                FormQuestionEasy questionForm = new FormQuestionEasy();
-                questionForm.Owner = this;
-                questionForm.ShowDialog();
-                e.Handled = true;
-                return;
+                if (form.difficult == "easy")
+                {
+                    FormQuestionEasy questionForm = new FormQuestionEasy();
+                    questionForm.Owner = this;
+                    questionForm.ShowDialog();
+                    e.Handled = true;
+                    return;
+                }
+                else if (form.difficult == "hard")
+                {
+                    FormQuestionHard questionForm = new FormQuestionHard();
+                    questionForm.Owner = this;
+                    questionForm.ShowDialog();
+                    e.Handled = true;
+                    return;
+                }
             }
             keyStates[e.KeyCode] = true;
             base.OnKeyDown(e);
