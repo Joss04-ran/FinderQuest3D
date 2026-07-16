@@ -85,16 +85,17 @@ namespace FinderQuest3D
             }
         }
 
-        private void panelQuestion1_Paint(object sender, PaintEventArgs e)
+        private void panelQuestion1_Click(object sender, EventArgs e)
         {
+
             if (renderForm.activePersons.PersonQuestion[0].Status != "V")
             {
                 selectedSlot = 0;
-                FormQuestion1_Load(sender,e);
+                FormQuestion1_Load(sender, e);
             }
         }
 
-        private void panelQuestion2_Paint(object sender, PaintEventArgs e)
+        private void panelQuestion2_Click(object sender, EventArgs e)
         {
             if (renderForm.activePersons.PersonQuestion[1].Status != "V")
             {
@@ -103,7 +104,7 @@ namespace FinderQuest3D
             }
         }
 
-        private void panelQuestion3_Paint(object sender, PaintEventArgs e)
+        private void panelQuestion3_Click(object sender, EventArgs e)
         {
             if (renderForm.activePersons.PersonQuestion[2].Status != "V")
             {
