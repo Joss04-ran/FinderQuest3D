@@ -18,7 +18,6 @@ namespace FinderQuest3D
     {
         FormRender renderForm;
         int selectedSlot = 0;
-        int solvedSlot = 0;
 
         public FormQuestionEasy()
         {
