@@ -340,6 +340,10 @@ namespace FinderQuest3D
                 activePersons.AddQuestion("Solve this math equation: " +
                     "\r\n x + y = 10 " +
                     "\r\nIf x = 3, then y = ?\r\n", "7", 100);
+                activePersons.AddQuestion("What is the x in x^2+10x+25=0? [+/-]", "5",100);
+                activePersons.AddQuestion("If x+2y = 10 and y=5, what is x=?","0", 50);
+                activePersons.AddQuestion("What is the default assumption in Hypothesis testing called?", "H0", 100);
+                activePersons.AddQuestion("The time a person waits for a plane at an airport ranges from 0 to 120 minutes and is\nuniformly distributed.\nWhat is the probability that a person will have to wait less than 60 minutes?", "3/4", 100);
             }
             else if (activePersons.NoPerson == 2.ToString())
             {
