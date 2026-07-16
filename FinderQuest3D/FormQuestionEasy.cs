@@ -60,6 +60,7 @@ namespace FinderQuest3D
                 {
                     renderForm.ExitTalkArea();
                     renderForm.PlaySound("walk");
+                    this.Close();
                 }
             }
             catch(Exception ex)
@@ -90,7 +91,6 @@ namespace FinderQuest3D
 
         protected override void OnFormClosed(FormClosedEventArgs e)
         {
-            this.Close();
         }
 
         private void FormQuestion1_KeyDown(object sender, KeyEventArgs e)
