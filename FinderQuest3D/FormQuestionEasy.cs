@@ -18,6 +18,7 @@ namespace FinderQuest3D
     {
         FormRender renderForm;
         int selectedSlot = 0;
+        int solvedSlot = 0;
 
         public FormQuestionEasy()
         {
@@ -41,6 +42,8 @@ namespace FinderQuest3D
         {
             try
             {
+                List<Questions> questions = renderForm.activePersons.PersonQuestion;
+                int totalQuestions = questions.Count;
                 if (renderForm.activePersons.CheckAnswer(textBoxAnswer.Text, selectedSlot) == true)
                 {
                     MessageBox.Show($"Your answer is correct ! " +
@@ -56,14 +59,41 @@ namespace FinderQuest3D
                     MessageBox.Show("Your answer is incorrect ! ");
                     renderForm.activePersons.PersonQuestion[selectedSlot].Status = "X";
                 }
+                panelQuestion1.Invalidate();
+                panelQuestion2.Invalidate();
+                panelQuestion3.Invalidate();
                 if (renderForm.activePersons.SolvedStatus == true)
                 {
                     renderForm.ExitTalkArea();
                     renderForm.PlaySound("walk");
                     this.Close();
                 }
+                if (questions[selectedSlot].Status == "V")
+                {
+                    bool foundNext = false;
+                    for (int i = 0; i < totalQuestions; i++)
+                    {
+                        int nextIndex = (selectedSlot + i) % totalQuestions;
+                        if (questions[nextIndex].Status != "V")
+                        {
+                            selectedSlot = nextIndex;
+                            foundNext = true;
+                            break;
+                        }
+                    }
+
+                    if (foundNext)
+                    {
+                        UpdateQuestionText();
+                    }
+                }
+                else
+                {
+                    textBoxAnswer.Clear();
+                    textBoxAnswer.Focus();
+                }
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 MessageBox.Show(ex.Message);
             }
