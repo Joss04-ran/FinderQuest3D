@@ -17,32 +17,85 @@ namespace FinderQuest3D
     public partial class FormQuestionHard : Form
     {
         FormRender renderForm;
-        int answeredAmount = 0;
+        int selectedSlot = 0;
 
         public FormQuestionHard()
         {
             InitializeComponent();
+        }
+        private bool CheckAll()
+        {
+            return renderForm.activePersons.IsFinish();
+        }
+        private void UpdateQuestionText()
+        {
+            if (renderForm != null && renderForm.activePersons != null)
+            {
+                labelQuestion.Text = renderForm.activePersons.PersonQuestion[selectedSlot].Question;
+                textBoxAnswer.Clear();
+                textBoxAnswer.Focus();
+            }
         }
 
         private void buttonSubmit_Click(object sender, EventArgs e)
         {
             try
             {
-                answeredAmount++;
-                if (renderForm.activePersons.CheckAnswer(textBoxAnswer.Text, answeredAmount) == true)
+                List<Questions> questions = renderForm.activePersons.PersonQuestion;
+                int totalQuestions = questions.Count;
+                if (renderForm.activePersons.CheckAnswer(textBoxAnswer.Text, selectedSlot) == true)
                 {
                     MessageBox.Show($"Your answer is correct ! " +
-                        $"\nYou get {renderForm.activePersons.PersonQuestion[answeredAmount].Score} points");
-                    renderForm.player.AddScore(renderForm.activePersons.PersonQuestion[answeredAmount].Score);
+                        $"\nYou get {renderForm.activePersons.PersonQuestion[selectedSlot].Score} points");
+                    renderForm.player.AddScore(renderForm.activePersons.PersonQuestion[selectedSlot].Score);
                     renderForm.labelPlayer.Text = renderForm.player.DisplayData();
                     renderForm.time.AddWithSecond(20);
+                    renderForm.activePersons.PersonQuestion[selectedSlot].Status = "V";
+                    CheckAll();
                 }
-                else MessageBox.Show("Your answer is incorrect ! ");
-                renderForm.ExitTalkArea();
-                renderForm.PlaySound("walk");
+                else
+                {
+                    MessageBox.Show("Your answer is incorrect ! ");
+                    renderForm.activePersons.PersonQuestion[selectedSlot].Status = "X";
+                }
+                panelQuestion1.Invalidate();
+                panelQuestion2.Invalidate();
+                panelQuestion3.Invalidate();
+                if (renderForm.activePersons.SolvedStatus == true)
+                {
+                    renderForm.ExitTalkArea();
+                    renderForm.PlaySound("walk");
+                    this.Close();
+                }
+                if (questions[selectedSlot].Status == "V")
+                {
+                    bool foundNext = false;
+                    for (int i = 0; i < totalQuestions; i++)
+                    {
+                        int nextIndex = (selectedSlot + i) % totalQuestions;
+                        if (questions[nextIndex].Status != "V")
+                        {
+                            selectedSlot = nextIndex;
+                            foundNext = true;
+                            break;
+                        }
+                    }
+
+                    if (foundNext)
+                    {
+                        UpdateQuestionText();
+                    }
+                }
+                else
+                {
+                    textBoxAnswer.Clear();
+                    textBoxAnswer.Focus();
+                }
             }
-            catch { }
-            this.Close();
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
         }
 
 
@@ -56,7 +109,7 @@ namespace FinderQuest3D
             if (this.Owner is FormRender)
             {
                 renderForm = (FormRender)this.Owner;
-                labelQuestion.Text = renderForm.activePersons.PersonQuestion[answeredAmount].Question;
+                labelQuestion.Text = renderForm.activePersons.PersonQuestion[selectedSlot].Question;
             }
             panelPersonProfile.BackgroundImage = null;
             panelPersonProfile.BackgroundImageLayout = ImageLayout.Stretch;
@@ -68,7 +121,6 @@ namespace FinderQuest3D
 
         protected override void OnFormClosed(FormClosedEventArgs e)
         {
-            this.Close();
         }
 
         private void FormQuestion1_KeyDown(object sender, KeyEventArgs e)
@@ -77,6 +129,78 @@ namespace FinderQuest3D
             {
                 this.buttonSubmit_Click(sender, e);
             }
+        }
+
+        private void panelQuestion1_Click(object sender, EventArgs e)
+        {
+
+            if (renderForm.activePersons.PersonQuestion[0].Status != "V")
+            {
+                selectedSlot = 0;
+                UpdateQuestionText();
+            }
+        }
+
+        private void panelQuestion2_Click(object sender, EventArgs e)
+        {
+            if (renderForm.activePersons.PersonQuestion[1].Status != "V")
+            {
+                selectedSlot = 1;
+                UpdateQuestionText();
+            }
+        }
+
+        private void panelQuestion3_Click(object sender, EventArgs e)
+        {
+            if (renderForm.activePersons.PersonQuestion[2].Status != "V")
+            {
+                selectedSlot = 2;
+                UpdateQuestionText();
+            }
+        }
+        private void DrawStatusSymbol(Panel panel, int slotIndex, PaintEventArgs e)
+        {
+            if (renderForm == null || renderForm.activePersons == null) return;
+            List<Questions> questionsList = renderForm.activePersons.PersonQuestion;
+            if (slotIndex >= questionsList.Count) return;
+
+            string status = questionsList[slotIndex].Status;
+            Graphics g = e.Graphics;
+            g.SmoothingMode = System.Drawing.Drawing2D.SmoothingMode.AntiAlias;
+
+            if (status == "V")
+            {
+                // Draws a Green Checkmark inside the panel boundary lines
+                using (Pen greenPen = new Pen(Color.LimeGreen, 4))
+                {
+                    g.DrawLine(greenPen, panel.Width / 3, panel.Height / 2, panel.Width * 4 / 9, panel.Height * 2 / 3);
+                    g.DrawLine(greenPen, panel.Width * 4 / 9, panel.Height * 2 / 3, panel.Width * 2 / 3, panel.Height / 3);
+                }
+            }
+            else if (status == "X")
+            {
+                // Draws a Red Cross (X) inside the panel boundary lines
+                using (Pen redPen = new Pen(Color.Red, 4))
+                {
+                    int margin = Math.Min(panel.Width, panel.Height) / 3;
+                    g.DrawLine(redPen, margin, margin, panel.Width - margin, panel.Height - margin);
+                    g.DrawLine(redPen, panel.Width - margin, margin, margin, panel.Height - margin);
+                }
+            }
+        }
+        private void panelQuestion1_Paint(object sender, PaintEventArgs e)
+        {
+            DrawStatusSymbol(panelQuestion1, 0, e);
+        }
+
+        private void panelQuestion2_Paint(object sender, PaintEventArgs e)
+        {
+            DrawStatusSymbol(panelQuestion2, 1, e);
+        }
+
+        private void panelQuestion3_Paint(object sender, PaintEventArgs e)
+        {
+            DrawStatusSymbol(panelQuestion3, 2, e);
         }
     }
 }
