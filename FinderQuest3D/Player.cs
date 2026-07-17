@@ -7,13 +7,18 @@ using System.Windows.Forms;
 
 namespace FinderQuest3D
 {
+    [Serializable]
     public class Players
     {
         #region Fields
         private string name;
+
+        [NonSerialized]
         private PictureBox picture;
+
         private int score;
         private Time playTime;
+        private string status;
         #endregion
 
         #region Constructor
@@ -52,6 +57,7 @@ namespace FinderQuest3D
             }
         }
         public Time PlayTime { get => playTime; set => playTime = value; }
+        public string Status { get => status; set => status = value; }
         #endregion
 
         #region Methods
@@ -60,7 +66,8 @@ namespace FinderQuest3D
         {
             string data = $"Name = {this.Name}" +
                 $"\nScore = {this.Score}" +
-                $"\nPlaytime = {this.PlayTime.DisplayData()}";
+                $"\nPlaytime = {this.PlayTime.DisplayData()}"+
+                $"\nStatus = {this.Status}";
             return data;
         }
 

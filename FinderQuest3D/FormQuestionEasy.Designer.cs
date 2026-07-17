@@ -78,6 +78,7 @@ namespace FinderQuest3D
             this.panelQuestion1.Name = "panelQuestion1";
             this.panelQuestion1.Size = new System.Drawing.Size(78, 54);
             this.panelQuestion1.TabIndex = 8;
+            this.panelQuestion1.Paint += new System.Windows.Forms.PaintEventHandler(this.panelQuestion1_Paint);
             // 
             // panelQuestion2
             // 
@@ -86,6 +87,7 @@ namespace FinderQuest3D
             this.panelQuestion2.Name = "panelQuestion2";
             this.panelQuestion2.Size = new System.Drawing.Size(78, 54);
             this.panelQuestion2.TabIndex = 9;
+            this.panelQuestion2.Paint += new System.Windows.Forms.PaintEventHandler(this.panelQuestion2_Paint);
             // 
             // panelQuestion3
             // 
@@ -94,6 +96,7 @@ namespace FinderQuest3D
             this.panelQuestion3.Name = "panelQuestion3";
             this.panelQuestion3.Size = new System.Drawing.Size(78, 54);
             this.panelQuestion3.TabIndex = 10;
+            this.panelQuestion3.Paint += new System.Windows.Forms.PaintEventHandler(this.panelQuestion3_Paint);
             // 
             // panelPersonProfile
             // 
@@ -105,7 +108,7 @@ namespace FinderQuest3D
             this.panelPersonProfile.Size = new System.Drawing.Size(177, 281);
             this.panelPersonProfile.TabIndex = 11;
             // 
-            // FormQuestion1
+            // FormQuestionEasy
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
@@ -121,7 +124,7 @@ namespace FinderQuest3D
             this.Controls.Add(this.textBoxAnswer);
             this.DoubleBuffered = true;
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
-            this.Name = "FormQuestion1";
+            this.Name = "FormQuestionEasy";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Load += new System.EventHandler(this.FormQuestion1_Load);
             this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.FormQuestion1_KeyDown);

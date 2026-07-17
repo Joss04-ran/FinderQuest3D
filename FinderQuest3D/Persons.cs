@@ -87,13 +87,27 @@ namespace FinderQuest3D
         {
             if (playerAnswer.ToLower() == this.PersonQuestion[amount].Answer.ToLower())
             {
-                this.SolvedStatus = true;
                 return true;
             }
             else 
                 return false;
         }
+        public bool IsFinish()
+        {
+            foreach (Questions q in this.PersonQuestion)
+            {
+                // Use IsNullOrWhiteSpace to safely catch null, "", or " " (unanswered states)
+                if (string.IsNullOrWhiteSpace(q.Status))
+                {
+                    this.SolvedStatus = false;
+                    return false;
+                }
+            }
 
+            // Every single question now has either a "V" or an "X" mark!
+            this.SolvedStatus = true;
+            return true;
+        }
         #endregion
     }
 }
