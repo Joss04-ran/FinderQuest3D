@@ -40,6 +40,7 @@ namespace FinderQuest3D
         private bool isExit = false;
         private bool isComplete = false;
         private Timer renderLoop;
+        public string filePath = "highscore.dat";
 
         public FormRender(FormGameStart ownerForm)
         {
@@ -470,6 +471,8 @@ namespace FinderQuest3D
                 PlaySound("lose");
                 MessageBox.Show("Game Over! Time's Up!");
                 FormHighScore formHighScore = new FormHighScore();
+                formHighScore.highScores.Add(player);
+                formHighScore.SaveData(filePath);
                 formHighScore.ShowDialog();
                 this.Close();
             }
@@ -516,6 +519,8 @@ namespace FinderQuest3D
                     PlaySound("win");
                     MessageBox.Show("Congratulations! You win the game!!!");
                     FormHighScore formHighScore = new FormHighScore();
+                    formHighScore.highScores.Add(player);
+                    formHighScore.SaveData(filePath);
                     formHighScore.ShowDialog();
                     this.Close();
                 }

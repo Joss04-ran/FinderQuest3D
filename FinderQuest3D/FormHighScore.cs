@@ -14,20 +14,20 @@ namespace FinderQuest3D
 {
     public partial class FormHighScore : Form
     {
-        string filePath = "highscore.dat";
+        FormRender frmMain;
         public List<Players> highScores = new List<Players>();
         public FormHighScore()
         {
             InitializeComponent();
         }
-        private void SaveData(string fileName)
+        public void SaveData(string fileName)
         {
             FileStream file = new FileStream(fileName, FileMode.Create, FileAccess.Write);
             BinaryFormatter formatter = new BinaryFormatter();
             formatter.Serialize(file, highScores);
             file.Close();
         }
-        private void ReadData(string fileName)
+        public void ReadData(string fileName)
         {
             if (File.Exists(fileName))
             {
@@ -40,7 +40,12 @@ namespace FinderQuest3D
 
         private void FormHighScore_Load(object sender, EventArgs e)
         {
-            
+            frmMain = (FormRender)this.Owner;
+            listBoxDisplay.Items.Clear();
+            foreach (var p in highScores)
+            {
+                listBoxDisplay.Items.Add(p.DisplayData().Split("\n"));
+            }
         }
 
         private void comboBox1_SelectedIndexChanged(object sender, EventArgs e)

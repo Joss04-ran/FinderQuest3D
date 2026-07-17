@@ -12,7 +12,10 @@ namespace FinderQuest3D
     {
         #region Fields
         private string name;
+
+        [NonSerialized]
         private PictureBox picture;
+
         private int score;
         private Time playTime;
         #endregion
