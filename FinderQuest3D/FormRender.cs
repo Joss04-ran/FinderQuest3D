@@ -462,6 +462,7 @@ namespace FinderQuest3D
             if (time.Hour == 0 && time.Minute == 0 && time.Second == 0)
             {
                 timerTime.Stop();
+                if (renderLoop != null) renderLoop.Stop();
                 try
                 {
                     soundPlayer.controls.stop();
@@ -523,7 +524,10 @@ namespace FinderQuest3D
 
         public void GameOver()
         {
+            if (isComplete) return;
             isComplete = true;
+            if (renderLoop != null) renderLoop.Stop();
+            if (timerTime != null) timerTime.Stop();
             try
             {
                 if (isComplete)
@@ -563,3 +567,4 @@ namespace FinderQuest3D
         }
     }
 }
+
