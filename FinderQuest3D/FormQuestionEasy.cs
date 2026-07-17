@@ -61,30 +61,34 @@ namespace FinderQuest3D
                 panelQuestion1.Invalidate();
                 panelQuestion2.Invalidate();
                 panelQuestion3.Invalidate();
+                panelQuestion1.Update();
+                panelQuestion2.Update();
+                panelQuestion3.Update();
+                CheckAll();
                 if (renderForm.activePersons.SolvedStatus == true)
                 {
                     renderForm.ExitTalkArea();
                     renderForm.PlaySound("walk");
                     this.Close();
                 }
-                if (questions[selectedSlot].Status == "V")
+                bool foundNext = false;
+                for (int i = 1; i <= totalQuestions; i++)
                 {
-                    bool foundNext = false;
-                    for (int i = 0; i < totalQuestions; i++)
-                    {
-                        int nextIndex = (selectedSlot + i) % totalQuestions;
-                        if (questions[nextIndex].Status != "V")
-                        {
-                            selectedSlot = nextIndex;
-                            foundNext = true;
-                            break;
-                        }
-                    }
+                    int nextIndex = (selectedSlot + i) % totalQuestions;
 
-                    if (foundNext)
+                    // Skip questions that are already answered correctly
+                    if (questions[nextIndex].Status != "V")
                     {
-                        UpdateQuestionText();
+                        selectedSlot = nextIndex;
+                        foundNext = true;
+                        break;
                     }
+                }
+
+                // 5. Apply the UI update transitions
+                if (foundNext)
+                {
+                    UpdateQuestionText();
                 }
                 else
                 {
