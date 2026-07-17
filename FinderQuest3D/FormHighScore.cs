@@ -15,7 +15,24 @@ namespace FinderQuest3D
     public partial class FormHighScore : Form
     {
         FormRender frmMain;
-        public List<Players> highScores = new List<Players>();
+        public BindingList<Players> highScores = new BindingList<Players>();
+        public void DisplayRankings()
+        {
+            listBoxDisplay.Items.Clear();
+
+            // Loop through the sorted scores using a standard for-loop to calculate the rank index
+            for (int i = 0; i < highScores.Count; i++)
+            {
+                Players p = highScores[i];
+                int rank = i + 1; // Index 0 becomes Rank #1, Index 1 becomes Rank #2, etc.
+
+                // Format the text nicely so it lines up beautifully in your list box
+                string playerDetails = p.DisplayData().Replace("\n", " | ");
+                string rowText = $"#{rank} -> {playerDetails}";
+
+                listBoxDisplay.Items.Add(rowText);
+            }
+        }
         public FormHighScore()
         {
             InitializeComponent();
@@ -33,7 +50,7 @@ namespace FinderQuest3D
             {
                 FileStream file = new FileStream(fileName, FileMode.Open, FileAccess.Read);
                 BinaryFormatter formatter = new BinaryFormatter();
-                highScores = (List<Players>)formatter.Deserialize(file);
+                highScores = (BindingList<Players>)formatter.Deserialize(file);
                 file.Close();
             }
         }
@@ -42,10 +59,7 @@ namespace FinderQuest3D
         {
             frmMain = (FormRender)this.Owner;
             listBoxDisplay.Items.Clear();
-            foreach (var p in highScores)
-            {
-                listBoxDisplay.Items.Add(p.DisplayData().Split('\n'));
-            }
+            DisplayRankings();
         }
 
         private void comboBox1_SelectedIndexChanged(object sender, EventArgs e)
