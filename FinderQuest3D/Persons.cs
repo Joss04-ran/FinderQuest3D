@@ -96,14 +96,16 @@ namespace FinderQuest3D
         {
             foreach (Questions q in this.PersonQuestion)
             {
-                // If even one question is NOT correct yet, the NPC tasks are not finished
-                if (q.Status != "V")
+                // If even one question has NOT been answered yet (status is empty/null), 
+                // then the NPC tasks are not finished.
+                if (string.IsNullOrEmpty(q.Status))
                 {
                     this.SolvedStatus = false;
                     return false;
                 }
             }
-            // If the loop finishes without finding a non-"V" status, they passed everything!
+
+            // If every question has either a "V" or an "X", the NPC interaction is complete!
             this.SolvedStatus = true;
             return true;
         }
