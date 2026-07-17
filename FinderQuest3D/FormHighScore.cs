@@ -9,28 +9,33 @@ using System.Runtime.Serialization.Formatters.Binary;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement;
 
 namespace FinderQuest3D
 {
     public partial class FormHighScore : Form
     {
         FormRender frmMain;
-        public BindingList<Players> highScores = new BindingList<Players>();
-        public void DisplayRankings()
+        public List<Players> highScores = new List<Players>();
+        public void DisplayRankings(string filter)
         {
             listBoxDisplay.Items.Clear();
+            int rankCounter = 1;
 
-            // Loop through the sorted scores using a standard for-loop to calculate the rank index
             for (int i = 0; i < highScores.Count; i++)
             {
                 Players p = highScores[i];
-                int rank = i + 1; // Index 0 becomes Rank #1, Index 1 becomes Rank #2, etc.
 
-                // Format the text nicely so it lines up beautifully in your list box
+                // If filtering for Wins, skip the Losses (and vice versa)
+                if (filter == "Win" && p.Status != "Win") continue;
+                if (filter == "Lose" && p.Status != "Lose") continue;
+
+                // Clean up the text layout using your existing Player method
                 string playerDetails = p.DisplayData().Replace("\n", " | ");
-                string rowText = $"#{rank} -> {playerDetails}";
+                string rowText = $"#{rankCounter} -> {playerDetails}";
 
                 listBoxDisplay.Items.Add(rowText);
+                rankCounter++;
             }
         }
         public FormHighScore()
@@ -50,7 +55,7 @@ namespace FinderQuest3D
             {
                 FileStream file = new FileStream(fileName, FileMode.Open, FileAccess.Read);
                 BinaryFormatter formatter = new BinaryFormatter();
-                highScores = (BindingList<Players>)formatter.Deserialize(file);
+                highScores = (List<Players>)formatter.Deserialize(file);
                 file.Close();
             }
         }
@@ -59,12 +64,22 @@ namespace FinderQuest3D
         {
             frmMain = (FormRender)this.Owner;
             listBoxDisplay.Items.Clear();
-            DisplayRankings();
+
+            // 1. Set the default selection to "All" so the list populates immediately
+            if (comboBoxDisplay.Items.Count > 0)
+            {
+                comboBoxDisplay.SelectedIndex = 0;
+            }
+            DisplayRankings("All");
         }
 
-        private void comboBox1_SelectedIndexChanged(object sender, EventArgs e)
+        private void comboBoxDisplay_SelectedIndexChanged(object sender, EventArgs e)
         {
-
+            if (comboBoxDisplay.SelectedItem != null)
+            {
+                string selectedFilter = comboBoxDisplay.SelectedItem.ToString();
+                DisplayRankings(selectedFilter);
+            }
         }
     }
 }

@@ -472,7 +472,9 @@ namespace FinderQuest3D
                 MessageBox.Show("Game Over! Time's Up!");
                 player.Status = "Lose";
                 FormHighScore formHighScore = new FormHighScore();
+                formHighScore.ReadData(filePath); // 1. READ HISTORY FIRST
                 formHighScore.highScores.Add(player);
+                formHighScore.highScores.Sort((p1, p2) => p2.Score.CompareTo(p1.Score));// 3. SORT BY HIGHEST SCORE
                 formHighScore.SaveData(filePath);
                 formHighScore.ShowDialog();
                 this.Close();
@@ -521,7 +523,9 @@ namespace FinderQuest3D
                     MessageBox.Show("Congratulations! You win the game!!!");
                     player.Status = "Win";
                     FormHighScore formHighScore = new FormHighScore();
+                    formHighScore.ReadData(filePath); // 1. READ HISTORY FIRST
                     formHighScore.highScores.Add(player);
+                    formHighScore.highScores.Sort((p1, p2) => p2.Score.CompareTo(p1.Score));
                     formHighScore.SaveData(filePath);
                     formHighScore.ShowDialog();
                     this.Close();
