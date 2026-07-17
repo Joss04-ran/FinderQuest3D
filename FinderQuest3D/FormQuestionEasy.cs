@@ -57,6 +57,7 @@ namespace FinderQuest3D
                 {
                     MessageBox.Show("Your answer is incorrect ! ");
                     renderForm.activePersons.PersonQuestion[selectedSlot].Status = "X";
+                    CheckAll();
                 }
                 panelQuestion1.Invalidate();
                 panelQuestion2.Invalidate();
@@ -64,7 +65,6 @@ namespace FinderQuest3D
                 panelQuestion1.Update();
                 panelQuestion2.Update();
                 panelQuestion3.Update();
-                CheckAll();
                 if (renderForm.activePersons.SolvedStatus == true)
                 {
                     renderForm.ExitTalkArea();
