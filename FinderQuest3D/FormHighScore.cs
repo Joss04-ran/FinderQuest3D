@@ -16,5 +16,14 @@ namespace FinderQuest3D
         {
             InitializeComponent();
         }
+
+        private void FormHighScore_Load(object sender, EventArgs e)
+        {
+            listBoxDisplay
+        }
+
+        private void listBox1_SelectedIndexChanged(object sender, EventArgs e)
+        {
+        }
     }
 }

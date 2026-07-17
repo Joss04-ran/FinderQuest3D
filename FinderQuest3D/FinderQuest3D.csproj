@@ -144,6 +144,9 @@
     <EmbeddedResource Include="FormGameStart.resx">
       <DependentUpon>FormGameStart.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="FormHighScore.resx">
+      <DependentUpon>FormHighScore.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="FormMenu.resx">
       <DependentUpon>FormMenu.cs</DependentUpon>
     </EmbeddedResource>

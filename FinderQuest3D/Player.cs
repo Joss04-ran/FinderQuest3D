@@ -7,6 +7,7 @@ using System.Windows.Forms;
 
 namespace FinderQuest3D
 {
+    [Serializable]
     public class Players
     {
         #region Fields

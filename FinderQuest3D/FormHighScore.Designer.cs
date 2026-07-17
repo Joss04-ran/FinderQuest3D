@@ -28,12 +28,36 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.components = new System.ComponentModel.Container();
+            this.listBoxDisplay = new System.Windows.Forms.ListBox();
+            this.SuspendLayout();
+            // 
+            // listBoxDisplay
+            // 
+            this.listBoxDisplay.FormattingEnabled = true;
+            this.listBoxDisplay.ItemHeight = 16;
+            this.listBoxDisplay.Location = new System.Drawing.Point(64, 67);
+            this.listBoxDisplay.Name = "listBoxDisplay";
+            this.listBoxDisplay.Size = new System.Drawing.Size(660, 356);
+            this.listBoxDisplay.TabIndex = 0;
+            // 
+            // FormHighScore
+            // 
+            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.BackgroundImage = global::FinderQuest3D.Properties.Resources.backgroundQuestion;
+            this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.ClientSize = new System.Drawing.Size(800, 450);
+            this.Controls.Add(this.listBoxDisplay);
+            this.DoubleBuffered = true;
+            this.Name = "FormHighScore";
             this.Text = "FormHighScore";
+            this.Load += new System.EventHandler(this.FormHighScore_Load);
+            this.ResumeLayout(false);
+
         }
 
         #endregion
+
+        private System.Windows.Forms.ListBox listBoxDisplay;
     }
 }
