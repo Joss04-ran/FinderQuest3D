@@ -45,8 +45,10 @@ namespace FinderQuest3D
                 int totalQuestions = questions.Count;
                 if (renderForm.activePersons.CheckAnswer(textBoxAnswer.Text, selectedSlot) == true)
                 {
-                    MessageBox.Show($"Your answer is correct ! " +
-                        $"\nYou get {renderForm.activePersons.PersonQuestion[selectedSlot].Score} points");
+                    panelAnswer.Visible = true;
+                    labelAnswer.Visible = true;
+                    labelAnswer.Text = $"Your answer is correct ! " +
+                        $"\nYou get {renderForm.activePersons.PersonQuestion[selectedSlot].Score} points";
                     renderForm.player.AddScore(renderForm.activePersons.PersonQuestion[selectedSlot].Score);
                     renderForm.labelPlayer.Text = renderForm.player.DisplayData();
                     renderForm.time.AddWithSecond(10);
@@ -54,7 +56,9 @@ namespace FinderQuest3D
                 }
                 else
                 {
-                    MessageBox.Show("Your answer is incorrect ! ");
+                    panelAnswer.Visible = true;
+                    labelAnswer.Visible = true;
+                    labelAnswer.Text = "Your answer is incorrect !";
                     renderForm.activePersons.PersonQuestion[selectedSlot].Status = "X";
                     renderForm.time.AddWithSecond(-10);
                 }
@@ -85,7 +89,6 @@ namespace FinderQuest3D
                     CheckAll();
 
                     renderForm.ExitTalkArea();
-                    renderForm.PlaySound("walk");
                     this.Close();
                     return; // Exit out safely
                 }
@@ -136,7 +139,8 @@ namespace FinderQuest3D
             panelPersonProfile.BackgroundImage = null;
             panelPersonProfile.BackgroundImageLayout = ImageLayout.Stretch;
             renderForm.activePersons.DisplayPicture(panelPersonProfile);
-
+            panelAnswer.Visible = false;
+            labelAnswer.Visible = false;
             renderForm.activePersons.Picture.Size = panelPersonProfile.Size;
             renderForm.activePersons.Picture.Location = new Point(0, 0);
         }

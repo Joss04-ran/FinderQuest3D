@@ -64,10 +64,18 @@ namespace FinderQuest3D
         {
             frmMain = (FormRender)this.Owner;
             listBoxDisplay.Items.Clear();
-            if (frmMain.player.Status == "Win")
+            try
             {
-                MessageBox.Show("Congratulations! You Win!");
+                if (frmMain.player.Status == "Win")
+                {
+                    MessageBox.Show("Congratulations! You Win!");
+                }
+                else if (frmMain.player.Status == "Lose");
+                {
+                    MessageBox.Show("Game Over! Time's Up!");
+                }
             }
+            catch { }
             // 1. Set the default selection to "All" so the list populates immediately
             if (comboBoxDisplay.Items.Count > 0)
             {
@@ -83,6 +91,12 @@ namespace FinderQuest3D
                 string selectedFilter = comboBoxDisplay.SelectedItem.ToString();
                 DisplayRankings(selectedFilter);
             }
+        }
+
+        private void comboBoxDisplayTime_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            string selectedFilter = comboBoxDisplayTime.SelectedItem.ToString();
+            DisplayRankings(selectedFilter);
         }
     }
 }

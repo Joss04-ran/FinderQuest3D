@@ -38,14 +38,13 @@ namespace FinderQuest3D
             get => hour;
             set
             {
-                //nilai jam hrs bernilai 0-23
                 if (value >= 0 && value <= 23)
                 {
                     hour = value;
                 }
                 else
                 {
-                    throw new Exception("Hour must be 0-23");
+                    hour = 0;
                 }
             }
         }
@@ -54,14 +53,13 @@ namespace FinderQuest3D
             get => minute;
             set
             {
-                //nilai menit harus 0-59
                 if (value >= 0 && value <= 59)
                 {
                     minute = value;
                 }
                 else
                 {
-                    throw new Exception("Minute must be 0-59");
+                    minute = 0;
                 }
             }
         }
@@ -70,14 +68,13 @@ namespace FinderQuest3D
             get => second;
             set
             {
-                //nilai detik harus 0-59
                 if (value >= 0 && value <= 59)
                 {
                     second = value;
                 }
                 else
                 {
-                    throw new Exception("Second must be 0-59");
+                    second = 0;
                 }
             }
         }

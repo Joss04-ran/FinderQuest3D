@@ -1,4 +1,4 @@
-using SharpDX;
+ï»¿using SharpDX;
 using SharpDX.Windows;
 using System;
 using System.Collections.Generic;
@@ -41,6 +41,8 @@ namespace FinderQuest3D
         private bool isComplete = false;
         private Timer renderLoop;
         public string filePath = "highscore.dat";
+        public bool isPaused = false;
+        public bool isMuted = false;
 
         public FormRender(FormGameStart ownerForm)
         {
@@ -139,7 +141,7 @@ namespace FinderQuest3D
 
             // Locate resource files
             string projectPath = Path.GetFullPath(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "..", ".."));
-            soundPlayer.URL = Path.Combine(projectPath, "bin", "Debug", "sound", "BacksoundWalkArea.mp3");
+            PlaySound("test");
 
             string treePath = Path.Combine(projectPath, "Resources", "craftpix-net-385863-free-top-down-trees-pixel-art", "PNG", "Assets_separately", "Trees", "Autumn_tree2.png");
             if (!File.Exists(treePath))
@@ -221,10 +223,34 @@ namespace FinderQuest3D
                 System.Threading.Thread.Sleep((int)(TargetFrameTime - elapsedMs));
             }
         }
+
+        public void PauseGame()
+        {
+            timerTime.Stop();
+            if (renderLoop != null) renderLoop.Stop();
+            labelArea.Text = "Paused";
+        }
+
+        public void Continue()
+        {
+            timerTime.Start();
+            if (renderLoop != null) renderLoop.Start();
+            if (walkAreas != null)
+            {
+                labelArea.Text = walkAreas.DisplayData();
+            }
+            else
+            {
+                labelArea.Text = "";
+            }
+        }
+
         public void PlaySound(string type)
         {
             if (type == "walk")
                 soundPlayer.URL = Application.StartupPath + "\\sound\\BacksoundWalkArea.mp3";
+            else if (type == "test")
+                soundPlayer.URL = Application.StartupPath + "\\sound\\LessonMode.mp3";
             else if (type == "talk")
                 soundPlayer.URL = Application.StartupPath + "\\sound\\BacksoundTalkArea.mp3";
             else if (type == "lose")
@@ -340,12 +366,10 @@ namespace FinderQuest3D
             {
                 activePersons.Picture.Visible = false;
             }
-            PlaySound("walk");
         }
 
         private void GenerateTalkArea()
         {
-            PlaySound("talk");
             if (activePersons.NoPerson == 1.ToString())
             {
                 talkAreas = new TalkAreas("Anna's House", FinderQuest3D.Properties.Resources.talkArea1, activePersons);
@@ -389,7 +413,7 @@ namespace FinderQuest3D
                 talkAreas = new TalkAreas("Rina's Room", FinderQuest3D.Properties.Resources.talkArea4, activePersons);
                 activePersons.AddQuestion("What is the chemical compound name for sulfuric acid?\r\n", "h2so4", 100);
                 activePersons.AddQuestion("Octopuses have how many hearts?", "3", 100);
-                activePersons.AddQuestion("Chromosome Sex for Male are …", "XY", 150);
+                activePersons.AddQuestion("Chromosome Sex for Male are â€¦", "XY", 150);
                 if (form.difficult == "hard")
                 {
                     activePersons.AddQuestion("How many is a Human Chromosome?", "46", 100);
@@ -400,7 +424,7 @@ namespace FinderQuest3D
             {
                 talkAreas = new TalkAreas("Tommy's Place", FinderQuest3D.Properties.Resources.talkArea5, activePersons);
                 activePersons.AddQuestion("Check this C# codes: \r\nint result = 10/100; MessageBox.Show(result);\r\nWhat is the output of these codes?\r\n", "0", 150);
-                activePersons.AddQuestion("What is aggregation has-a … relationship", "Weak", 100);
+                activePersons.AddQuestion("What is aggregation has-a â€¦ relationship", "Weak", 100);
                 activePersons.AddQuestion("What is the open source application for web server?", "Apache", 150);
                 if (form.difficult == "hard")
                 {
@@ -459,6 +483,14 @@ namespace FinderQuest3D
                 soundPlayer.controls.play();
             }
             catch { }
+            if (time.Hour == 0 && time.Minute == 0 && time.Second <= 30)
+            {
+                labelTime.BackColor = System.Drawing.Color.Orange;
+            }
+            if (time.Hour == 0 && time.Minute == 0 && time.Second <= 10)
+            {
+                labelTime.BackColor = System.Drawing.Color.DarkRed;
+            }
             if (time.Hour == 0 && time.Minute == 0 && time.Second == 0)
             {
                 timerTime.Stop();
@@ -470,9 +502,9 @@ namespace FinderQuest3D
                 }
                 catch { }
                 PlaySound("lose");
-                MessageBox.Show("Game Over! Time's Up!");
                 player.Status = "Lose";
                 FormHighScore formHighScore = new FormHighScore();
+                formHighScore.Owner = this;
                 formHighScore.ReadData(filePath); // 1. READ HISTORY FIRST
                 formHighScore.highScores.Add(player);
                 formHighScore.highScores.Sort((p1, p2) => p2.Score.CompareTo(p1.Score));// 3. SORT BY HIGHEST SCORE
@@ -536,7 +568,7 @@ namespace FinderQuest3D
                     player.Status = "Win";
                     FormHighScore formHighScore = new FormHighScore();
                     formHighScore.Owner = this;
-                    formHighScore.ReadData(filePath); // 1. READ HISTORY FIRST
+                    formHighScore.ReadData(filePath); 
                     formHighScore.highScores.Add(player);
                     formHighScore.highScores.Sort((p1, p2) => p2.Score.CompareTo(p1.Score));
                     formHighScore.SaveData(filePath);
@@ -565,6 +597,36 @@ namespace FinderQuest3D
         {
             // Empty
         }
+
+        private void toolStripMenuItemPlayPause_Click(object sender, EventArgs e)
+        {
+            if (isPaused == false)
+            {
+                PauseGame();
+                isPaused = true;
+            }
+            else if (isPaused == true)
+            {
+                Continue();
+                isPaused = false;
+            }
+        }
+
+        private void toolStripMenuItemMuteUnmute_Click(object sender, EventArgs e)
+        {
+            if (isMuted == false)
+            {
+                soundPlayer.settings.mute = !soundPlayer.settings.mute;
+                isMuted = true;
+            }
+            else if (isMuted == true)
+            {
+                soundPlayer.settings.mute = false;
+                isMuted = false;
+            }
+        }
     }
 }
+
+
 

@@ -40,9 +40,14 @@
             this.panelGameBottom = new System.Windows.Forms.Panel();
             this.labelTalkArea = new System.Windows.Forms.Label();
             this.buttonExit = new System.Windows.Forms.Button();
+            this.menuStripSettings = new System.Windows.Forms.MenuStrip();
+            this.toolStripMenuItemSettings = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripMenuItemPlayPause = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripMenuItemMuteUnmute = new System.Windows.Forms.ToolStripMenuItem();
             this.panelDashboard.SuspendLayout();
             this.panelGameTop.SuspendLayout();
             this.panelGameBottom.SuspendLayout();
+            this.menuStripSettings.SuspendLayout();
             this.SuspendLayout();
             // 
             // panelDashboard
@@ -133,10 +138,11 @@
             // labelTalkArea
             // 
             this.labelTalkArea.AutoSize = true;
-            this.labelTalkArea.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.labelTalkArea.Location = new System.Drawing.Point(13, 11);
+            this.labelTalkArea.Font = new System.Drawing.Font("Palatino Linotype", 13.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.labelTalkArea.ForeColor = System.Drawing.SystemColors.HighlightText;
+            this.labelTalkArea.Location = new System.Drawing.Point(10, 34);
             this.labelTalkArea.Name = "labelTalkArea";
-            this.labelTalkArea.Size = new System.Drawing.Size(134, 22);
+            this.labelTalkArea.Size = new System.Drawing.Size(163, 31);
             this.labelTalkArea.TabIndex = 3;
             this.labelTalkArea.Text = "labelTalkArea";
             // 
@@ -151,12 +157,48 @@
             this.buttonExit.UseVisualStyleBackColor = true;
             this.buttonExit.Click += new System.EventHandler(this.buttonExit_Click);
             // 
+            // menuStripSettings
+            // 
+            this.menuStripSettings.Font = new System.Drawing.Font("Palatino Linotype", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.menuStripSettings.ImageScalingSize = new System.Drawing.Size(20, 20);
+            this.menuStripSettings.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.toolStripMenuItemSettings});
+            this.menuStripSettings.Location = new System.Drawing.Point(0, 0);
+            this.menuStripSettings.Name = "menuStripSettings";
+            this.menuStripSettings.Size = new System.Drawing.Size(1280, 35);
+            this.menuStripSettings.TabIndex = 7;
+            this.menuStripSettings.Text = "menuStrip1";
+            // 
+            // toolStripMenuItemSettings
+            // 
+            this.toolStripMenuItemSettings.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.toolStripMenuItemPlayPause,
+            this.toolStripMenuItemMuteUnmute});
+            this.toolStripMenuItemSettings.Name = "toolStripMenuItemSettings";
+            this.toolStripMenuItemSettings.Size = new System.Drawing.Size(99, 31);
+            this.toolStripMenuItemSettings.Text = "Settings";
+            // 
+            // toolStripMenuItemPlayPause
+            // 
+            this.toolStripMenuItemPlayPause.Name = "toolStripMenuItemPlayPause";
+            this.toolStripMenuItemPlayPause.Size = new System.Drawing.Size(299, 32);
+            this.toolStripMenuItemPlayPause.Text = "Play / Pause";
+            this.toolStripMenuItemPlayPause.Click += new System.EventHandler(this.toolStripMenuItemPlayPause_Click);
+            // 
+            // toolStripMenuItemMuteUnmute
+            // 
+            this.toolStripMenuItemMuteUnmute.Name = "toolStripMenuItemMuteUnmute";
+            this.toolStripMenuItemMuteUnmute.Size = new System.Drawing.Size(299, 32);
+            this.toolStripMenuItemMuteUnmute.Text = "Mute / Unmute Music";
+            this.toolStripMenuItemMuteUnmute.Click += new System.EventHandler(this.toolStripMenuItemMuteUnmute_Click);
+            // 
             // FormRender
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
             this.ClientSize = new System.Drawing.Size(1280, 720);
+            this.Controls.Add(this.menuStripSettings);
             this.Controls.Add(this.panelDashboard);
             this.Controls.Add(this.panelGameBottom);
             this.DoubleBuffered = true;
@@ -169,7 +211,10 @@
             this.panelGameTop.PerformLayout();
             this.panelGameBottom.ResumeLayout(false);
             this.panelGameBottom.PerformLayout();
+            this.menuStripSettings.ResumeLayout(false);
+            this.menuStripSettings.PerformLayout();
             this.ResumeLayout(false);
+            this.PerformLayout();
 
         }
 
@@ -186,5 +231,9 @@
         private System.Windows.Forms.Panel panelPlayerProfile;
         private System.Windows.Forms.Panel panelMinimap;
         private System.Windows.Forms.Button buttonExit;
+        private System.Windows.Forms.MenuStrip menuStripSettings;
+        private System.Windows.Forms.ToolStripMenuItem toolStripMenuItemSettings;
+        private System.Windows.Forms.ToolStripMenuItem toolStripMenuItemPlayPause;
+        private System.Windows.Forms.ToolStripMenuItem toolStripMenuItemMuteUnmute;
     }
 }

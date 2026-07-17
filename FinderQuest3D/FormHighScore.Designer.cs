@@ -30,6 +30,7 @@
         {
             this.listBoxDisplay = new System.Windows.Forms.ListBox();
             this.comboBoxDisplay = new System.Windows.Forms.ComboBox();
+            this.comboBoxDisplayTime = new System.Windows.Forms.ComboBox();
             this.SuspendLayout();
             // 
             // listBoxDisplay
@@ -44,6 +45,7 @@
             // 
             // comboBoxDisplay
             // 
+            this.comboBoxDisplay.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.comboBoxDisplay.Font = new System.Drawing.Font("Palatino Linotype", 16.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.comboBoxDisplay.FormattingEnabled = true;
             this.comboBoxDisplay.Items.AddRange(new object[] {
@@ -56,6 +58,21 @@
             this.comboBoxDisplay.TabIndex = 1;
             this.comboBoxDisplay.SelectedIndexChanged += new System.EventHandler(this.comboBoxDisplay_SelectedIndexChanged);
             // 
+            // comboBoxDisplayTime
+            // 
+            this.comboBoxDisplayTime.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.comboBoxDisplayTime.Font = new System.Drawing.Font("Palatino Linotype", 16.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.comboBoxDisplayTime.FormattingEnabled = true;
+            this.comboBoxDisplayTime.Items.AddRange(new object[] {
+            "All",
+            "Time : Lowest To Highest",
+            "Time : Highest To Lowest"});
+            this.comboBoxDisplayTime.Location = new System.Drawing.Point(259, 25);
+            this.comboBoxDisplayTime.Name = "comboBoxDisplayTime";
+            this.comboBoxDisplayTime.Size = new System.Drawing.Size(290, 44);
+            this.comboBoxDisplayTime.TabIndex = 2;
+            this.comboBoxDisplayTime.SelectedIndexChanged += new System.EventHandler(this.comboBoxDisplayTime_SelectedIndexChanged);
+            // 
             // FormHighScore
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
@@ -63,6 +80,7 @@
             this.BackgroundImage = global::FinderQuest3D.Properties.Resources.backgroundQuestion;
             this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.ClientSize = new System.Drawing.Size(1262, 673);
+            this.Controls.Add(this.comboBoxDisplayTime);
             this.Controls.Add(this.comboBoxDisplay);
             this.Controls.Add(this.listBoxDisplay);
             this.DoubleBuffered = true;
@@ -77,5 +95,6 @@
 
         private System.Windows.Forms.ListBox listBoxDisplay;
         private System.Windows.Forms.ComboBox comboBoxDisplay;
+        private System.Windows.Forms.ComboBox comboBoxDisplayTime;
     }
 }

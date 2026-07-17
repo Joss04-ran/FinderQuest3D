@@ -37,6 +37,9 @@ namespace FinderQuest3D
             this.panelPersonProfile = new System.Windows.Forms.Panel();
             this.panelQuestion4 = new System.Windows.Forms.Panel();
             this.panelQuestion5 = new System.Windows.Forms.Panel();
+            this.panelAnswer = new System.Windows.Forms.Panel();
+            this.labelAnswer = new System.Windows.Forms.Label();
+            this.panelAnswer.SuspendLayout();
             this.SuspendLayout();
             // 
             // labelQuestion
@@ -128,6 +131,25 @@ namespace FinderQuest3D
             this.panelQuestion5.TabIndex = 12;
             this.panelQuestion5.Paint += new System.Windows.Forms.PaintEventHandler(this.panelQuestion5_Paint);
             // 
+            // panelAnswer
+            // 
+            this.panelAnswer.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(193)))));
+            this.panelAnswer.Controls.Add(this.labelAnswer);
+            this.panelAnswer.Location = new System.Drawing.Point(155, 325);
+            this.panelAnswer.Name = "panelAnswer";
+            this.panelAnswer.Size = new System.Drawing.Size(252, 58);
+            this.panelAnswer.TabIndex = 13;
+            // 
+            // labelAnswer
+            // 
+            this.labelAnswer.AutoSize = true;
+            this.labelAnswer.Font = new System.Drawing.Font("Palatino Linotype", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.labelAnswer.Location = new System.Drawing.Point(3, 9);
+            this.labelAnswer.Name = "labelAnswer";
+            this.labelAnswer.Size = new System.Drawing.Size(160, 23);
+            this.labelAnswer.TabIndex = 0;
+            this.labelAnswer.Text = "Lorem Ipsum Dolor";
+            // 
             // FormQuestionHard
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
@@ -135,6 +157,7 @@ namespace FinderQuest3D
             this.BackColor = System.Drawing.Color.DimGray;
             this.BackgroundImage = global::FinderQuest3D.Properties.Resources.backgroundQuestion;
             this.ClientSize = new System.Drawing.Size(841, 391);
+            this.Controls.Add(this.panelAnswer);
             this.Controls.Add(this.panelQuestion5);
             this.Controls.Add(this.panelQuestion4);
             this.Controls.Add(this.panelPersonProfile);
@@ -150,6 +173,8 @@ namespace FinderQuest3D
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Load += new System.EventHandler(this.FormQuestion1_Load);
             this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.FormQuestion1_KeyDown);
+            this.panelAnswer.ResumeLayout(false);
+            this.panelAnswer.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -166,5 +191,7 @@ namespace FinderQuest3D
         private System.Windows.Forms.Panel panelPersonProfile;
         private System.Windows.Forms.Panel panelQuestion4;
         private System.Windows.Forms.Panel panelQuestion5;
+        private System.Windows.Forms.Panel panelAnswer;
+        private System.Windows.Forms.Label labelAnswer;
     }
 }
