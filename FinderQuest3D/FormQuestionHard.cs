@@ -152,50 +152,6 @@ namespace FinderQuest3D
             }
         }
 
-        private void panelQuestion1_Click(object sender, EventArgs e)
-        {
-
-            if (renderForm.activePersons.PersonQuestion[0].Status != "V")
-            {
-                selectedSlot = 0;
-                UpdateQuestionText();
-            }
-        }
-
-        private void panelQuestion2_Click(object sender, EventArgs e)
-        {
-            if (renderForm.activePersons.PersonQuestion[1].Status != "V")
-            {
-                selectedSlot = 1;
-                UpdateQuestionText();
-            }
-        }
-
-        private void panelQuestion3_Click(object sender, EventArgs e)
-        {
-            if (renderForm.activePersons.PersonQuestion[2].Status != "V")
-            {
-                selectedSlot = 2;
-                UpdateQuestionText();
-            }
-        }
-        private void panelQuestion4_Click(object sender, EventArgs e)
-        {
-            if (renderForm.activePersons.PersonQuestion[3].Status != "V")
-            {
-                selectedSlot = 3;
-                UpdateQuestionText();
-            }
-        }
-
-        private void panelQuestion5_Click(object sender, EventArgs e)
-        {
-            if (renderForm.activePersons.PersonQuestion[4].Status != "V")
-            {
-                selectedSlot = 4;
-                UpdateQuestionText();
-            }
-        }
         private void DrawStatusSymbol(Panel panel, int slotIndex, PaintEventArgs e)
         {
             if (renderForm == null || renderForm.activePersons == null) return;
