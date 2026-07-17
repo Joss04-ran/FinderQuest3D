@@ -51,7 +51,6 @@ namespace FinderQuest3D
                     renderForm.labelPlayer.Text = renderForm.player.DisplayData();
                     renderForm.time.AddWithSecond(20);
                     renderForm.activePersons.PersonQuestion[selectedSlot].Status = "V";
-                    CheckAll();
                 }
                 else
                 {
@@ -63,30 +62,50 @@ namespace FinderQuest3D
                 panelQuestion3.Invalidate();
                 panelQuestion4.Invalidate();
                 panelQuestion5.Invalidate();
-                if (renderForm.activePersons.SolvedStatus == true)
+                panelQuestion1.Update();
+                panelQuestion2.Update();
+                panelQuestion3.Update();
+                panelQuestion4.Update();
+                panelQuestion5.Update();
+                int answeredCount = 0;
+                foreach (var q in questions)
                 {
+                    if (q.Status == "V" || q.Status == "X")
+                    {
+                        answeredCount++;
+                    }
+                }
+
+                // Only close the form if the player has attempted EVERY question in the list
+                if (answeredCount >= totalQuestions)
+                {
+                    // Update the backend class properties so the main window knows you finished
+                    renderForm.activePersons.SolvedStatus = true;
+                    CheckAll();
+
                     renderForm.ExitTalkArea();
                     renderForm.PlaySound("walk");
                     this.Close();
+                    return; // Exit out safely
                 }
-                if (questions[selectedSlot].Status == "V")
+                bool foundNext = false;
+                for (int i = 1; i <= totalQuestions; i++)
                 {
-                    bool foundNext = false;
-                    for (int i = 0; i < totalQuestions; i++)
-                    {
-                        int nextIndex = (selectedSlot + i) % totalQuestions;
-                        if (questions[nextIndex].Status != "V")
-                        {
-                            selectedSlot = nextIndex;
-                            foundNext = true;
-                            break;
-                        }
-                    }
+                    int nextIndex = (selectedSlot + i) % totalQuestions;
 
-                    if (foundNext)
+                    // Skip questions that are already answered correctly
+                    if (questions[nextIndex].Status != "V")
                     {
-                        UpdateQuestionText();
+                        selectedSlot = nextIndex;
+                        foundNext = true;
+                        break;
                     }
+                }
+
+                // 5. Apply the UI update transitions
+                if (foundNext)
+                {
+                    UpdateQuestionText();
                 }
                 else
                 {
