@@ -470,6 +470,7 @@ namespace FinderQuest3D
                 catch { }
                 PlaySound("lose");
                 MessageBox.Show("Game Over! Time's Up!");
+                player.Status = "Lose";
                 FormHighScore formHighScore = new FormHighScore();
                 formHighScore.highScores.Add(player);
                 formHighScore.SaveData(filePath);
@@ -518,6 +519,7 @@ namespace FinderQuest3D
                 {
                     PlaySound("win");
                     MessageBox.Show("Congratulations! You win the game!!!");
+                    player.Status = "Win";
                     FormHighScore formHighScore = new FormHighScore();
                     formHighScore.highScores.Add(player);
                     formHighScore.SaveData(filePath);
