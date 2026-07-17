@@ -97,6 +97,12 @@
     <Compile Include="FormGameStart.Designer.cs">
       <DependentUpon>FormGameStart.cs</DependentUpon>
     </Compile>
+    <Compile Include="FormHighScore.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FormHighScore.Designer.cs">
+      <DependentUpon>FormHighScore.cs</DependentUpon>
+    </Compile>
     <Compile Include="FormMenu.cs">
       <SubType>Form</SubType>
     </Compile>
