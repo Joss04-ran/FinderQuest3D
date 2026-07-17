@@ -44,7 +44,7 @@ namespace FinderQuest3D
             listBoxDisplay.Items.Clear();
             foreach (var p in highScores)
             {
-                listBoxDisplay.Items.Add(p.DisplayData().Split("\n"));
+                listBoxDisplay.Items.Add(p.DisplayData().Split('\n'));
             }
         }
 
