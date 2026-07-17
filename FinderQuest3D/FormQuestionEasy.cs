@@ -51,13 +51,11 @@ namespace FinderQuest3D
                     renderForm.labelPlayer.Text = renderForm.player.DisplayData();
                     renderForm.time.AddWithSecond(20);
                     renderForm.activePersons.PersonQuestion[selectedSlot].Status = "V";
-                    CheckAll();
                 }
                 else
                 {
                     MessageBox.Show("Your answer is incorrect ! ");
                     renderForm.activePersons.PersonQuestion[selectedSlot].Status = "X";
-                    CheckAll();
                 }
                 panelQuestion1.Invalidate();
                 panelQuestion2.Invalidate();
@@ -65,11 +63,26 @@ namespace FinderQuest3D
                 panelQuestion1.Update();
                 panelQuestion2.Update();
                 panelQuestion3.Update();
-                if (renderForm.activePersons.SolvedStatus == true)
+                int answeredCount = 0;
+                foreach (var q in questions)
                 {
+                    if (q.Status == "V" || q.Status == "X")
+                    {
+                        answeredCount++;
+                    }
+                }
+
+                // Only close the form if the player has attempted EVERY question in the list
+                if (answeredCount >= totalQuestions)
+                {
+                    // Update the backend class properties so the main window knows you finished
+                    renderForm.activePersons.SolvedStatus = true;
+                    CheckAll();
+
                     renderForm.ExitTalkArea();
                     renderForm.PlaySound("walk");
                     this.Close();
+                    return; // Exit out safely
                 }
                 bool foundNext = false;
                 for (int i = 1; i <= totalQuestions; i++)
