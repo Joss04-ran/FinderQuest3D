@@ -49,13 +49,14 @@ namespace FinderQuest3D
                         $"\nYou get {renderForm.activePersons.PersonQuestion[selectedSlot].Score} points");
                     renderForm.player.AddScore(renderForm.activePersons.PersonQuestion[selectedSlot].Score);
                     renderForm.labelPlayer.Text = renderForm.player.DisplayData();
-                    renderForm.time.AddWithSecond(20);
+                    renderForm.time.AddWithSecond(10);
                     renderForm.activePersons.PersonQuestion[selectedSlot].Status = "V";
                 }
                 else
                 {
                     MessageBox.Show("Your answer is incorrect ! ");
                     renderForm.activePersons.PersonQuestion[selectedSlot].Status = "X";
+                    renderForm.time.AddWithSecond(-5);
                 }
                 panelQuestion1.Invalidate();
                 panelQuestion2.Invalidate();
