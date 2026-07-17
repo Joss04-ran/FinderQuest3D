@@ -477,6 +477,15 @@ namespace FinderQuest3D
                 formHighScore.highScores.Sort((p1, p2) => p2.Score.CompareTo(p1.Score));// 3. SORT BY HIGHEST SCORE
                 formHighScore.SaveData(filePath);
                 formHighScore.ShowDialog();
+                // --- FIX: Safely find and close open sub-forms ---
+                List<Form> openForms = new List<Form>(Application.OpenForms.Cast<Form>());
+                foreach (Form openForm in openForms)
+                {
+                    if (openForm is FormQuestionEasy || openForm is FormQuestionHard)
+                    {
+                        openForm.Close();
+                    }
+                }
                 this.Close();
             }
         }
@@ -528,6 +537,15 @@ namespace FinderQuest3D
                     formHighScore.highScores.Sort((p1, p2) => p2.Score.CompareTo(p1.Score));
                     formHighScore.SaveData(filePath);
                     formHighScore.ShowDialog();
+                    // --- ADDED FOR WIN CLEANUP: Safely close open sub-forms ---
+                    List<Form> openForms = new List<Form>(Application.OpenForms.Cast<Form>());
+                    foreach (Form openForm in openForms)
+                    {
+                        if (openForm is FormQuestionEasy || openForm is FormQuestionHard)
+                        {
+                            openForm.Close();
+                        }
+                    }
                     this.Close();
                 }
             }
