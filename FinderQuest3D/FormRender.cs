@@ -357,7 +357,7 @@ namespace FinderQuest3D
                 if (form.difficult == "hard")
                 {
                     activePersons.AddQuestion("What is the default assumption in Hypothesis testing called?", "H0", 100);
-                    activePersons.AddQuestion("The time a person waits for a plane at an airport ranges from 0 to 120 minutes and is\nuniformly distributed.\nWhat is the probability that a person will have to wait less than 60 minutes?", "3/4", 100);
+                    activePersons.AddQuestion("The time a person waits for a plane at an airport ranges from 0 to 120 minutes and is\nuniformly distributed.\nWhat is the probability that a person will have to wait less than 60 minutes?", "3/4", 200);
                 }
             }
             else if (activePersons.NoPerson == 2.ToString())
@@ -365,7 +365,7 @@ namespace FinderQuest3D
                 talkAreas = new TalkAreas("Andy's Room", FinderQuest3D.Properties.Resources.talkArea2, activePersons);
                 activePersons.AddQuestion("What is the capital city of Indonesia ?", "Jakarta", 50);
                 activePersons.AddQuestion("What is the capital city of Japan?", "Tokyo", 100);
-                activePersons.AddQuestion("What is the capital city of China?", "Beijing", 50);
+                activePersons.AddQuestion("What is the capital city of China?", "Beijing", 100);
                 if (form.difficult == "hard")
                 {
                     activePersons.AddQuestion("What is the longest river in the world?", "Nile River", 100);
@@ -376,12 +376,12 @@ namespace FinderQuest3D
             {
                 talkAreas = new TalkAreas("Bobby's Office", FinderQuest3D.Properties.Resources.talkArea3, activePersons);
                 activePersons.AddQuestion("I have this pattern: \r\n1\t1\t2\t3\t5\t8 ...\r\nWhat is the next number?\r\n", "13", 150);
-                activePersons.AddQuestion("The derivative of y=3x^2+x+e^2", "6x+1", 100);
-                activePersons.AddQuestion("The integral of 2x+9", "x^2+9x", 50);
+                activePersons.AddQuestion("What is the value of 10 factorial divided by 9 factorial (10! / 9!)?", "10", 100);
+                activePersons.AddQuestion("If a circle's radius is 10, what is its diameter?", "20", 100);
                 if (form.difficult == "hard")
                 {
-                    activePersons.AddQuestion("What is the value of 10 factorial divided by 9 factorial (10! / 9!)?", "10", 100);
-                    activePersons.AddQuestion("If a circle's radius is 10, what is its diameter?", "20", 100);
+                    activePersons.AddQuestion("The derivative of y=3x^2+x+e^2", "6x+1", 200);
+                    activePersons.AddQuestion("The integral of 2x+9", "x^2+9x", 150);
                 }
             }
             else if (activePersons.NoPerson == 4.ToString())
@@ -389,7 +389,7 @@ namespace FinderQuest3D
                 talkAreas = new TalkAreas("Rina's Room", FinderQuest3D.Properties.Resources.talkArea4, activePersons);
                 activePersons.AddQuestion("What is the chemical compound name for sulfuric acid?\r\n", "h2so4", 100);
                 activePersons.AddQuestion("Octopuses have how many hearts?", "3", 100);
-                activePersons.AddQuestion("Chromosome Sex for Male are …", "XY", 50);
+                activePersons.AddQuestion("Chromosome Sex for Male are …", "XY", 150);
                 if (form.difficult == "hard")
                 {
                     activePersons.AddQuestion("How many is a Human Chromosome?", "46", 100);
@@ -401,11 +401,11 @@ namespace FinderQuest3D
                 talkAreas = new TalkAreas("Tommy's Place", FinderQuest3D.Properties.Resources.talkArea5, activePersons);
                 activePersons.AddQuestion("Check this C# codes: \r\nint result = 10/100; MessageBox.Show(result);\r\nWhat is the output of these codes?\r\n", "0", 150);
                 activePersons.AddQuestion("What is aggregation has-a … relationship", "Weak", 100);
-                activePersons.AddQuestion("What is the open source application for web server?", "Apache", 50);
+                activePersons.AddQuestion("What is the open source application for web server?", "Apache", 150);
                 if (form.difficult == "hard")
                 {
                     activePersons.AddQuestion("What is antiX based on?", "Debian", 100);
-                    activePersons.AddQuestion("What is the L in LAMP Stack open source software?", "Linux", 100);
+                    activePersons.AddQuestion("What is the L in LAMP Stack open source software?", "Linux", 200);
                 }
             }
             else if (activePersons.NoPerson == 6.ToString())
@@ -413,7 +413,7 @@ namespace FinderQuest3D
                 talkAreas = new TalkAreas("Marie's Place", FinderQuest3D.Properties.Resources.talkArea6, activePersons);
                 activePersons.AddQuestion("A product has a selling price of $100 and is discounted 10% off the list price. It also has a shipping fee of $5. \r\nIf you want to purchase this product, how much will you have to pay?\r\n", "95", 150);
                 activePersons.AddQuestion("What does GDP stand for?", "Gross Domestic Product", 100);
-                activePersons.AddQuestion("A sustained increase in the general price level of goods and services, is called?", "Inflation", 50);
+                activePersons.AddQuestion("A sustained increase in the general price level of goods and services, is called?", "Inflation", 100);
                 if (form.difficult == "hard")
                 {
                     activePersons.AddQuestion("What is the currency of Taiwan?[Simplified]", "NTD", 100);
@@ -428,8 +428,8 @@ namespace FinderQuest3D
                 activePersons.AddQuestion("What is the motto of Indonesia?", "Bhinneka Tunggal Ika", 50);
                 if (form.difficult == "hard")
                 {
-                    activePersons.AddQuestion("Which institution organizes general elections in Indonesia?", "KPU", 100);
-                    activePersons.AddQuestion("How many feathers are on each wing of Garuda Pancasila?", "17", 100);
+                    activePersons.AddQuestion("Which institution organizes general elections in Indonesia?", "KPU", 200);
+                    activePersons.AddQuestion("How many feathers are on each wing of Garuda Pancasila?", "17", 200);
                 }
             }
             panelGameBottom.Visible = true;
