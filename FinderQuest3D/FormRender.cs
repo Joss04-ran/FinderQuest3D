@@ -469,6 +469,8 @@ namespace FinderQuest3D
                 catch { }
                 PlaySound("lose");
                 MessageBox.Show("Game Over! Time's Up!");
+                FormHighScore formHighScore = new FormHighScore();
+                formHighScore.ShowDialog();
                 this.Close();
             }
         }
@@ -513,6 +515,8 @@ namespace FinderQuest3D
                 {
                     PlaySound("win");
                     MessageBox.Show("Congratulations! You win the game!!!");
+                    FormHighScore formHighScore = new FormHighScore();
+                    formHighScore.ShowDialog();
                     this.Close();
                 }
             }

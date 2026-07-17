@@ -14,7 +14,7 @@ namespace FinderQuest3D
 {
     public partial class FormHighScore : Form
     {
-        string filePath = Path.Combine(Application.StartupPath, "highscores.dat");
+        string filePath = "highscore.dat";
         public List<Players> highScores = new List<Players>();
         public FormHighScore()
         {
