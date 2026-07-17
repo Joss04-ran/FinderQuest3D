@@ -5,6 +5,7 @@ using System.Text;
 
 namespace FinderQuest3D
 {
+    [Serializable]
     public class Time
     {
         private int hour;

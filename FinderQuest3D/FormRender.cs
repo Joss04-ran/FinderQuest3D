@@ -529,9 +529,9 @@ namespace FinderQuest3D
                 if (isComplete)
                 {
                     PlaySound("win");
-                    MessageBox.Show("Congratulations! You win the game!!!");
                     player.Status = "Win";
                     FormHighScore formHighScore = new FormHighScore();
+                    formHighScore.Owner = this;
                     formHighScore.ReadData(filePath); // 1. READ HISTORY FIRST
                     formHighScore.highScores.Add(player);
                     formHighScore.highScores.Sort((p1, p2) => p2.Score.CompareTo(p1.Score));

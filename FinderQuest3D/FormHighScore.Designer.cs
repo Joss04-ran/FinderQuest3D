@@ -34,23 +34,25 @@
             // 
             // listBoxDisplay
             // 
+            this.listBoxDisplay.Font = new System.Drawing.Font("Palatino Linotype", 16.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.listBoxDisplay.FormattingEnabled = true;
-            this.listBoxDisplay.ItemHeight = 16;
-            this.listBoxDisplay.Location = new System.Drawing.Point(64, 67);
+            this.listBoxDisplay.ItemHeight = 37;
+            this.listBoxDisplay.Location = new System.Drawing.Point(64, 94);
             this.listBoxDisplay.Name = "listBoxDisplay";
-            this.listBoxDisplay.Size = new System.Drawing.Size(660, 356);
+            this.listBoxDisplay.Size = new System.Drawing.Size(1124, 559);
             this.listBoxDisplay.TabIndex = 0;
             // 
             // comboBoxDisplay
             // 
+            this.comboBoxDisplay.Font = new System.Drawing.Font("Palatino Linotype", 16.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.comboBoxDisplay.FormattingEnabled = true;
             this.comboBoxDisplay.Items.AddRange(new object[] {
             "All",
             "Win",
             "Lose"});
-            this.comboBoxDisplay.Location = new System.Drawing.Point(64, 27);
+            this.comboBoxDisplay.Location = new System.Drawing.Point(64, 25);
             this.comboBoxDisplay.Name = "comboBoxDisplay";
-            this.comboBoxDisplay.Size = new System.Drawing.Size(121, 24);
+            this.comboBoxDisplay.Size = new System.Drawing.Size(160, 44);
             this.comboBoxDisplay.TabIndex = 1;
             this.comboBoxDisplay.SelectedIndexChanged += new System.EventHandler(this.comboBoxDisplay_SelectedIndexChanged);
             // 
@@ -60,12 +62,12 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackgroundImage = global::FinderQuest3D.Properties.Resources.backgroundQuestion;
             this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.ClientSize = new System.Drawing.Size(800, 450);
+            this.ClientSize = new System.Drawing.Size(1262, 673);
             this.Controls.Add(this.comboBoxDisplay);
             this.Controls.Add(this.listBoxDisplay);
             this.DoubleBuffered = true;
             this.Name = "FormHighScore";
-            this.Text = "FormHighScore";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Load += new System.EventHandler(this.FormHighScore_Load);
             this.ResumeLayout(false);
 

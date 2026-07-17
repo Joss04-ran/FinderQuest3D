@@ -64,7 +64,10 @@ namespace FinderQuest3D
         {
             frmMain = (FormRender)this.Owner;
             listBoxDisplay.Items.Clear();
-
+            if (frmMain.player.Status == "Win")
+            {
+                MessageBox.Show("Congratulations! You Win!");
+            }
             // 1. Set the default selection to "All" so the list populates immediately
             if (comboBoxDisplay.Items.Count > 0)
             {
