@@ -79,8 +79,6 @@ namespace FinderQuest3D
                             correctAnswer++;
                     }
                 }
-
-                // Only close the form if the player has attempted EVERY question in the list
                 if (answeredCount >= totalQuestions)
                 {
                     renderForm.activePersons.SolvedStatus = true;
@@ -88,14 +86,12 @@ namespace FinderQuest3D
                     MessageBox.Show($"You have answered {correctAnswer.ToString()} question correctly!");
                     renderForm.ExitTalkArea();
                     this.Close();
-                    return; // Exit out safely
+                    return;
                 }
                 bool foundNext = false;
                 for (int i = 1; i <= totalQuestions; i++)
                 {
                     int nextIndex = (selectedSlot + i) % totalQuestions;
-
-                    // Skip questions that are already answered correctly
                     if (questions[nextIndex].Status != "V")
                     {
                         selectedSlot = nextIndex;
@@ -103,8 +99,6 @@ namespace FinderQuest3D
                         break;
                     }
                 }
-
-                // 5. Apply the UI update transitions
                 if (foundNext)
                 {
                     UpdateQuestionText();
@@ -193,7 +187,6 @@ namespace FinderQuest3D
 
             if (status == "V")
             {
-                // Draws a Green Checkmark inside the panel boundary lines
                 using (Pen greenPen = new Pen(Color.LimeGreen, 4))
                 {
                     g.DrawLine(greenPen, panel.Width / 3, panel.Height / 2, panel.Width * 4 / 9, panel.Height * 2 / 3);
@@ -202,7 +195,6 @@ namespace FinderQuest3D
             }
             else if (status == "X")
             {
-                // Draws a Red Cross (X) inside the panel boundary lines
                 using (Pen redPen = new Pen(Color.Red, 4))
                 {
                     int margin = Math.Min(panel.Width, panel.Height) / 3;

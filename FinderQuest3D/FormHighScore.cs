@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -17,20 +17,39 @@ namespace FinderQuest3D
     {
         FormRender frmMain;
         public List<Players> highScores = new List<Players>();
-        public void DisplayRankings(string filter)
+        public void DisplayRankings()
         {
             listBoxDisplay.Items.Clear();
             int rankCounter = 1;
 
-            for (int i = 0; i < highScores.Count; i++)
+            string statusFilter = "All";
+            if (comboBoxDisplay.SelectedItem != null)
             {
-                Players p = highScores[i];
+                statusFilter = comboBoxDisplay.SelectedItem.ToString();
+            }
 
-                // If filtering for Wins, skip the Losses (and vice versa)
-                if (filter == "Win" && p.Status != "Win") continue;
-                if (filter == "Lose" && p.Status != "Lose") continue;
+            string timeFilter = "All";
+            if (comboBoxDisplayTime.SelectedItem != null)
+            {
+                timeFilter = comboBoxDisplayTime.SelectedItem.ToString();
+            }
 
-                // Clean up the text layout using your existing Player method
+            var filteredScores = highScores.Where(p => 
+                statusFilter == "All" || 
+                (statusFilter == "Win" && p.Status == "Win") || 
+                (statusFilter == "Lose" && p.Status == "Lose")
+            ).ToList();
+
+            if (timeFilter == "Time : Lowest To Highest")
+            {
+                filteredScores = filteredScores.OrderBy(p => p.PlayTime.ConvertToSecond()).ToList();
+            }
+            else if (timeFilter == "Time : Highest To Lowest")
+            {
+                filteredScores = filteredScores.OrderByDescending(p => p.PlayTime.ConvertToSecond()).ToList();
+            }
+            foreach (var p in filteredScores)
+            {
                 string playerDetails = p.DisplayData().Replace("\n", " | ");
                 string rowText = $"#{rankCounter} -> {playerDetails}";
 
@@ -70,33 +89,31 @@ namespace FinderQuest3D
                 {
                     MessageBox.Show("Congratulations! You Win!");
                 }
-                else if (frmMain.player.Status == "Lose");
+                else if (frmMain.player.Status == "Lose")
                 {
                     MessageBox.Show("Game Over! Time's Up!");
                 }
             }
             catch { }
-            // 1. Set the default selection to "All" so the list populates immediately
-            if (comboBoxDisplay.Items.Count > 0)
+            if (comboBoxDisplay.Items.Count > 0 && comboBoxDisplay.SelectedIndex == -1)
             {
                 comboBoxDisplay.SelectedIndex = 0;
             }
-            DisplayRankings("All");
+            if (comboBoxDisplayTime.Items.Count > 0 && comboBoxDisplayTime.SelectedIndex == -1)
+            {
+                comboBoxDisplayTime.SelectedIndex = 0;
+            }
+            DisplayRankings();
         }
 
         private void comboBoxDisplay_SelectedIndexChanged(object sender, EventArgs e)
         {
-            if (comboBoxDisplay.SelectedItem != null)
-            {
-                string selectedFilter = comboBoxDisplay.SelectedItem.ToString();
-                DisplayRankings(selectedFilter);
-            }
+            DisplayRankings();
         }
 
         private void comboBoxDisplayTime_SelectedIndexChanged(object sender, EventArgs e)
         {
-            string selectedFilter = comboBoxDisplayTime.SelectedItem.ToString();
-            DisplayRankings(selectedFilter);
+            DisplayRankings();
         }
     }
 }

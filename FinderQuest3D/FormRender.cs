@@ -483,6 +483,10 @@ namespace FinderQuest3D
                 soundPlayer.controls.play();
             }
             catch { }
+            if (time.Hour == 0 && time.Minute == 0 && time.Second > 30)
+            {
+                labelTime.BackColor = System.Drawing.Color.Transparent;
+            }
             if (time.Hour == 0 && time.Minute == 0 && time.Second <= 30)
             {
                 labelTime.BackColor = System.Drawing.Color.Orange;
