@@ -13,3 +13,4 @@ Gameplay :
 - **Objective:** Answer the questions given by NPCs correctly to progress. Complete all tasks in an area to unlock the transition to the next map level before the time runs out. The game features Easy and Hard modes, affecting question difficulty and time limits.
 
 Thanks To :
+Edbert for contributing on developing this game
