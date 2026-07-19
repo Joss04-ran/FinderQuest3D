@@ -76,7 +76,7 @@ namespace FinderQuest3D
             labelDialog.AutoSize = false;
             labelDialog.BackColor = System.Drawing.Color.FromArgb(255, 255, 193);
             labelDialog.Size = new Size(400,200);
-            labelDialog.Font = new Font("Lucida Sans Typewriter", 18F, FontStyle.Bold);
+            labelDialog.Font = new Font("Palatino Linotype", 18F, FontStyle.Bold);
             labelDialog.Location = new System.Drawing.Point(250,11);
             labelDialog.TextAlign = ContentAlignment.MiddleCenter;
             labelDialog.BorderStyle = BorderStyle.FixedSingle;

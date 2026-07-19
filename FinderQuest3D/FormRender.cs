@@ -141,7 +141,7 @@ namespace FinderQuest3D
 
             // Locate resource files
             string projectPath = Path.GetFullPath(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "..", ".."));
-            PlaySound("test");
+            PlaySound("main");
 
             string treePath = Path.Combine(projectPath, "Resources", "craftpix-net-385863-free-top-down-trees-pixel-art", "PNG", "Assets_separately", "Trees", "Autumn_tree2.png");
             if (!File.Exists(treePath))
@@ -247,12 +247,10 @@ namespace FinderQuest3D
 
         public void PlaySound(string type)
         {
-            if (type == "walk")
+            if (type == "menu")
                 soundPlayer.URL = Application.StartupPath + "\\sound\\BacksoundWalkArea.mp3";
-            else if (type == "test")
+            else if (type == "main")
                 soundPlayer.URL = Application.StartupPath + "\\sound\\LessonMode.mp3";
-            else if (type == "talk")
-                soundPlayer.URL = Application.StartupPath + "\\sound\\BacksoundTalkArea.mp3";
             else if (type == "lose")
                 soundPlayer.URL = Application.StartupPath + "\\sound\\LoseGame.mp3";
             else if (type == "win")

@@ -41,5 +41,28 @@ namespace FinderQuest3D
             IndexBuffer?.Dispose();
             TextureView?.Dispose();
         }
+
+        public override bool Equals(object obj)
+        {
+            return obj is Mesh mesh &&
+                   name == mesh.name &&
+                   EqualityComparer<Vertex[]>.Default.Equals(arrayVertices, mesh.arrayVertices) &&
+                   EqualityComparer<Faces[]>.Default.Equals(arrayFaces, mesh.arrayFaces) &&
+                   position.Equals(mesh.position) &&
+                   rotation.Equals(mesh.rotation) &&
+                   EqualityComparer<Texture>.Default.Equals(texture, mesh.texture);
+        }
+
+        public override int GetHashCode()
+        {
+            int hashCode = 350619652;
+            hashCode = hashCode * -1521134295 + EqualityComparer<string>.Default.GetHashCode(name);
+            hashCode = hashCode * -1521134295 + EqualityComparer<Vertex[]>.Default.GetHashCode(arrayVertices);
+            hashCode = hashCode * -1521134295 + EqualityComparer<Faces[]>.Default.GetHashCode(arrayFaces);
+            hashCode = hashCode * -1521134295 + position.GetHashCode();
+            hashCode = hashCode * -1521134295 + rotation.GetHashCode();
+            hashCode = hashCode * -1521134295 + EqualityComparer<Texture>.Default.GetHashCode(texture);
+            return hashCode;
+        }
     }
 }

@@ -28,10 +28,13 @@ namespace FinderQuest3D
             {
                 if (difficult != "")
                 {
-                    using (FormRender form = new FormRender(this))
+                    form.soundPlayer.controls.stop();
+                    form.soundPlayer.close();
+                    using (FormRender formRender = new FormRender(this))
                     {
-                        form.ShowDialog();
+                        formRender.ShowDialog();
                     }
+                    form.PlaySound("menu");
                 }
                 else throw new Exception("Pick the difficult first!");
             }

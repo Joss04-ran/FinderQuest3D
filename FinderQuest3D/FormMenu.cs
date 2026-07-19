@@ -19,17 +19,32 @@ namespace FinderQuest3D
         public bool isStart = false;
         public bool isPause = false;
         public Players player;
-        WindowsMediaPlayer soundPlayer = new WindowsMediaPlayer();
+        public WindowsMediaPlayer soundPlayer = new WindowsMediaPlayer();
         public Persons activePersons = null;
 
         public FormMenu()
         {
             InitializeComponent();
         }
+
+        public void PlaySound(string type)
+        {
+            if (type == "menu")
+                soundPlayer.URL = Application.StartupPath + "\\sound\\BacksoundWalkArea.mp3";
+            else if (type == "main")
+                soundPlayer.URL = Application.StartupPath + "\\sound\\LessonMode.mp3";
+            else if (type == "lose")
+                soundPlayer.URL = Application.StartupPath + "\\sound\\LoseGame.mp3";
+            else if (type == "win")
+                soundPlayer.URL = Application.StartupPath + "\\sound\\WinGame.mp3";
+            soundPlayer.controls.play();
+        }
+
         private void FormMenu_Load(object sender, EventArgs e)
         {
             this.KeyPreview = true;
             this.DoubleBuffered = true;
+            PlaySound("menu");
         }
 
         private void StartGame()
