@@ -1,23 +1,16 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <ClassDiagram MajorVersion="1" MinorVersion="1">
-  <Class Name="FinderQuest3D.Game" Collapsed="true">
-    <Position X="6.25" Y="1" Width="1.5" />
-    <TypeIdentifier>
-      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
-      <FileName>Game.cs</FileName>
-    </TypeIdentifier>
-  </Class>
   <Class Name="FinderQuest3D.Persons">
     <Position X="7.75" Y="2.5" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AIAggACIAIAAIAAgACACIAQAAAAUAAAAEAggAAAAAAA=</HashCode>
+      <HashCode>AIAggACIAIAAIAAkACACIAQAAAAUAAAAEAggAAAAAAA=</HashCode>
       <FileName>Persons.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="FinderQuest3D.Players">
     <Position X="4.75" Y="2.5" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>gAEggAAAAIAAAAgAAAAIAAQAAAAEAAAJQAAAAIAAAAA=</HashCode>
+      <HashCode>gAUggAAEAIAAAAgAAAAIAAQAAAAEAAAJQAAAAIAAAAA=</HashCode>
       <FileName>Player.cs</FileName>
     </TypeIdentifier>
     <ShowAsAssociation>
@@ -28,7 +21,7 @@
   <Class Name="FinderQuest3D.Questions">
     <Position X="10.25" Y="5.5" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAAAAAAAAAAAAAgAAAAIAAAAAAQAAAAEAAAAAgAAAAI=</HashCode>
+      <HashCode>AAQAAAAEAAAAAAgAAAAIAAAAAAQAAAAEAAAAAgAAAAI=</HashCode>
       <FileName>Questions.cs</FileName>
     </TypeIdentifier>
   </Class>
