@@ -69,7 +69,7 @@
             "Time : Highest To Lowest"});
             this.comboBoxDisplayTime.Location = new System.Drawing.Point(259, 25);
             this.comboBoxDisplayTime.Name = "comboBoxDisplayTime";
-            this.comboBoxDisplayTime.Size = new System.Drawing.Size(290, 44);
+            this.comboBoxDisplayTime.Size = new System.Drawing.Size(518, 44);
             this.comboBoxDisplayTime.TabIndex = 2;
             this.comboBoxDisplayTime.SelectedIndexChanged += new System.EventHandler(this.comboBoxDisplayTime_SelectedIndexChanged);
             // 
