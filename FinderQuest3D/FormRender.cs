@@ -140,7 +140,7 @@ namespace FinderQuest3D
             world = new World3D();
 
             // Locate resource files
-            string projectPath = Path.GetFullPath(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "..", ".."));
+            string projectPath = AppDomain.CurrentDomain.BaseDirectory;
             PlaySound("main");
 
             string treePath = Path.Combine(projectPath, "Resources", "craftpix-net-385863-free-top-down-trees-pixel-art", "PNG", "Assets_separately", "Trees", "Autumn_tree2.png");
@@ -192,12 +192,11 @@ namespace FinderQuest3D
                             walkAreas.NoArea++;
                             GenerateWalkArea();
 
-                            string projectPath = Path.GetFullPath(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "..", ".."));
+                            string projectPath = AppDomain.CurrentDomain.BaseDirectory;
                             string treePath = Path.Combine(projectPath, "Resources", "craftpix-net-385863-free-top-down-trees-pixel-art", "PNG", "Assets_separately", "Trees", "Autumn_tree2.png");
                             if (!File.Exists(treePath))
                                 treePath = Path.Combine(projectPath, "Resources", "craftpix-net-385863-free-top-down-trees-pixel-art", "PNG", "Assets_separately", "Trees", "Christmas_tree1.png");
                             string personPath = Path.Combine(projectPath, "Resources", "person1.png");
-
                             if (walkAreas.NoArea <= 3)
                             {
                                 world.InitializeFromMap(map, treePath, personPath);

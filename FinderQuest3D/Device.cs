@@ -323,6 +323,10 @@ namespace FinderQuest3D
             {
                 context.PixelShader.SetShaderResource(0, mesh.TextureView);
             }
+            else
+            {
+                context.PixelShader.SetShaderResource(0, null);
+            }
 
             context.DrawIndexed(mesh.ArrayFaces.Length * 3, 0, 0);
         }

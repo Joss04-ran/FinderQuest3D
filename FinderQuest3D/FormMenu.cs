@@ -66,7 +66,8 @@ namespace FinderQuest3D
 
         private void buttonTutorial_Click(object sender, EventArgs e)
         {
-            MessageBox.Show("Press arrow key (or WASD) to move player" +
+            MessageBox.Show("Press WASD to move player" +
+"\nPress Arrow left or right to rotate" +
 "\nPress enter to talk with the person" +
 "\nPress Y to answer the question" +
 "\nPress Esc to exit talk area", "How to play", MessageBoxButtons.OK);
