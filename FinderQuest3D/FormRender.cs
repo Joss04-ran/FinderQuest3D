@@ -379,7 +379,8 @@ namespace FinderQuest3D
                 if (form.difficult == "hard")
                 {
                     activePersons.AddQuestion("What is the default assumption in Hypothesis testing called?", "H0", 100);
-                    activePersons.AddQuestion("The time a person waits for a plane at an airport ranges from 0 to 120 minutes and is\nuniformly distributed.\nWhat is the probability that a person will have to wait less than 60 minutes?", "3/4", 200);
+                    activePersons.AddQuestion("The time a person waits for a plane at an airport ranges from 0 to 120 " +
+                        "minutes and is\nuniformly distributed.\nWhat is the probability that a person will have to wait less than 60 minutes?", "3/4", 200);
                 }
             }
             else if (activePersons.NoPerson == 2.ToString())
@@ -433,13 +434,16 @@ namespace FinderQuest3D
             else if (activePersons.NoPerson == 6.ToString())
             {
                 talkAreas = new TalkAreas("Marie's Place", FinderQuest3D.Properties.Resources.talkArea6, activePersons);
-                activePersons.AddQuestion("A product has a selling price of $100 and is discounted 10% off the list price. It also has a shipping fee of $5. \r\nIf you want to purchase this product, how much will you have to pay?\r\n", "95", 150);
+                activePersons.AddQuestion("A product has a selling price of $100 and is discounted " +
+                    "10% off the list price. It also has a shipping fee of $5. \r\nIf you want to purchase this product, " +
+                    "how much will you have to pay?\r\n", "95", 150);
                 activePersons.AddQuestion("What does GDP stand for?", "Gross Domestic Product", 100);
                 activePersons.AddQuestion("A sustained increase in the general price level of goods and services, is called?", "Inflation", 100);
                 if (form.difficult == "hard")
                 {
                     activePersons.AddQuestion("What is the currency of Taiwan?[Simplified]", "NTD", 100);
-                    activePersons.AddQuestion("What is the name of the curve that shows the relationship between inflation and unemployment?", "Phillips Curve", 100);
+                    activePersons.AddQuestion("What is the name of the curve that shows the relationship between inflation and unemployment?", 
+                        "Phillips Curve", 100);
                 }
             }
             else if (activePersons.NoPerson == 7.ToString())
@@ -450,8 +454,10 @@ namespace FinderQuest3D
                 activePersons.AddQuestion("What is the motto of Indonesia?", "Bhinneka Tunggal Ika", 50);
                 if (form.difficult == "hard")
                 {
-                    activePersons.AddQuestion("Which institution organizes general elections in Indonesia?", "KPU", 200);
-                    activePersons.AddQuestion("How many feathers are on each wing of Garuda Pancasila?", "17", 200);
+                    activePersons.AddQuestion("Which institution organizes " +
+                        "general elections in Indonesia?", "KPU", 200);
+                    activePersons.AddQuestion("How many feathers are on " +
+                        "each wing of Garuda Pancasila?", "17", 200);
                 }
             }
             panelGameBottom.Visible = true;
@@ -605,11 +611,13 @@ namespace FinderQuest3D
             if (isPaused == false)
             {
                 PauseGame();
+                soundPlayer.settings.mute = !soundPlayer.settings.mute;
                 isPaused = true;
             }
             else if (isPaused == true)
             {
                 Continue();
+                soundPlayer.settings.mute = false;
                 isPaused = false;
             }
         }

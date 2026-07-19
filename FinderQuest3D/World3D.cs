@@ -346,19 +346,16 @@ namespace FinderQuest3D
         {
             if (device == null || camera == null) return;
 
-            // Render Sky Background first
             if (sky != null)
             {
                 device.Render(sky, camera);
             }
 
-            // Render Floor
             if (floor != null)
             {
                 device.Render(floor, camera);
             }
 
-            // Render Billboards
             if (billboards != null)
             {
                 foreach (var billboard in billboards)

@@ -43,7 +43,7 @@ namespace FinderQuest3D
             // labelQuestion
             // 
             this.labelQuestion.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(193)))));
-            this.labelQuestion.Font = new System.Drawing.Font("Microsoft Sans Serif", 16.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.labelQuestion.Font = new System.Drawing.Font("Palatino Linotype", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.labelQuestion.Location = new System.Drawing.Point(355, 37);
             this.labelQuestion.Name = "labelQuestion";
             this.labelQuestion.Size = new System.Drawing.Size(414, 195);
@@ -68,10 +68,10 @@ namespace FinderQuest3D
             // 
             // textBoxAnswer
             // 
-            this.textBoxAnswer.Font = new System.Drawing.Font("Microsoft Sans Serif", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.textBoxAnswer.Font = new System.Drawing.Font("Palatino Linotype", 15F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.textBoxAnswer.Location = new System.Drawing.Point(407, 250);
             this.textBoxAnswer.Name = "textBoxAnswer";
-            this.textBoxAnswer.Size = new System.Drawing.Size(338, 36);
+            this.textBoxAnswer.Size = new System.Drawing.Size(338, 41);
             this.textBoxAnswer.TabIndex = 5;
             // 
             // panelQuestion1
@@ -123,10 +123,10 @@ namespace FinderQuest3D
             // labelAnswer
             // 
             this.labelAnswer.AutoSize = true;
-            this.labelAnswer.Font = new System.Drawing.Font("Palatino Linotype", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.labelAnswer.Location = new System.Drawing.Point(3, 9);
+            this.labelAnswer.Font = new System.Drawing.Font("Palatino Linotype", 7.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.labelAnswer.Location = new System.Drawing.Point(3, 0);
             this.labelAnswer.Name = "labelAnswer";
-            this.labelAnswer.Size = new System.Drawing.Size(160, 23);
+            this.labelAnswer.Size = new System.Drawing.Size(129, 18);
             this.labelAnswer.TabIndex = 1;
             this.labelAnswer.Text = "Lorem Ipsum Dolor";
             // 

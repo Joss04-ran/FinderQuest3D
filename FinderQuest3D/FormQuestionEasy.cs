@@ -48,7 +48,8 @@ namespace FinderQuest3D
                     panelAnswer.Visible = true;
                     labelAnswer.Visible = true;
                     labelAnswer.Text = $"Your answer is correct ! " +
-                        $"\nYou get {renderForm.activePersons.PersonQuestion[selectedSlot].Score} points";
+                        $"\nYou get {renderForm.activePersons.PersonQuestion[selectedSlot].Score} points" +
+                        $"\nAnd additional 10 second";
                     renderForm.player.AddScore(renderForm.activePersons.PersonQuestion[selectedSlot].Score);
                     renderForm.labelPlayer.Text = renderForm.player.DisplayData();
                     renderForm.time.AddWithSecond(10);
@@ -58,7 +59,8 @@ namespace FinderQuest3D
                 {
                     panelAnswer.Visible = true;
                     labelAnswer.Visible = true;
-                    labelAnswer.Text = "Your answer is incorrect !";
+                    labelAnswer.Text = "Your answer is incorrect !" +
+                        "\nTimer is reduced by 5 second";
                     renderForm.activePersons.PersonQuestion[selectedSlot].Status = "X";
                     renderForm.time.AddWithSecond(-5);
                 }
