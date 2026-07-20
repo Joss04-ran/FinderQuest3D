@@ -3,7 +3,7 @@
   <Class Name="FinderQuest3D.Device">
     <Position X="1.25" Y="3.25" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAAGABABBCAAABQA0AAAAEAQAoAAAIAAI1AACABAAAA=</HashCode>
+      <HashCode>AAAGABABBCAAABQA0AAAAFAQAoAAAIAAI1AACABAAAA=</HashCode>
       <FileName>Device.cs</FileName>
     </TypeIdentifier>
   </Class>
@@ -24,7 +24,7 @@
   <Class Name="FinderQuest3D.Mesh">
     <Position X="8.5" Y="3.25" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAiAAAAIACAAAIAgAACAMAQAAAAEAgABAAIAAQAAEAA=</HashCode>
+      <HashCode>AAiAAAAIACAAAIAggACAMAQAAAAEAoABAAIAAQAAEAA=</HashCode>
       <FileName>Mesh.cs</FileName>
     </TypeIdentifier>
     <ShowAsAssociation>
@@ -46,25 +46,6 @@
   </Class>
   <Class Name="FinderQuest3D.World3D">
     <Position X="8.25" Y="10" Width="2" />
-    <AssociationLine Name="billboards" Type="FinderQuest3D.Billboard" ManuallyRouted="true" FixedFromPoint="true" FixedToPoint="true">
-      <Path>
-        <Point X="8.25" Y="10.232" />
-        <Point X="7.958" Y="10.232" Type="JumpStart" />
-        <Point X="7.792" Y="10.232" Type="JumpEnd" />
-        <Point X="7.25" Y="10.232" />
-        <Point X="7.25" Y="10.713" />
-        <Point X="6.5" Y="10.713" />
-        <Point X="6.5" Y="10.463" />
-      </Path>
-    </AssociationLine>
-    <AssociationLine Name="Billboards" Type="FinderQuest3D.Billboard" FixedFromPoint="true" FixedToPoint="true">
-      <Path>
-        <Point X="8.25" Y="11.468" />
-        <Point X="7.875" Y="11.468" />
-        <Point X="7.875" Y="9.125" />
-        <Point X="7" Y="9.125" />
-      </Path>
-    </AssociationLine>
     <TypeIdentifier>
       <HashCode>AAQAAAAAAAAAAAgAqIAIACAAAAAEAIAIEBAAABAAAAA=</HashCode>
       <FileName>World3D.cs</FileName>
@@ -75,15 +56,11 @@
       <Property Name="Floor" />
       <Property Name="Sky" />
     </ShowAsAssociation>
-    <ShowAsCollectionAssociation>
-      <Field Name="billboards" />
-      <Property Name="Billboards" />
-    </ShowAsCollectionAssociation>
   </Class>
   <Class Name="FinderQuest3D.Map">
     <Position X="13.5" Y="3.5" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>RAAgAgAABQIAAAEAgAAAAEAACAABAIAAAQAAAAIAAAE=</HashCode>
+      <HashCode>RAAgAgAABQIAAIkAgAAAAEAACAAhAIAAAQAAAAIAAAE=</HashCode>
       <FileName>Map.cs</FileName>
     </TypeIdentifier>
     <ShowAsAssociation>

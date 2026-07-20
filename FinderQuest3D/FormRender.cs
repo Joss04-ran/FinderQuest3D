@@ -54,8 +54,8 @@ namespace FinderQuest3D
             this.KeyPreview = true;
             this.Focus();
             this.Activate();
-            if (form.difficult == "easy") time = new Time(0, 1, 0);
-            else if (form.difficult == "hard") time = new Time(0, 0, 45);
+            if (form.difficult == "easy") time = new Time(0, 5, 0);
+            else if (form.difficult == "hard") time = new Time(0, 1, 0);
             playTime = new Time(0, 0, 0);
             player = new Players(form.name, 
                 Properties.Resources.player_front, new Size(80, 110), 
