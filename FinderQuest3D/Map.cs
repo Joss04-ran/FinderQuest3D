@@ -18,8 +18,8 @@ namespace FinderQuest3D
         // Composition : Map has Mesh. Map cannot exist without Mesh
         private Mesh mesh;
         private float tileSize;
-        private int width;
-        private int height;
+        //private int width;
+        //private int height;
 
         protected Map()
         {

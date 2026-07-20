@@ -1,4 +1,4 @@
-﻿using SharpDX;
+using SharpDX;
 using SharpDX.Windows;
 using System;
 using System.Collections.Generic;
@@ -28,13 +28,13 @@ namespace FinderQuest3D
         WalkAreas walkAreas = null;
         TalkAreas talkAreas = null;
         public Persons activePersons = null;
-        SharpDX.Point lastLocation; // save previous location
-        Size lastSize; // save previous size
+        //SharpDX.Point lastLocation; // save previous location
+        //Size lastSize; // save previous size
         int[,] mapGrid;
-        WindowsMediaPlayer soundPlayer = new WindowsMediaPlayer();
+        WindowsMediaPlayer soundPlayer;
         private DateTime previousDate = DateTime.Now;
         private Dictionary<Keys, bool> keyStates = new Dictionary<Keys, bool>();
-        private double deltaTime = 0.0;
+        //private double deltaTime = 0.0;
         private Stopwatch frameTimer = new Stopwatch();
         private const double TargetFrameTime = 1000.0 / 60.0;
         private bool isExit = false;
@@ -47,6 +47,7 @@ namespace FinderQuest3D
         public FormRender(FormGameStart ownerForm)
         {
             InitializeComponent();
+            soundPlayer = new WindowsMediaPlayer();
             this.Owner = ownerForm;
             form = ownerForm;
             panelGameBottom.Visible = false;

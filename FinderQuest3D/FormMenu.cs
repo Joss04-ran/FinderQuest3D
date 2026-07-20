@@ -19,12 +19,13 @@ namespace FinderQuest3D
         public bool isStart = false;
         public bool isPause = false;
         public Players player;
-        public WindowsMediaPlayer soundPlayer = new WindowsMediaPlayer();
+        public WindowsMediaPlayer soundPlayer;
         public Persons activePersons = null;
 
         public FormMenu()
         {
             InitializeComponent();
+            soundPlayer = new WindowsMediaPlayer();
         }
 
         public void PlaySound(string type)
